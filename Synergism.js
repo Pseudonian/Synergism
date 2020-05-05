@@ -339,13 +339,11 @@ kongregatetest: "NO!"
 // Saving and Loading Functions + Update Timers [Lines 516 - 595]
 
 function saveSynergy() {
-	player.offlinetick = Date.now();
-	var string = JSON.stringify(player);
-	var compressed = LZString.compressToBase64(string);
-	localStorage.setItem("Synergysave2",compressed);
-//	localStorage.setItem("Synergysave",string)
+	const p = JSON.stringify(player);
+	// var compressed = LZString.compressToBase64(string);
+	localStorage.setItem("Synergysave2", btoa(p));
 	
-	}
+}
 
 function loadSynergy(imported = false) {
 	
@@ -384,23 +382,9 @@ function loadSynergy(imported = false) {
 		if ((event.key === "ArrowRight")) {keyboardtabchange(1)}
 	});
 
+		const string = localStorage.getItem("Synergysave2");
+		const data = string ? JSON.parse(atob(string)) : null;
 
-
-//		data =  JSON.parse(localStorage.getItem("Synergysave"));
-		
-		if (localStorage.getItem("Synergysave") !== null) {
-			var c = JSON.parse(localStorage.getItem("Synergysave"))
-			
-			var string = JSON.stringify(c);
-			var compressed = LZString.compressToBase64(string);
-			localStorage.setItem("Synergysave2",compressed);
-			localStorage.removeItem("Synergysave")
-		}
-		var string = localStorage.getItem("Synergysave2");
-		if (string !== null){
-		var e = LZString.decompressFromBase64(string)
-		var data = JSON.parse(e);
-		}	
 		if (data) {
 			data.break = new Decimal(data.break),
 			data.coins = new Decimal(data.coins),
