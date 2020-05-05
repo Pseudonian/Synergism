@@ -5,28 +5,40 @@
         player.reincarnationcounter += 0.05;
     }
     
-    function displayruneinformation(i,updatelevelup = true) {
-        var m = 1;
-            m *= (1 + player.researches[4]/10) * (1 + player.researches[21]/800)
-        if (i == 1) {
-            if (updatelevelup) {document.getElementById("runeshowlevelup").textContent = "+1 Accelerator, +0.5% Accelerators per level. +1 Accelerator Boost every 10 levels!"}
-            document.getElementById("runeshowpower1").textContent = "Speed Rune Bonus: " + "+" + format(Math.floor(player.runelevels[0] * m)) + " Accelerators, +" + (player.runelevels[0]/2  * m).toPrecision(2) +"% Accelerators, +" + format(Math.floor(player.runelevels[0]/10 * m)) + " Accelerator Boosts."
+/**
+ * Display rune information
+ * @param {number[]|number} i rune to update
+ * @param {boolean} updatelevelup Whether or not to update levelup info 
+ */
+function displayruneinformation(i, updatelevelup = 1) {
+    const m = (1 + player.researches[4]/10) * (1 + player.researches[21]/800);
+    const runeLevelMessage = [
+        "+1 Accelerator, +0.5% Accelerators per level. +1 Accelerator Boost every 10 levels!",
+        "~(Level^2/100) Multipliers, +0.5% Multipliers per level. Tax growth is delayed more for each level!",
+        "~(1 + Level^2 * 2^Level / 256)x Crystal Production. +1 free level for each Crystal upgrade per 10 levels!",
+        "+0.25% building cost growth delay per level, +0.125% offering recycle chance per level [MAX: 25%]"
+    ];
+
+    const runePowerMessage = [
+        "Speed Rune Bonus: " + "+" + format(Math.floor(player.runelevels[0] * m)) + " Accelerators, +" + (player.runelevels[0]/2  * m).toPrecision(2) +"% Accelerators, +" + format(Math.floor(player.runelevels[0]/10 * m)) + " Accelerator Boosts.",
+        "Duplication Rune Bonus: " + "+" + format(Math.floor(player.runelevels[1] * m / 10) * Math.floor(10 + player.runelevels[1] * m /10) / 2) + " Multipliers, +" + format(m *player.runelevels[1]/2) +"% Multipliers, -" + (100 * (1 - Math.pow(10, - player.runelevels[1]/500))).toPrecision(4)  + "% Tax Growth.",
+        "Prism Rune Bonus: " + "All Crystal Producer production multiplied by " + format(Decimal.pow(player.runelevels[2] * m, 2).times(Decimal.pow(2, player.runelevels[2] * m - 8).add(1))) + ", gain +" + format(Math.floor(player.runelevels[2]/10 * m)) + " free crystal levels.",
+        "Thrift Rune Bonus: " + "Delay all producer cost increases by " + (player.runelevels[3]/4 * m).toPrecision(3) + "% buildings. Increase offering recycling chance: " + player.runelevels[3]/8 + "%."
+    ];
+
+    if(Array.isArray(i)) {
+        i.map(function(_, v) {
+            // showing update level message would cause it to be overwritten
+            document.getElementById("runeshowlevelup").textContent = runeLevelMessage[v];
+        });
+    } else {
+        if(updatelevelup) {
+            document.getElementById('runeshowpower' + i).textContent = runePowerMessage[i - 1];
         }
-        if (i == 2) {
-            if (updatelevelup) {document.getElementById("runeshowlevelup").textContent = "~(Level^2/100) Multipliers, +0.5% Multipliers per level. Tax growth is delayed more for each level!"}
-            document.getElementById("runeshowpower2").textContent = "Duplication Rune Bonus: " + "+" + format(Math.floor(player.runelevels[1] * m / 10) * Math.floor(10 + player.runelevels[1] * m /10) / 2) + " Multipliers, +" + format(m *player.runelevels[1]/2) +"% Multipliers, -" + (100 * (1 - Math.pow(10, - player.runelevels[1]/500))).toPrecision(4)  + "% Tax Growth."
-        }
-        if (i == 3) {
-            if (updatelevelup) {document.getElementById("runeshowlevelup").textContent = "~(1 + Level^2 * 2^Level / 256)x Crystal Production. +1 free level for each Crystal upgrade per 10 levels!"}
-            document.getElementById("runeshowpower3").textContent = "Prism Rune Bonus: " + "All Crystal Producer production multiplied by " + format(Decimal.pow(player.runelevels[2] * m, 2).times(Decimal.pow(2, player.runelevels[2] * m - 8).add(1))) + ", gain +" + format(Math.floor(player.runelevels[2]/10 * m)) + " free crystal levels."
-        }
-        if (i == 4) {
-            if (updatelevelup) {document.getElementById("runeshowlevelup").textContent = "+0.25% building cost growth delay per level, +0.125% offering recycle chance per level [MAX: 25%]"}
-            document.getElementById("runeshowpower4").textContent = "Thrift Rune Bonus: " + "Delay all producer cost increases by " + (player.runelevels[3]/4 * m).toPrecision(3) + "% buildings. Increase offering recycling chance: " + player.runelevels[3]/8 + "%."
-        }
-       
-        
+
+        document.getElementById("runeshowlevelup").textContent = runeLevelMessage[i - 1];
     }
+}
 
 
     function resetofferings(i) {
@@ -98,8 +110,15 @@
 }
 
 function submitRuneStats(i) {
-    if (i == 1){kongregate.stats.submit("runeone", player.runelevels[0])}
-    if (i == 2){kongregate.stats.submit("runetwo", player.runelevels[1])}
-    if (i == 3){kongregate.stats.submit("runethree", player.runelevels[2])}
-    if (i == 4){kongregate.stats.submit("runefour", player.runelevels[3])}
+    if(!'kongregate' in window) {
+        throw 'Kongregate lib not available';
+    }
+
+    const runeLevel = player.runelevels[i - 1];
+    switch(i) {
+        case 1: kongregate.stats.submit("runeone", runeLevel); break;
+        case 2: kongregate.stats.submit("runetwo", runeLevel); break;
+        case 3: kongregate.stats.submit("runethree", runeLevel); break;
+        case 4: kongregate.stats.submit("runefour", runeLevel); break;
+    }
 }

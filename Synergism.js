@@ -341,11 +341,10 @@ kongregatetest: "NO!"
 function saveSynergy() {
 	const p = JSON.stringify(player);
 	// var compressed = LZString.compressToBase64(string);
-	localStorage.setItem("Synergysave2", btoa(p));
-	
+	localStorage.setItem("Synergysave2", btoa(p));	
 }
 
-function loadSynergy(imported = false) {
+function loadSynergy(imported = 0) {
 	
 	document.addEventListener("keydown", function onPress(event) {
 		var type = ""
@@ -495,10 +494,6 @@ function loadSynergy(imported = false) {
 				player.researches[68] = 0;
 				player.researches[69] = 0;
 				player.researches[70] = 0;
-
-
-
-
 			}
 
 			var i
@@ -2091,11 +2086,8 @@ function hideStuff() {
 			document.getElementById("runestab").style.backgroundColor = "blue"
 			document.getElementById("runeshowlevelup").textContent = "Hey, hover over a rune icon to get details on what each one does and what benefits they're giving you!"
 			document.getElementById("researchrunebonus").textContent = "Thanks to researches, your effective levels are increased by " + (100 * (1 + player.researches[4]/10) * (1 + player.researches[21]/800) - 100).toPrecision(4) + "%"
-			displayruneinformation(1,false)
-			displayruneinformation(2,false)
-			displayruneinformation(3,false)
-			displayruneinformation(4,false)
 
+			displayruneinformation([1, 2, 3, 4], 0);
 		}
 		if (currentTab == "transcension") {
 			document.getElementById("transcension").style.display = "block"
@@ -2168,11 +2160,11 @@ function hideStuff() {
             document.getElementById("taxinfo").textContent = "Due to your excessive wealth, all coin production is divided by " + format(taxdivisor,2) + " to pay taxes!"
         }
  
-        if (currentTab == "upgrades") {
+        // if (currentTab == "upgrades") {
             
-        }
+        // }
  
-        if (currentTab == "settings") {}
+        // if (currentTab == "settings") {}
  
         if (currentTab == "achievements") {
             document.getElementById("achievementpoints").textContent  = "Achievement Points: " + player.achievementPoints
@@ -2234,8 +2226,9 @@ function hideStuff() {
             document.getElementById("buymythos5").textContent = "Cost: " + format(player.fifthCostMythos) + " Mythos"
             document.getElementById("autotranscend").textContent = "Transcend when exponent of Mythos increases by " + player.transcendamount + " [Enter a number above to toggle]" 
         }
-        if (currentTab == "challenges") {
-        }
+		
+		// if (currentTab == "challenges") {
+        // }
  
         if (currentTab == "reincarnation") {
             document.getElementById("reincarnationshardinfo").textContent = "You have " + format(player.reincarnationShards,2) + " Reincarnation Shards, providing " + buildingPower.toPrecision(4) + " Building Power. Multiplier to Coin Production: " + format(reincarnationMultiplier)
@@ -2265,28 +2258,25 @@ function hideStuff() {
     }
 
 
-// Functions which (try) to successfully load the game [Lines 1770 - 1788 END]
-
 function constantIntervals() {
-		setInterval(mythosProduction, 25);
-		setInterval(particlesProduction, 25);
-		setInterval(saveSynergy, 5000);
-		setInterval(resourceGain, 25);
-		setInterval(updateAll, 50);
-		setInterval(resettimers, 50);
-		setInterval(autoUpgrades, 200);
-	}
+	setInterval(mythosProduction, 25);
+	setInterval(particlesProduction, 25);
+	setInterval(saveSynergy, 5000);
+	setInterval(resourceGain, 25);
+	setInterval(updateAll, 50);
+	setInterval(resettimers, 50);
+	setInterval(autoUpgrades, 200);
+}
 
-window.onload = function() {
-		loadSynergy();
-		saveSynergy();
-		revealStuff();
-		hideStuff();
-		constantIntervals();
-		htmlInserts();
+window['addEventListener' in window ? 'addEventListener' : 'attachEvents']('beforeunload', function() {
+	updatetimer();
+});
 
-	}
-
-window.onbeforeunload = function(){
-		updatetimer();
-};
+window['addEventListener' in window ? 'addEventListener' : 'attachEvents']('load', function() {
+	loadSynergy();
+	saveSynergy();
+	revealStuff();
+	hideStuff();
+	constantIntervals();
+	htmlInserts();
+});
