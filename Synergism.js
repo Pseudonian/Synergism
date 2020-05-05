@@ -392,6 +392,10 @@ function loadSynergy(imported = 0) {
 			return Object.keys(o).length === 2 && Object.keys(o).every(function(v) { return ['mantissa', 'exponent'].includes(v) });
 		}
 
+		if(data.version) {
+			delete data.version;
+		}
+		
 		Object.keys(data).forEach(function(v) {
 			Object.defineProperty(player, v, {
 				value: isDecimal(player[v]) ? new Decimal(data[v]) : data[v]

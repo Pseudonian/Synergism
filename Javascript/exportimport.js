@@ -22,7 +22,17 @@ function importSynergism() {
             document.getElementById("importinfo").textContent = "Savefile code invalid. Try again with a valid code! Unless, of course, you were entering a Promo Code?"
         }
     } catch(err) {
-        document.getElementById("importinfo").textContent = "Savefile code invalid. Try again with a valid code! Unless, of course, you were entering a Promo Code?"
+        if(err instanceof SyntaxError) {
+            const lzData = JSON.parse(LZString.decompressFromBase64(input));
+            if(lzData) {
+                localStorage.clear();
+                console.log()
+                localStorage.setItem('Synergysave2', btoa(JSON.stringify(lzData)));
+                loadSynergy(true);
+            }
+        } else {
+            document.getElementById("importinfo").textContent = "Savefile code invalid. Try again with a valid code! Unless, of course, you were entering a Promo Code?";
+        }
     }
 
     document.getElementById("exportinfo").textContent = '';
