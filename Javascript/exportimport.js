@@ -28,7 +28,7 @@ function importSynergism() {
                 localStorage.clear();
                 console.log()
                 localStorage.setItem('Synergysave2', btoa(JSON.stringify(lzData)));
-                loadSynergy(true);
+                loadSynergy();
             }
         } else {
             document.getElementById("importinfo").textContent = "Savefile code invalid. Try again with a valid code! Unless, of course, you were entering a Promo Code?";
