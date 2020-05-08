@@ -1,4 +1,18 @@
+
+(function () {
+	const dec = LZString.decompressFromBase64(localStorage.getItem('Synergysave2'));
+	const isLZString = dec !== '';
+ 
+	if(isLZString) {
+		localStorage.clear();
+		localStorage.setItem('Synergysave2', btoa(dec));
+		console.log('is Synergysave');
+		loadSynergy();
+	}
+ })();
+
 const player = {
+	billionCoinPromo: 'billionCoinPromo', // DO NOT LEAVE IN PRODUCTION!
 	worlds: 0,
 	coins: new Decimal("1e2"),
 	coinsThisPrestige: new Decimal("1e2"),
@@ -2222,10 +2236,6 @@ function constantIntervals() {
    setInterval(autoUpgrades, 200);
 }
 
-window['addEventListener' in window ? 'addEventListener' : 'attachEvents']('beforeunload', function() {
-   updatetimer();
-});
-
 window['addEventListener' in window ? 'addEventListener' : 'attachEvents']('load', function() {
    loadSynergy();
    saveSynergy();
@@ -2234,15 +2244,3 @@ window['addEventListener' in window ? 'addEventListener' : 'attachEvents']('load
    constantIntervals();
    htmlInserts();
 });
-
-(function () {
-   const dec = LZString.decompressFromBase64(localStorage.getItem('Synergysave2'));
-   const isLZString = dec !== '';
-
-   if(isLZString) {
-	   localStorage.clear();
-	   localStorage.setItem('Synergysave2', btoa(dec));
-	   loadSynergy();
-	   alert('Transferred save to new format successfully!');
-   }
-})();

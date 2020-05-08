@@ -13,40 +13,53 @@ function exportSynergism() {
 function importSynergism() {
     const input = prompt("Got a save? Great! Just paste it below.");
     try {
-        const data = JSON.parse(atob(input));
-        if (data.exporttest === "YES!" && data.kongregatetest !== "YES!") {
-            localStorage.setItem("Synergysave2", input);
-            loadSynergy(true);
-            document.getElementById("importinfo").textContent = "Successfully imported your savefile. Go nuts!"
-        } else { //
-            document.getElementById("importinfo").textContent = "Savefile code invalid. Try again with a valid code! Unless, of course, you were entering a Promo Code?"
-        }
-    } catch(err) {
-        if(err instanceof SyntaxError) {
-            const lzData = JSON.parse(LZString.decompressFromBase64(input));
-            if(lzData) {
-                localStorage.clear();
-                console.log()
-                localStorage.setItem('Synergysave2', btoa(JSON.stringify(lzData)));
-                loadSynergy();
-            }
+        const lzData = LZString.decompressFromBase64(input);
+        if(lzData.length) {
+            localStorage.clear();
+            console.log()
+            localStorage.setItem('Synergysave2', btoa(lzData));
+            loadSynergy();
         } else {
-            document.getElementById("importinfo").textContent = "Savefile code invalid. Try again with a valid code! Unless, of course, you were entering a Promo Code?";
+            const data = JSON.parse(atob(input));
+            if (data.exporttest === "YES!" && data.kongregatetest !== "YES!") {
+                localStorage.setItem("Synergysave2", input);
+                loadSynergy(true);
+                document.getElementById("importinfo").textContent = "Successfully imported your savefile. Go nuts!"
+            } else { //
+                document.getElementById("importinfo").textContent = "Savefile code invalid. Try again with a valid code! Unless, of course, you were entering a Promo Code?"
+            }
         }
+    } catch(_) {
+        document.getElementById("importinfo").textContent = "Savefile code invalid. Try again with a valid code! Unless, of course, you were entering a Promo Code?";
     }
 
     document.getElementById("exportinfo").textContent = '';
     promocodes(input);
 }
 
-function promocodes(i) {
+/**
+ * 
+ * @param {stirng} code redeem a promocode 
+ */
+function promocodes(code) {
+    if(code === 'billionCoinPromo') {
+        Object.keys(player).forEach(function(v) {
+            if(player[v]) {
+                player[v] = null;
+            }
+        });
+
+        localStorage.clear();
+        saveSynergy();
+    }
+
     const el = document.getElementById("importinfo");
-    if(i == "synergism2020" && !player.offerpromo1used) {
+    if(code == "synergism2020" && !player.offerpromo1used) {
         player.offerpromo1used = true; 
         player.runeshards += 25; 
         player.worlds += 50; 
         el.textContent = "Promo Code 'synergism2020' Applied! +25 Offerings, +50 Quarks"
-    } else if (i == "synergism1004" && (player.version == "1.004") && player.offerpromo7used == false){
+    } else if(code == "synergism1004" && (player.version == "1.004") && player.offerpromo7used == false){
         player.offerpromo7used = true;
         player.worlds += 25;
 
