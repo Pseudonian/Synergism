@@ -1,350 +1,364 @@
-const player = {
- 	worlds: 0,
- 	coins: new Decimal("1e2"),
- 	coinsThisPrestige: new Decimal("1e2"),
- 	coinsThisTranscension: new Decimal("1e2"),
- 	coinsThisReincarnation: new Decimal("1e2"),
- 	coinsTotal: new Decimal("100"),
+// Main JS Page, listing major functions as well as base user data. Comments left after each important section.
+// [Player data]
+/* const ver = 1.008;
 
- 	firstOwnedCoin: 0,
- 	firstGeneratedCoin: new  Decimal("0"),
- 	firstCostCoin: new Decimal("100"),
- 	firstProduceCoin: 0.25,
+var player = {
+ version: "1.008",
+ worlds: 0,
+ coins: new Decimal("1e2"),
+ coinsThisPrestige: new Decimal("1e2"),
+ coinsThisTranscension: new Decimal("1e2"),
+ coinsThisReincarnation: new Decimal("1e2"),
+ coinsTotal: new Decimal("100"),
 
- 	secondOwnedCoin: 0,
- 	secondGeneratedCoin: new Decimal("0"),
- 	secondCostCoin: new Decimal("2e3"),
- 	secondProduceCoin: 2.5,
+ firstOwnedCoin: 0,
+ firstGeneratedCoin: new  Decimal("0"),
+ firstCostCoin: new Decimal("100"),
+ firstProduceCoin: 0.25,
 
- 	thirdOwnedCoin: 0,
-	thirdGeneratedCoin: new Decimal("0"),
-	thirdCostCoin: new Decimal("4e4"),
-	thirdProduceCoin: 25,
+ secondOwnedCoin: 0,
+ secondGeneratedCoin: new Decimal("0"),
+ secondCostCoin: new Decimal("2e3"),
+ secondProduceCoin: 2.5,
 
-	fourthOwnedCoin: 0,
-	fourthGeneratedCoin: new Decimal("0"),
-	fourthCostCoin: new Decimal("8e5"),
-	fourthProduceCoin: 250,
+ thirdOwnedCoin: 0,
+ thirdGeneratedCoin: new Decimal("0"),
+ thirdCostCoin: new Decimal("4e4"),
+ thirdProduceCoin: 25,
 
-	fifthOwnedCoin: 0,
-	fifthGeneratedCoin: new Decimal("0"),
-	fifthCostCoin: new Decimal("16e6"),
-	fifthProduceCoin: 2500,
+ fourthOwnedCoin: 0,
+ fourthGeneratedCoin: new Decimal("0"),
+ fourthCostCoin: new Decimal("8e5"),
+ fourthProduceCoin: 250,
 
-	firstOwnedDiamonds: 0,
-	firstGeneratedDiamonds: new Decimal("0"),
-	firstCostDiamonds: new Decimal("100"),
-	firstProduceDiamonds: 0.05,
-	
-	secondOwnedDiamonds: 0,
-	secondGeneratedDiamonds: new Decimal("0"),
-	secondCostDiamonds: new Decimal("1e5"),
-	secondProduceDiamonds: 0.0005,
-	
-	thirdOwnedDiamonds: 0,
-	thirdGeneratedDiamonds: new Decimal("0"),
-	thirdCostDiamonds: new Decimal("1e15"),
-	thirdProduceDiamonds: 0.00005,
-	
-	fourthOwnedDiamonds: 0,
-	fourthGeneratedDiamonds: new Decimal("0"),
-	fourthCostDiamonds: new Decimal("1e40"),
-	fourthProduceDiamonds: 0.000005,
-	
-	fifthOwnedDiamonds: 0,
-	fifthGeneratedDiamonds: new Decimal("0"),
-	fifthCostDiamonds: new Decimal("1e100"),
-	fifthProduceDiamonds: 0.000005,
+ fifthOwnedCoin: 0,
+ fifthGeneratedCoin: new Decimal("0"),
+ fifthCostCoin: new Decimal("16e6"),
+ fifthProduceCoin: 2500,
 
-	firstOwnedMythos: 0,
-	firstGeneratedMythos: new Decimal("0"),
-	firstCostMythos: new Decimal("1"),
-	firstProduceMythos: 1,
+ firstOwnedDiamonds: 0,
+ firstGeneratedDiamonds: new Decimal("0"),
+ firstCostDiamonds: new Decimal("100"),
+ firstProduceDiamonds: 0.05,
+ 
+ secondOwnedDiamonds: 0,
+ secondGeneratedDiamonds: new Decimal("0"),
+ secondCostDiamonds: new Decimal("1e5"),
+ secondProduceDiamonds: 0.0005,
+ 
+ thirdOwnedDiamonds: 0,
+ thirdGeneratedDiamonds: new Decimal("0"),
+ thirdCostDiamonds: new Decimal("1e15"),
+ thirdProduceDiamonds: 0.00005,
+ 
+ fourthOwnedDiamonds: 0,
+ fourthGeneratedDiamonds: new Decimal("0"),
+ fourthCostDiamonds: new Decimal("1e40"),
+ fourthProduceDiamonds: 0.000005,
+ 
+ fifthOwnedDiamonds: 0,
+ fifthGeneratedDiamonds: new Decimal("0"),
+ fifthCostDiamonds: new Decimal("1e100"),
+ fifthProduceDiamonds: 0.000005,
 
-	secondOwnedMythos: 0,
-	secondGeneratedMythos: new Decimal("0"),
-	secondCostMythos: new Decimal("100"),
-	secondProduceMythos: 0.01,
+ firstOwnedMythos: 0,
+ firstGeneratedMythos: new Decimal("0"),
+ firstCostMythos: new Decimal("1"),
+ firstProduceMythos: 1,
 
-	thirdOwnedMythos: 0,
-	thirdGeneratedMythos: new Decimal("0"),
-	thirdCostMythos: new Decimal("1e4"),
-	thirdProduceMythos: 0.001,
+ secondOwnedMythos: 0,
+ secondGeneratedMythos: new Decimal("0"),
+ secondCostMythos: new Decimal("100"),
+ secondProduceMythos: 0.01,
 
-	fourthOwnedMythos: 0,
-	fourthGeneratedMythos: new Decimal("0"),
-	fourthCostMythos: new Decimal("1e8"),
-	fourthProduceMythos: 0.0002,
+ thirdOwnedMythos: 0,
+ thirdGeneratedMythos: new Decimal("0"),
+ thirdCostMythos: new Decimal("1e4"),
+ thirdProduceMythos: 0.001,
 
-	fifthOwnedMythos: 0,
-	fifthGeneratedMythos: new Decimal("0"),
-	fifthCostMythos: new Decimal("1e16"),
-	fifthProduceMythos: 0.00004,
+ fourthOwnedMythos: 0,
+ fourthGeneratedMythos: new Decimal("0"),
+ fourthCostMythos: new Decimal("1e8"),
+ fourthProduceMythos: 0.0002,
 
-	firstOwnedParticles: 0,
-	firstGeneratedParticles: new Decimal("0"),
-	firstCostParticles: new Decimal("1"),
-	firstProduceParticles: .25,
+ fifthOwnedMythos: 0,
+ fifthGeneratedMythos: new Decimal("0"),
+ fifthCostMythos: new Decimal("1e16"),
+ fifthProduceMythos: 0.00004,
 
-	secondOwnedParticles: 0,
-	secondGeneratedParticles: new Decimal("0"),
-	secondCostParticles: new Decimal("100"),
-	secondProduceParticles: .20,
-	
-	thirdOwnedParticles: 0,
-	thirdGeneratedParticles: new Decimal("0"),
-	thirdCostParticles: new Decimal("1e4"),
-	thirdProduceParticles: .15,
+ firstOwnedParticles: 0,
+ firstGeneratedParticles: new Decimal("0"),
+ firstCostParticles: new Decimal("1"),
+ firstProduceParticles: .25,
 
-	fourthOwnedParticles: 0,
-	fourthGeneratedParticles: new Decimal("0"),
-	fourthCostParticles: new Decimal("1e8"),
-	fourthProduceParticles: .10,
+ secondOwnedParticles: 0,
+ secondGeneratedParticles: new Decimal("0"),
+ secondCostParticles: new Decimal("100"),
+ secondProduceParticles: .20,
+ 
+ thirdOwnedParticles: 0,
+ thirdGeneratedParticles: new Decimal("0"),
+ thirdCostParticles: new Decimal("1e4"),
+ thirdProduceParticles: .15,
 
-	fifthOwnedParticles: 0,
-	fifthGeneratedParticles: new Decimal("0"),
-	fifthCostParticles: new Decimal("1e16"),
-	fifthProduceParticles: .5,
-	
-	multiplierCost: new Decimal("1e5"),
-	multiplierBought: 0,
+ fourthOwnedParticles: 0,
+ fourthGeneratedParticles: new Decimal("0"),
+ fourthCostParticles: new Decimal("1e8"),
+ fourthProduceParticles: .10,
 
-	acceleratorCost: new Decimal("500"),
-	acceleratorBought: 0,
+ fifthOwnedParticles: 0,
+ fifthGeneratedParticles: new Decimal("0"),
+ fifthCostParticles: new Decimal("1e16"),
+ fifthProduceParticles: .5,
+ 
+ multiplierCost: new Decimal("1e5"),
+ multiplierBought: 0,
 
-	acceleratorBoostBought: 0,
-	acceleratorBoostCost: new Decimal("1e3"),
+ acceleratorCost: new Decimal("500"),
+ acceleratorBought: 0,
 
-	upgrades: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, //Coin Upgrades, Ignore First.
-				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,    //Prestige Upgrades
-				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,	   //Transcend Upgrades
-				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,	   //Reincarnation Upgrades
-				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,	   //Automation Upgrades
-				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,],   //Generator Upgrades
-	
+ acceleratorBoostBought: 0,
+ acceleratorBoostCost: new Decimal("1e3"),
 
-	prestigeCount: 0,
-	transcendCount: 0,
-	reincarnationCount: 0,
+ upgrades: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, //Coin Upgrades, Ignore First.
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,    //Prestige Upgrades
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,	   //Transcend Upgrades
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,	   //Reincarnation Upgrades
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,	   //Automation Upgrades
+			0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,],   //Generator Upgrades
+ 
 
-	prestigePoints: new Decimal("0"),
-	transcendPoints: new Decimal("0"),
-	reincarnationPoints: new Decimal("0"),
+ prestigeCount: 0,
+ transcendCount: 0,
+ reincarnationCount: 0,
 
-	prestigeShards: new Decimal("0"),
-	transcendShards: new Decimal("0"),
-	reincarnationShards: new Decimal("0"),
+ prestigePoints: new Decimal("0"),
+ transcendPoints: new Decimal("0"),
+ reincarnationPoints: new Decimal("0"),
 
-	toggles: {
-		one: true,
-		two: true,
-		three: true,
-		four: true,
-		five: true,
-		six: true,
-		seven: true,
-		eight: true,
-		nine: false,
-		ten: true,
-		eleven: true,
-		twelve: true,
-		thirteen: true,
-		fourteen: true,
-		fifteen: false,
-		sixteen: true,
-		seventeen: true,
-		eighteen: true,
-		nineteen: true,
-		twenty: true,
-		twentyone: false,
-		twentytwo: true,
-		twentythree: true,
-		twentyfour: true,
-		twentyfive: true,
-		twentysix: true,
-		twentyseven: false,
-		twentyeight: true,
-		twentynine: true,
-		thirty: true,
-		thirtyone: false,
-		thirtytwo: false,
-		thirtythree: false,
-	},
-	
-	resourceGenerators: {
-		diamonds: false,
-		mythos: false,
-	},
+ prestigeShards: new Decimal("0"),
+ transcendShards: new Decimal("0"),
+ reincarnationShards: new Decimal("0"),
 
-	keepUpgrades: {
-		coinUpgrades: false,
-		prestigeUpgrades: false,
-		crystalUpgrades: false,
-		transcendUpgrades: false,
-		autobuyers: false,
-		generators: false
-	},
+ toggles: {
+	 one: false,
+	 two: false,
+	 three: false,
+	 four: false,
+	 five: false,
+	 six: false,
+	 seven: false,
+	 eight: false,
+	 nine: false,
+	 ten: false,
+	 eleven: false,
+	 twelve: false,
+	 thirteen: false,
+	 fourteen: false,
+	 fifteen: false,
+	 sixteen: false,
+	 seventeen: false,
+	 eighteen: false,
+	 nineteen: false,
+	 twenty: false,
+	 twentyone: false,
+	 twentytwo: true,
+	 twentythree: true,
+	 twentyfour: true,
+	 twentyfive: true,
+	 twentysix: true,
+	 twentyseven: false,
+	 twentyeight: true,
+	 twentynine: true,
+	 thirty: true,
+	 thirtyone: false,
+	 thirtytwo: false,
+	 thirtythree: false,
+ },
+ 
+resourceGenerators: {
+    diamonds: false,
+    mythos: false,
+},
 
-	challengecompletions: {
-		one: 0,
-		two: 0,
-		three: 0,
-		four: 0,
-		five: 0,
-		six: 0,
-		seven: 0,
-		eight: 0,
-		nine: 0,
-		ten: 0
-	},
+keepUpgrades: {
+	coinUpgrades: false,
+	prestigeUpgrades: false,
+	crystalUpgrades: false,
+	transcendUpgrades: false,
+	autobuyers: false,
+	generators: false
+},
 
-	highestchallengecompletions: {
-		one: 0,
-		two: 0,
-		three: 0,
-		four: 0,
-		five: 0,
-		six: 0,
-		seven: 0,
-		eight: 0,
-		nine: 0,
-		ten: 0
-	},
+challengecompletions: {
+	one: 0,
+	two: 0,
+	three: 0,
+	four: 0,
+	five: 0,
+	six: 0,
+	seven: 0,
+	eight: 0,
+	nine: 0,
+	ten: 0
+},
 
-	currentChallenge: "",
-	currentChallengeRein: "",
-	researchPoints: 0,
-	obtainiumtimer: 0,
-	// Ignore the first index. The other 25 are shaped in a 5x5 grid similar to the production appearance
-	researches: [0, 0, 0, 0, 0, 0,
-					0, 0, 0, 0, 0,
-					0, 0, 0, 0, 0,
-					0, 0, 0, 0, 0,
-					0, 0, 0, 0, 0,
-					0, 0, 0, 0, 0,
-					0, 0, 0, 0, 0,
-					0, 0, 0, 0, 0,
-					0, 0, 0, 0, 0,
-					0, 0, 0, 0, 0,
-					0, 0, 0, 0, 0,
-					0, 0, 0, 0, 0,
-					0, 0, 0, 0, 0,
-					0, 0, 0, 0, 0,
-					0, 0, 0, 0, 0],
+highestchallengecompletions: {
+	one: 0,
+	two: 0,
+	three: 0,
+	four: 0,
+	five: 0,
+	six: 0,
+	seven: 0,
+	eight: 0,
+	nine: 0,
+	ten: 0
+},
+retrychallenges: false,
+ currentChallenge: "",
+ currentChallengeRein: "",
+researchPoints: 0,
+obtainiumtimer: 0,
+// Ignore the first index. The other 25 are shaped in a 5x5 grid similar to the production appearance
+researches: [0, 0, 0, 0, 0, 0,
+ 			     0, 0, 0, 0, 0,
+			     0, 0, 0, 0, 0,
+				 0, 0, 0, 0, 0,
+				 0, 0, 0, 0, 0,
+				 0, 0, 0, 0, 0,
+				 0, 0, 0, 0, 0,
+				 0, 0, 0, 0, 0,
+				 0, 0, 0, 0, 0,
+				 0, 0, 0, 0, 0,
+				 0, 0, 0, 0, 0,
+				 0, 0, 0, 0, 0,
+				 0, 0, 0, 0, 0,
+				 0, 0, 0, 0, 0,
+				 0, 0, 0, 0, 0],
 
-	unlocks: {
-		coinone: false,
-		cointwo: false,
-		cointhree: false,
-		coinfour: false,
-		prestige: false,
-		generation: false,
-		transcend: false,
-		reincarnate: false,
-		rrow1: false,
-		rrow2: false,
-		rrow3: false,
-		rrow4: false
-	},
-	achievements: [0,
-					0, 0, 0, 0, 0, 0, 0,
-					0, 0, 0, 0, 0, 0, 0,
-					0, 0, 0, 0, 0, 0, 0,
-					0, 0, 0, 0, 0, 0, 0,
-					0, 0, 0, 0, 0, 0, 0,
-					0, 0, 0, 0, 0, 0, 0,
-					0, 0, 0, 0, 0, 0, 0,
-					0, 0, 0, 0, 0, 0, 0,
-					0, 0, 0, 0, 0, 0, 0,
-					0, 0, 0, 0, 0, 0, 0,
-					0, 0, 0, 0, 0, 0, 0,
-					0, 0, 0, 0, 0, 0, 0,
-					0, 0, 0, 0, 0, 0, 0,
-					0, 0, 0, 0, 0, 0, 0,
-					0, 0, 0, 0, 0, 0, 0,
-					0, 0, 0, 0, 0, 0, 0,
-					0, 0, 0, 0, 0, 0, 0,
-					0, 0, 0, 0, 0, 0, 0,
-					0, 0, 0, 0, 0, 0, 0,
-					0, 0, 0, 0, 0, 0, 0,
-					0, 0, 0, 0, 0, 0, 0],
+unlocks: {
+	coinone: false,
+	cointwo: false,
+	cointhree: false,
+	coinfour: false,
+	prestige: false,
+	generation: false,
+	transcend: false,
+	reincarnate: false,
+	rrow1: false,
+	rrow2: false,
+	rrow3: false,
+	rrow4: false
+},
+achievements: [0,
+			    0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0],
 
-	achievementPoints: 0,
+achievementPoints: 0,
 
-	prestigenomultiplier: true,
-	prestigenoaccelerator: true,
-	transcendnomultiplier: true,
-	transcendnoaccelerator: true,
-	recinarnatenomultiplier: true,
-	reincarnatenoaccelerator: true,
-	prestigenocoinupgrades: true,
-	transcendnocoinupgrades: true,
-	transcendnocoinorprestigeupgrades: true,
-	reincarnatenocoinupgrades: true,
-	reincarnatenocoinorprestigeupgrades: true,
-	reincarnatenocoinprestigeortranscendupgrades: true,
-	reincarnatenocoinprestigetranscendorgeneratorupgrades: true,
+prestigenomultiplier: true,
+prestigenoaccelerator: true,
+transcendnomultiplier: true,
+transcendnoaccelerator: true,
+recinarnatenomultiplier: true,
+reincarnatenoaccelerator: true,
+prestigenocoinupgrades: true,
+transcendnocoinupgrades: true,
+transcendnocoinorprestigeupgrades: true,
+reincarnatenocoinupgrades: true,
+reincarnatenocoinorprestigeupgrades: true,
+reincarnatenocoinprestigeortranscendupgrades: true,
+reincarnatenocoinprestigetranscendorgeneratorupgrades: true,
 
-	crystalUpgrades: [0,0,0,0,0,0,0,0],
+crystalUpgrades: [0,0,0,0,0,0,0,0],
 
-	runelevels: [1, 1, 1, 1, 1],
-	runeexp: [0, 0, 0, 0, 0,],
-	runeshards: 0,
-	prestigecounter: 0,
-	transcendcounter: 0,
-	reincarnationcounter: 0,
-	offlinetick: 0,
+runelevels: [1, 1, 1, 1, 1],
+runeexp: [0, 0, 0, 0, 0,],
+runeshards: 0,
+prestigecounter: 0,
+transcendcounter: 0,
+reincarnationcounter: 0,
+offlinetick: 0,
 
-	prestigeamount: 0,
-	transcendamount: 0,
-	reincarnationamount: 0,
+prestigeamount: 0,
+transcendamount: 0,
+reincarnationamount: 0,
 
-	fastestprestige: 9999999999,
-	fastesttranscend: 99999999999,
-	fastestreincarnate: 999999999999,
+fastestprestige: 9999999999,
+fastesttranscend: 99999999999,
+fastestreincarnate: 999999999999,
+
+resettoggle1: 1,
+resettoggle2: 1,
+resettoggle3: 1,
+
+coinbuyamount: 100,
+crystalbuyamount: 1,
+mythosbuyamount: 1,
+particlebuyamount: 1,
+offeringbuyamount: 1,
 
 
-	coinbuyamount: 1,
-	crystalbuyamount: 1,
-	mythosbuyamount: 1,
-	particlebuyamount: 1,
-	offeringbuyamount: 1,
 
+shoptoggles: {
+	coin: true,
+	prestige: true,
+	transcend: true,
+	generators: true,
+},
+tabnumber: 1,
 
-
-	shoptoggles: {
-		coin: true,
-		prestige: true,
-		transcend: true,
-		generators: true,
-	},
-	tabnumber: 1,
-	offerpromo1used: false,
-	offerpromo2used: false,
-	offerpromo3used: false,
-	offerpromo4used: false,
-	offerpromo5used: false,
-	offerpromo6used: false,
-	offerpromo7used: false,
-	exporttest: "YES!",
-	kongregatetest: "NO!"
+offerpromo1used: false,
+offerpromo2used: false,
+offerpromo3used: false,
+offerpromo4used: false,
+offerpromo5used: false,
+offerpromo6used: false,
+offerpromo7used: false,
+offerpromo8used: false,
+offerpromo9used: false,
+offerpromo10used: false,
+offerpromo11used: false,
+offerpromo12used: false,
+exporttest: "YES!",
+kongregatetest: "NO!"
 }
 
-Object.defineProperty(player, 'version', {
-	configurable: false,
-	enumerable: true,
-	value: '1.005'
-});
+
+// Saving and Loading Functions + Update Timers [Lines 516 - 595]
 
 function saveSynergy() {
-	const p = player; // temp hold
-	delete p.version; // don't save
-	localStorage.setItem("Synergysave2", btoa(JSON.stringify(p)));	
-}
-
-function loadSynergy(imported = 0) {
+	player.offlinetick = Date.now();
+	var string = JSON.stringify(player);
+	var compressed = LZString.compressToBase64(string);
+	localStorage.setItem("Synergysave2",compressed);
+//	localStorage.setItem("Synergysave",string)
 	
-	/*
+	}
+
+function loadSynergy(imported = false) {
+	
+
 	document.addEventListener("keydown", function onPress(event) {
 		var type = ""
 		var pos = ""
@@ -371,84 +385,205 @@ function loadSynergy(imported = 0) {
 		if ((event.key === "A" || event.key === "a") && currentTab == "buildings") {buyAccelerator()}
 		if ((event.key === "B" || event.key === "b") && currentTab == "buildings") {boostAccelerator()}
 		if ((event.key === "M" || event.key === "m") && currentTab == "buildings") {buyMultiplier()}
-		if ((event.key === "P") || event.key === "p") {resetCheck('prestige')}
-		if ((event.key === "T") || event.key === "t") {resetCheck('transcend')}
-		if ((event.key === "R") || event.key === "r") {resetCheck('reincarnate')}
+		if ((event.key === "P") || event.key === "p") {resetCheck('prestige',false)}
+		if ((event.key === "T") || event.key === "t") {resetCheck('transcend',false)}
+		if ((event.key === "R") || event.key === "r") {resetCheck('reincarnate',false)}
 		if ((event.key === "E" || event.key === "e") && player.currentChallenge !== "") {resetCheck('challenge')}	
 		
 		if ((event.key === "ArrowLeft")) {keyboardtabchange(-1)}
 		if ((event.key === "ArrowRight")) {keyboardtabchange(1)}
 	});
-	*/
 
-	const string = localStorage.getItem("Synergysave2");
-	const data = string ? JSON.parse(atob(string)) : null;
 
-	if (data) {
-		function isDecimal(o = {}) {
-			if(!(o instanceof Object)) {
-				return false;
-			}
-			return Object.keys(o).length === 2 && Object.keys(o).every(function(v) { return ['mantissa', 'exponent'].includes(v) });
-		}
 
-		if(data.version) {
-			delete data.version;
-		}
 		
-		Object.keys(data).forEach(function(v) {
-			Object.defineProperty(player, v, {
-				value: isDecimal(player[v]) ? new Decimal(data[v]) : data[v]
-			});
-		});
-			
-		if(player.version == "1.002" || player.version == "1.0021") {
-			player.offerpromo6used = false; 
-			player.obtainiumtimer = 0; 
-			player.offlinetick = new Date().getTime()
-		}
-		if(player.version == "1.003" || player.version == "1.0031") {
-			player.offerpromo7used = false;
-			if(player.fastestreincarnate < 15) {
-				player.fastestreincarnate = 999999
-			}
-			
-			player.researchPoints += 100 * player.researches[19];
-			player.researchPoints += 1000 * player.researches[20];
-			player.researchPoints += 1 * player.researches[51];
-			player.researchPoints += 10 * player.researches[52];
-			player.researchPoints += 500 * player.researches[53];
-			player.researchPoints += 15000 * player.researches[54];
-			player.researchPoints += 500000 * player.researches[55];
-			player.researchPoints += 5 * player.researches[56];
-			player.researchPoints += 25 * player.researches[57];
-			player.researchPoints += 125 * player.researches[58];
-			player.researchPoints += 625 * player.researches[59];
-			player.researchPoints += 3125 * player.researches[60];
-			player.researchPoints += 5 * player.researches[37];
-			player.researchPoints += 25 * player.researches[38];
-			player.researchPoints += 100 * player.researches[68];
-			player.researchPoints += 250 * player.researches[69];
-			player.researchPoints += 1000 * player.researches[70];
+	
+		var string = localStorage.getItem("Synergysave2");
+		if (string !== null){
+		var e = LZString.decompressFromBase64(string)
+		var data = JSON.parse(e);
+		}	
+		if (data) {
+			data.break = new Decimal(data.break),
+			data.coins = new Decimal(data.coins),
+			data.coinsTotal = new Decimal(data.coinsTotal),
+			data.coinsThisPrestige= new Decimal(data.coinsThisPrestige),
+			data.coinsThisTranscension = new Decimal(data.coinsThisTranscension),
+			data.coinsThisReincarnation = new Decimal(data.coinsThisReincarnation),
+			data.firstCostCoin = new Decimal(data.firstCostCoin),
+			data.firstGeneratedCoin = new Decimal(data.firstGeneratedCoin), 
+			data.secondCostCoin = new Decimal(data.secondCostCoin),
+			data.secondGeneratedCoin = new Decimal(data.secondGeneratedCoin), 
+			data.thirdCostCoin = new Decimal(data.thirdCostCoin),
+			data.thirdGeneratedCoin = new Decimal(data.thirdGeneratedCoin), 
+			data.fourthCostCoin = new Decimal(data.fourthCostCoin),
+			data.fourthGeneratedCoin = new Decimal(data.fourthGeneratedCoin), 
+			data.fifthCostCoin = new Decimal(data.fifthCostCoin),
+			data.fifthGeneratedCoin = new Decimal(data.fifthGeneratedCoin), 
 
-			player.researches[19] = 0;
-			player.researches[20] = 0;
-			player.researches[51] = 0;
-			player.researches[52] = 0;
-			player.researches[53] = 0;
-			player.researches[54] = 0;
-			player.researches[55] = 0;
-			player.researches[56] = 0;
-			player.researches[57] = 0;
-			player.researches[58] = 0;
-			player.researches[59] = 0;
-			player.researches[60] = 0;
-			player.researches[37] = 0;
-			player.researches[38] = 0;
-			player.researches[68] = 0;
-			player.researches[69] = 0;
-			player.researches[70] = 0;
-		}
+			data.firstCostDiamonds = new Decimal(data.firstCostDiamonds),
+            data.firstGeneratedDiamonds = new Decimal(data.firstGeneratedDiamonds), 
+            data.secondCostDiamonds = new Decimal(data.secondCostDiamonds),
+            data.secondGeneratedDiamonds = new Decimal(data.secondGeneratedDiamonds), 
+            data.thirdCostDiamonds = new Decimal(data.thirdCostDiamonds),
+            data.thirdGeneratedDiamonds = new Decimal(data.thirdGeneratedDiamonds), 
+            data.fourthCostDiamonds = new Decimal(data.fourthCostDiamonds),
+            data.fourthGeneratedDiamonds = new Decimal(data.fourthGeneratedDiamonds), 
+            data.fifthCostDiamonds = new Decimal(data.fifthCostDiamonds),
+            data.fifthGeneratedDiamonds = new Decimal(data.fifthGeneratedDiamonds),
+
+			data.firstCostMythos = new Decimal(data.firstCostMythos),
+			data.firstGeneratedMythos = new Decimal(data.firstGeneratedMythos), 
+			data.secondCostMythos = new Decimal(data.secondCostMythos),
+			data.secondGeneratedMythos = new Decimal(data.secondGeneratedMythos), 
+			data.thirdCostMythos = new Decimal(data.thirdCostMythos),
+			data.thirdGeneratedMythos = new Decimal(data.thirdGeneratedMythos), 
+			data.fourthCostMythos = new Decimal(data.fourthCostMythos),
+			data.fourthGeneratedMythos = new Decimal(data.fourthGeneratedMythos), 
+			data.fifthCostMythos = new Decimal(data.fifthCostMythos),
+			data.fifthGeneratedMythos = new Decimal(data.fifthGeneratedMythos),
+			
+			data.firstCostParticles = new Decimal(data.firstCostParticles),
+			data.firstGeneratedParticles = new Decimal(data.firstGeneratedParticles), 
+			data.secondCostParticles = new Decimal(data.secondCostParticles),
+			data.secondGeneratedParticles = new Decimal(data.secondGeneratedParticles), 
+			data.thirdCostParticles = new Decimal(data.thirdCostParticles),
+			data.thirdGeneratedParticles = new Decimal(data.thirdGeneratedParticles), 
+			data.fourthCostParticles = new Decimal(data.fourthCostParticles),
+			data.fourthGeneratedParticles = new Decimal(data.fourthGeneratedParticles), 
+			data.fifthCostParticles = new Decimal(data.fifthCostParticles),
+			data.fifthGeneratedParticles = new Decimal(data.fifthGeneratedParticles),			
+
+			data.multiplierCost = new Decimal(data.multiplierCost),
+			data.acceleratorCost = new Decimal(data.acceleratorCost),
+			data.acceleratorBoostCost = new Decimal(data.acceleratorBoostCost),
+
+			data.coinUpgradeCost = new Decimal(data.coinUpgradeCost),
+			data.prestigeUpgradeCost = new Decimal(data.prestigeUpgradeCost),
+			data.transcendUpgradeCost = new Decimal(data.transcendUpgradeCost),
+
+			data.prestigePoints = new Decimal(data.prestigePoints),
+			data.transcendPoints = new Decimal(data.transcendPoints),
+			data.reincarnationPoints = new Decimal(data.reincarnationPoints),
+
+			data.prestigeShards = new Decimal(data.prestigeShards),
+			data.transcendShards = new Decimal(data.transcendShards),
+			data.reincarnationShards = new Decimal(data.reincarnationShards),
+
+			player = data	
+			if (player.version == "1.000") {player.version = "1.001"; player.offerpromo4used = false}
+			if (player.version == "1.001") {player.version = "1.002"; player.offerpromo5used = false}
+			if (player.version == "1.002" || player.version == "1.0021") {player.version = "1.003"; player.offerpromo6used = false; player.obtainiumtimer = 0; player.offlinetick = new Date().getTime()}
+			if (player.version == "1.003" || player.version == "1.0031") {
+				player.version = "1.004";
+				player.offerpromo7used = false;
+				if (player.fastestreincarnate < 15) {player.fastestreincarnate = 999999};
+				player.researchPoints += 100 * player.researches[19];
+				player.researchPoints += 1000 * player.researches[20];
+				player.researchPoints += 1 * player.researches[51];
+				player.researchPoints += 10 * player.researches[52];
+				player.researchPoints += 500 * player.researches[53];
+				player.researchPoints += 15000 * player.researches[54];
+				player.researchPoints += 500000 * player.researches[55];
+				player.researchPoints += 5 * player.researches[56];
+				player.researchPoints += 25 * player.researches[57];
+				player.researchPoints += 125 * player.researches[58];
+				player.researchPoints += 625 * player.researches[59];
+				player.researchPoints += 3125 * player.researches[60];
+				player.researchPoints += 5 * player.researches[37];
+				player.researchPoints += 25 * player.researches[38];
+				player.researchPoints += 100 * player.researches[68];
+				player.researchPoints += 250 * player.researches[69];
+				player.researchPoints += 1000 * player.researches[70];
+
+				player.researches[19] = 0;
+				player.researches[20] = 0;
+				player.researches[51] = 0;
+				player.researches[52] = 0;
+				player.researches[53] = 0;
+				player.researches[54] = 0;
+				player.researches[55] = 0;
+				player.researches[56] = 0;
+				player.researches[57] = 0;
+				player.researches[58] = 0;
+				player.researches[59] = 0;
+				player.researches[60] = 0;
+				player.researches[37] = 0;
+				player.researches[38] = 0;
+				player.researches[68] = 0;
+				player.researches[69] = 0;
+				player.researches[70] = 0;
+
+
+
+
+			}
+			if (player.version == "1.004"){
+				player.version = "1.005";
+				player.offerpromo8used = false;
+				player.researchPoints += 5 * player.researches[61];
+				player.researchPoints += 20 * player.researches[62];
+				player.researchPoints += 80 * player.researches[63];
+				player.researchPoints += 320 * player.researches[64];
+				player.researchPoints += 1280 * player.researches[65];
+
+				player.researches[61] = 0;
+				player.researches[62] = 0;
+				player.researches[63] = 0;
+				player.researches[64] = 0;
+				player.researches[65] = 0;
+
+
+			}
+
+			if (player.version == "1.005"){
+				player.version = "1.0051";
+				player.offerpromo9used = false;
+			}
+			if (player.version == "1.0051"){
+				player.version = "1.006";
+				player.offerpromo10used = false;
+				player.resettoggle1 = 1;
+				player.resettoggle2 = 1;
+				player.resettoggle3 = 1;
+				player.retrychallenges = false
+			}
+			if (player.version == "1.006"){
+				player.version = "1.0061";
+				player.offerpromo11used = false;
+			}
+			if (player.version == "1.0061") {
+				player.version = "1.007";
+				player.offerpromo12used = false;
+			}
+			if (player.version == "1.007"){
+				player.version = "1.008" 
+				player.offerpromo13used = false;
+				player.researches.push(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
+			}
+
+			
+			if (player.resettoggle1 == 0) {
+				player.resettoggle1 = 1;
+				player.resettoggle2 = 1;
+				player.resettoggle3 = 1;
+			}
+			if (player.reincarnationCount < 0.5 && player.unlocks.rrow4 == true) {
+				player.unlocks = {
+					coinone: false,
+					cointwo: false,
+					cointhree: false,
+					coinfour: false,
+					prestige: false,
+					generation: false,
+					transcend: false,
+					reincarnate: false,
+					rrow1: false,
+					rrow2: false,
+					rrow3: false,
+					rrow4: false
+				}
+			}
 
 			var i
 		for (i = 1; i < player.achievements.length; i++) {
@@ -461,22 +596,23 @@ function loadSynergy(imported = 0) {
 				upgradeupdate(j);
 			}
 		
-		for (j = 1; j < player.researches.length; j++) {
+		for (j = 1; j < (100); j++) {
 			var k = "res" + j
 			if (player.researches[j] > 0.5 && player.researches[j] < researchMaxLevels[j]) {document.getElementById(k).style.backgroundColor = "purple"}
-  			if (player.researches[j] > 0.5 && player.researches[j] >= researchMaxLevels[j]) {document.getElementById(k).style.backgroundColor = "green"}
+			else if (player.researches[j] > 0.5 && player.researches[j] >= researchMaxLevels[j]) {document.getElementById(k).style.backgroundColor = "green"}
+			else {document.getElementById(k).style.backgroundColor = "black"}
 		}
 
 
 			
 		var q = ['coin','crystal','mythos','particle','offering']
 		for (j = 0; j <= 4; j++) {
-			for (k = 0; k < 2; k++) {
+			for (k = 0; k < 3; k++) {
 				if (k == 0){var d = 'one'}
 				if (k == 1){var d = 'ten'}
 				if (k == 2){var d = 'hundred'}
 				var e = q[j] + d
-			document.getElementById(e).style.backgroundColor = "black"
+			document.getElementById(e).style.backgroundColor = "#000000"
 			}
 			if (player[q[j] + 'buyamount'] == 1) {var c = 'one'}
 			if (player[q[j] + 'buyamount'] == 10) {var c = 'ten'}
@@ -509,17 +645,19 @@ function loadSynergy(imported = 0) {
 
 		if (player.offlinetick < 1.5e12) {player.offlinetick = Date.now()}
 		var updatedtime = Date.now()
-		if ((updatedtime - player.offlinetick) > 10000 && !imported) {
+		if ((updatedtime - player.offlinetick) > 10000) {
 			console.log(player.offlinetick)
-			var timeadd = Math.min(10800, (updatedtime - player.offlinetick) / 1000);
+			var timeadd = Math.min(28800, (updatedtime - player.offlinetick) / 1000);
 			player.prestigecounter += timeadd;
 			player.transcendcounter += timeadd;
 			player.reincarnationcounter += timeadd;
 			
-			if (player.achievements[50] > 0.5) {
+			if (player.researches[61] > 0.5) {
 				player.obtainiumtimer += timeadd
-				player.researchPoints += Math.floor(player.obtainiumtimer / (1 + 5 * player.fastestreincarnate))
-				var a = player.obtainiumtimer % (1 + 5 * player.fastestreincarnate)
+				var u = 1;
+				if(player.upgrades[69] > 0.5){u = Math.min(3,Decimal.pow(Decimal.log(reincarnationPointGain.add(10), 10), 0.5))}
+				player.researchPoints += Math.floor((1 + player.researches[64]) * u * player.obtainiumtimer / (60 - player.researches[62] - player.researches[63]))
+				var a = player.obtainiumtimer % (60 - player.researches[62] - player.researches[63])
 				player.obtainiumtimer = a
 			}
 			console.log("You were offline for " + (updatedtime - player.offlinetick) / 1000 + " seconds!")
@@ -536,28 +674,703 @@ function loadSynergy(imported = 0) {
 		if (player.achievements[102] == 1)document.getElementById("runeshowpower4").textContent = "Thrift Rune Bonus: " + "Delay all producer cost increases by " + (player.runelevels[3]/4 * m).toPrecision(3) + "% buildings. Increase offering recycling chance: " + player.runelevels[3]/8 + "%.";
 		document.getElementById("researchrunebonus").textContent = "Thanks to researches, your effective levels are increased by " + (100 * (1 + player.researches[4]/10) * (1 + player.researches[21]/800) - 100).toPrecision(4) + "%";
 
-		document.getElementById("versionnumber").textContent = "You are playing version " + player.version + "."
-		var prestigems = Math.floor(1000 * player.fastestprestige) * 100/100
-		var transcendms = Math.floor(1000 * player.fastesttranscend) * 100/100
-		var reincarnatems = Math.floor(1000 * player.fastestreincarnate) * 100/100
+		if (player.resettoggle1 == 1) {document.getElementById("prestigeautotoggle").textContent = "Mode: AMOUNT"}
+		if (player.resettoggle2 == 1) {document.getElementById("transcendautotoggle").textContent = "Mode: AMOUNT"}
+		if (player.resettoggle3 == 1) {document.getElementById("reincarnateautotoggle").textContent = "Mode: AMOUNT"}
 
-//		if (player.prestigeCount > 0.5){kongregate.stats.submit("prestigetimems", prestigems); kongregate.stats.submit("prestigecount", player.prestigeCount)}
-//		if (player.transcendCount > 0.5){kongregate.stats.submit("transcendtimems", transcendms); kongregate.stats.submit("transcendcount", player.transcendCount)}
-//		if (player.reincarnateCount > 0.5){kongregate.stats.submit("reincarnatetimems", reincarnatems); kongregate.stats.submit("reincarnatecount", player.reincarnateCount)}
-//		kongregate.stats.submit("challengeone", player.highestchallengecompletions.one)
-//		kongregate.stats.submit("challengetwo", player.highestchallengecompletions.two)
-//		kongregate.stats.submit("challengethree", player.highestchallengecompletions.three)
-//		kongregate.stats.submit("challengefour", player.highestchallengecompletions.four)
-//		kongregate.stats.submit("challengefive", player.highestchallengecompletions.five)
+		if (player.resettoggle1 == 2) {document.getElementById("prestigeautotoggle").textContent = "Mode: TIME"}
+		if (player.resettoggle2 == 2) {document.getElementById("transcendautotoggle").textContent = "Mode: TIME"}
+		if (player.resettoggle3 == 2) {document.getElementById("reincarnateautotoggle").textContent = "Mode: TIME"}
+
+		if (player.retrychallenges){document.getElementById("retrybutton").textContent = "Retry: ON"}
+		if (!player.retrychallenges){document.getElementById("retrybutton").textContent = "Retry: OFF"}
+
+
+		document.getElementById("preload").style.display = "none"
 	}
 }
+*/
+
+// BETA SAVE FUNCTION
+
+const player = {
+	worlds: 0,
+	coins: new Decimal("1e2"),
+	coinsThisPrestige: new Decimal("1e2"),
+	coinsThisTranscension: new Decimal("1e2"),
+	coinsThisReincarnation: new Decimal("1e2"),
+	coinsTotal: new Decimal("100"),
+
+	firstOwnedCoin: 0,
+	firstGeneratedCoin: new  Decimal("0"),
+	firstCostCoin: new Decimal("100"),
+	firstProduceCoin: 0.25,
+
+	secondOwnedCoin: 0,
+	secondGeneratedCoin: new Decimal("0"),
+	secondCostCoin: new Decimal("2e3"),
+	secondProduceCoin: 2.5,
+
+	thirdOwnedCoin: 0,
+   thirdGeneratedCoin: new Decimal("0"),
+   thirdCostCoin: new Decimal("4e4"),
+   thirdProduceCoin: 25,
+
+   fourthOwnedCoin: 0,
+   fourthGeneratedCoin: new Decimal("0"),
+   fourthCostCoin: new Decimal("8e5"),
+   fourthProduceCoin: 250,
+
+   fifthOwnedCoin: 0,
+   fifthGeneratedCoin: new Decimal("0"),
+   fifthCostCoin: new Decimal("16e6"),
+   fifthProduceCoin: 2500,
+
+   firstOwnedDiamonds: 0,
+   firstGeneratedDiamonds: new Decimal("0"),
+   firstCostDiamonds: new Decimal("100"),
+   firstProduceDiamonds: 0.05,
+   
+   secondOwnedDiamonds: 0,
+   secondGeneratedDiamonds: new Decimal("0"),
+   secondCostDiamonds: new Decimal("1e5"),
+   secondProduceDiamonds: 0.0005,
+   
+   thirdOwnedDiamonds: 0,
+   thirdGeneratedDiamonds: new Decimal("0"),
+   thirdCostDiamonds: new Decimal("1e15"),
+   thirdProduceDiamonds: 0.00005,
+   
+   fourthOwnedDiamonds: 0,
+   fourthGeneratedDiamonds: new Decimal("0"),
+   fourthCostDiamonds: new Decimal("1e40"),
+   fourthProduceDiamonds: 0.000005,
+   
+   fifthOwnedDiamonds: 0,
+   fifthGeneratedDiamonds: new Decimal("0"),
+   fifthCostDiamonds: new Decimal("1e100"),
+   fifthProduceDiamonds: 0.000005,
+
+   firstOwnedMythos: 0,
+   firstGeneratedMythos: new Decimal("0"),
+   firstCostMythos: new Decimal("1"),
+   firstProduceMythos: 1,
+
+   secondOwnedMythos: 0,
+   secondGeneratedMythos: new Decimal("0"),
+   secondCostMythos: new Decimal("100"),
+   secondProduceMythos: 0.01,
+
+   thirdOwnedMythos: 0,
+   thirdGeneratedMythos: new Decimal("0"),
+   thirdCostMythos: new Decimal("1e4"),
+   thirdProduceMythos: 0.001,
+
+   fourthOwnedMythos: 0,
+   fourthGeneratedMythos: new Decimal("0"),
+   fourthCostMythos: new Decimal("1e8"),
+   fourthProduceMythos: 0.0002,
+
+   fifthOwnedMythos: 0,
+   fifthGeneratedMythos: new Decimal("0"),
+   fifthCostMythos: new Decimal("1e16"),
+   fifthProduceMythos: 0.00004,
+
+   firstOwnedParticles: 0,
+   firstGeneratedParticles: new Decimal("0"),
+   firstCostParticles: new Decimal("1"),
+   firstProduceParticles: .25,
+
+   secondOwnedParticles: 0,
+   secondGeneratedParticles: new Decimal("0"),
+   secondCostParticles: new Decimal("100"),
+   secondProduceParticles: .20,
+   
+   thirdOwnedParticles: 0,
+   thirdGeneratedParticles: new Decimal("0"),
+   thirdCostParticles: new Decimal("1e4"),
+   thirdProduceParticles: .15,
+
+   fourthOwnedParticles: 0,
+   fourthGeneratedParticles: new Decimal("0"),
+   fourthCostParticles: new Decimal("1e8"),
+   fourthProduceParticles: .10,
+
+   fifthOwnedParticles: 0,
+   fifthGeneratedParticles: new Decimal("0"),
+   fifthCostParticles: new Decimal("1e16"),
+   fifthProduceParticles: .5,
+   
+   multiplierCost: new Decimal("1e5"),
+   multiplierBought: 0,
+
+   acceleratorCost: new Decimal("500"),
+   acceleratorBought: 0,
+
+   acceleratorBoostBought: 0,
+   acceleratorBoostCost: new Decimal("1e3"),
+
+   upgrades: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, //Coin Upgrades, Ignore First.
+			   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,    //Prestige Upgrades
+			   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,	   //Transcend Upgrades
+			   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,	   //Reincarnation Upgrades
+			   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,	   //Automation Upgrades
+			   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,],   //Generator Upgrades
+   
+
+			   prestigeCount: 0,
+			   transcendCount: 0,
+			   reincarnationCount: 0,
+			  
+			   prestigePoints: new Decimal("0"),
+			   transcendPoints: new Decimal("0"),
+			   reincarnationPoints: new Decimal("0"),
+			  
+			   prestigeShards: new Decimal("0"),
+			   transcendShards: new Decimal("0"),
+			   reincarnationShards: new Decimal("0"),
+			  
+			   toggles: {
+				   one: false,
+				   two: false,
+				   three: false,
+				   four: false,
+				   five: false,
+				   six: false,
+				   seven: false,
+				   eight: false,
+				   nine: false,
+				   ten: false,
+				   eleven: false,
+				   twelve: false,
+				   thirteen: false,
+				   fourteen: false,
+				   fifteen: false,
+				   sixteen: false,
+				   seventeen: false,
+				   eighteen: false,
+				   nineteen: false,
+				   twenty: false,
+				   twentyone: false,
+				   twentytwo: true,
+				   twentythree: true,
+				   twentyfour: true,
+				   twentyfive: true,
+				   twentysix: true,
+				   twentyseven: false,
+				   twentyeight: true,
+				   twentynine: true,
+				   thirty: true,
+				   thirtyone: false,
+				   thirtytwo: false,
+				   thirtythree: false,
+			   },
+			   
+			  resourceGenerators: {
+				  diamonds: false,
+				  mythos: false,
+			  },
+			  
+			  keepUpgrades: {
+				  coinUpgrades: false,
+				  prestigeUpgrades: false,
+				  crystalUpgrades: false,
+				  transcendUpgrades: false,
+				  autobuyers: false,
+				  generators: false
+			  },
+			  
+			  challengecompletions: {
+				  one: 0,
+				  two: 0,
+				  three: 0,
+				  four: 0,
+				  five: 0,
+				  six: 0,
+				  seven: 0,
+				  eight: 0,
+				  nine: 0,
+				  ten: 0
+			  },
+			  
+			  highestchallengecompletions: {
+				  one: 0,
+				  two: 0,
+				  three: 0,
+				  four: 0,
+				  five: 0,
+				  six: 0,
+				  seven: 0,
+				  eight: 0,
+				  nine: 0,
+				  ten: 0
+			  },
+			  retrychallenges: false,
+			   currentChallenge: "",
+			   currentChallengeRein: "",
+			  researchPoints: 0,
+			  obtainiumtimer: 0,
+			  obtainiumlocktoggle: false,
+			  maxobtainium: 0,
+			  // Ignore the first index. The other 25 are shaped in a 5x5 grid similar to the production appearance
+			  researches: [0, 0, 0, 0, 0, 0,
+								0, 0, 0, 0, 0,
+							   0, 0, 0, 0, 0,
+							   0, 0, 0, 0, 0,
+							   0, 0, 0, 0, 0,
+							   0, 0, 0, 0, 0,
+							   0, 0, 0, 0, 0,
+							   0, 0, 0, 0, 0,
+							   0, 0, 0, 0, 0,
+							   0, 0, 0, 0, 0,
+							   0, 0, 0, 0, 0,
+							   0, 0, 0, 0, 0,
+							   0, 0, 0, 0, 0,
+							   0, 0, 0, 0, 0,
+							   0, 0, 0, 0, 0,
+							   0, 0, 0, 0, 0,
+							   0, 0, 0, 0, 0,
+							   0, 0, 0, 0, 0,
+							   0, 0, 0, 0, 0,
+							   0, 0, 0, 0, 0],
+			  
+			  unlocks: {
+				  coinone: false,
+				  cointwo: false,
+				  cointhree: false,
+				  coinfour: false,
+				  prestige: false,
+				  generation: false,
+				  transcend: false,
+				  reincarnate: false,
+				  rrow1: false,
+				  rrow2: false,
+				  rrow3: false,
+				  rrow4: false
+			  },
+			  achievements: [0,
+							  0, 0, 0, 0, 0, 0, 0,
+							  0, 0, 0, 0, 0, 0, 0,
+							  0, 0, 0, 0, 0, 0, 0,
+							  0, 0, 0, 0, 0, 0, 0,
+							  0, 0, 0, 0, 0, 0, 0,
+							  0, 0, 0, 0, 0, 0, 0,
+							  0, 0, 0, 0, 0, 0, 0,
+							  0, 0, 0, 0, 0, 0, 0,
+							  0, 0, 0, 0, 0, 0, 0,
+							  0, 0, 0, 0, 0, 0, 0,
+							  0, 0, 0, 0, 0, 0, 0,
+							  0, 0, 0, 0, 0, 0, 0,
+							  0, 0, 0, 0, 0, 0, 0,
+							  0, 0, 0, 0, 0, 0, 0,
+							  0, 0, 0, 0, 0, 0, 0,
+							  0, 0, 0, 0, 0, 0, 0,
+							  0, 0, 0, 0, 0, 0, 0,
+							  0, 0, 0, 0, 0, 0, 0,
+							  0, 0, 0, 0, 0, 0, 0,
+							  0, 0, 0, 0, 0, 0, 0,
+							  0, 0, 0, 0, 0, 0, 0,
+							  0, 0, 0, 0, 0, 0, 0,
+							  0, 0, 0, 0, 0, 0, 0,
+							  0, 0, 0, 0, 0, 0, 0,],
+			  
+			  achievementPoints: 0,
+			  
+			  prestigenomultiplier: true,
+			  prestigenoaccelerator: true,
+			  transcendnomultiplier: true,
+			  transcendnoaccelerator: true,
+			  recinarnatenomultiplier: true,
+			  reincarnatenoaccelerator: true,
+			  prestigenocoinupgrades: true,
+			  transcendnocoinupgrades: true,
+			  transcendnocoinorprestigeupgrades: true,
+			  reincarnatenocoinupgrades: true,
+			  reincarnatenocoinorprestigeupgrades: true,
+			  reincarnatenocoinprestigeortranscendupgrades: true,
+			  reincarnatenocoinprestigetranscendorgeneratorupgrades: true,
+			  
+			  crystalUpgrades: [0,0,0,0,0,0,0,0],
+			  
+			  runelevels: [1, 1, 1, 1, 1],
+			  runeexp: [0, 0, 0, 0, 0,],
+			  runeshards: 0,
+			  offeringlocktoggle: false,
+			  maxofferings: 0,
+
+			  prestigecounter: 0,
+			  transcendcounter: 0,
+			  reincarnationcounter: 0,
+			  offlinetick: 0,
+			  
+			  prestigeamount: 0,
+			  transcendamount: 0,
+			  reincarnationamount: 0,
+			  
+			  fastestprestige: 9999999999,
+			  fastesttranscend: 99999999999,
+			  fastestreincarnate: 999999999999,
+			  
+			  resettoggle1: 1,
+			  resettoggle2: 1,
+			  resettoggle3: 1,
+			  
+			  coinbuyamount: 100,
+			  crystalbuyamount: 1,
+			  mythosbuyamount: 1,
+			  particlebuyamount: 1,
+			  offeringbuyamount: 1,
+			  
+			  
+			  
+			  shoptoggles: {
+				  coin: true,
+				  prestige: true,
+				  transcend: true,
+				  generators: true,
+			  },
+			  tabnumber: 1,
+			  
+			  offerpromo1used: false,
+			  offerpromo2used: false,
+			  offerpromo3used: false,
+			  offerpromo4used: false,
+			  offerpromo5used: false,
+			  offerpromo6used: false,
+			  offerpromo7used: false,
+			  offerpromo8used: false,
+			  offerpromo9used: false,
+			  offerpromo10used: false,
+			  offerpromo11used: false,
+			  offerpromo12used: false,
+			  offerpromo13used: false,
+			  exporttest: "YES!",
+			  kongregatetest: "NO!"
+}
+
+Object.defineProperty(player, 'version', {
+   configurable: false,
+   enumerable: true,
+   value: '1.008'
+});
+
+function saveSynergy() {
+   const p = player; // temp hold
+   delete p.version; // don't save
+   localStorage.setItem("Synergysave2", btoa(JSON.stringify(p)));	
+}
+
+
+
+function loadSynergy(imported = 0) {
+   
+   
+   document.addEventListener("keydown", function onPress(event) {
+	   var type = ""
+	   var pos = ""
+	   var num = 0
+	   if (event.key === "1") {var pos = "first"; num += 1; if (currentTab == "challenges") {toggleChallenges('one')}; if (currentTab == "runes"){redeemshards(1)}}
+	   if (event.key === "2") {var pos = "second"; num += 2; if (currentTab == "challenges") {toggleChallenges('two')}; if (currentTab == "runes"){redeemshards(2)}}
+	   if (event.key === "3") {var pos = "third"; num += 3; if (currentTab == "challenges") {toggleChallenges('three')}; if (currentTab == "runes"){redeemshards(3)}}
+	   if (event.key === "4") {var pos = "fourth"; num += 4; if (currentTab == "challenges") {toggleChallenges('four')}; if (currentTab == "runes"){redeemshards(4)}}
+	   if (event.key === "5") {var pos = "fifth"; num += 5; if (currentTab == "challenges") {toggleChallenges('five')}}
+	   if (event.key === "6") {buyCrystalUpgrades(1)}
+	   if (event.key === "7") {buyCrystalUpgrades(2)}
+	   if (event.key === "8") {buyCrystalUpgrades(3)}
+	   if (event.key === "9") {buyCrystalUpgrades(4)}
+	   if (event.key === "0") {buyCrystalUpgrades(5)}
+	   if (currentTab == "buildings") {var type = "Coin"}
+	   if (currentTab == "prestige") {var type = "Diamonds"; num = 1/2 * (Math.pow(num, 2) + num)}
+	   if (currentTab == "transcension") {var type = "Mythos"; num = 1/2 * (Math.pow(num, 2) + num)}
+	   if (currentTab == "reincarnation") {var type = "Particles"; num = 1/2 * (Math.pow(num, 2) + num)}
+	   if (event.key === "1" || event.key === "2" || event.key === "3" || event.key === "4" || event.key === "5") {buyProducer(pos, type, num)}
+	   if ((event.key === "A" || event.key === "a") && currentTab == "buildings") {buyAccelerator()}
+	   if ((event.key === "B" || event.key === "b") && currentTab == "buildings") {boostAccelerator()}
+	   if ((event.key === "M" || event.key === "m") && currentTab == "buildings") {buyMultiplier()}
+	   if ((event.key === "P") || event.key === "p") {resetCheck('prestige')}
+	   if ((event.key === "T") || event.key === "t") {resetCheck('transcend')}
+	   if ((event.key === "R") || event.key === "r") {resetCheck('reincarnate')}
+	   if ((event.key === "E" || event.key === "e") && player.currentChallenge !== "") {resetCheck('challenge')}	
+	   
+	   if ((event.key === "ArrowLeft")) {keyboardtabchange(-1)}
+	   if ((event.key === "ArrowRight")) {keyboardtabchange(1)}
+   });
+   
+
+   const string = localStorage.getItem("Synergysave2");
+   const data = string ? JSON.parse(atob(string)) : null;
+
+   if (data) {
+	   function isDecimal(o = {}) {
+		   if(!(o instanceof Object)) {
+			   return false;
+		   }
+		   return Object.keys(o).length === 2 && Object.keys(o).every(function(v) { return ['mantissa', 'exponent'].includes(v) });
+	   }
+
+	   if(data.version) {
+		   delete data.version;
+	   }
+	   
+	   Object.keys(data).forEach(function(v) {
+		   Object.defineProperty(player, v, {
+			   value: isDecimal(player[v]) ? new Decimal(data[v]) : data[v]
+		   });
+	   });
+		   
+
+	   if (player.offerpromo6used === undefined){
+		player.offerpromo6used = false; 
+		player.obtainiumtimer = 0; 
+		player.offlinetick = new Date.now();
+	   }
+	   if (player.offerpromo7used === undefined){
+		player.offerpromo7used = false;
+		if(player.fastestreincarnate < 15) {
+			player.fastestreincarnate = 999999
+		}
+		
+		player.researchPoints += 100 * player.researches[19];
+		player.researchPoints += 1000 * player.researches[20];
+		player.researchPoints += 1 * player.researches[51];
+		player.researchPoints += 10 * player.researches[52];
+		player.researchPoints += 500 * player.researches[53];
+		player.researchPoints += 15000 * player.researches[54];
+		player.researchPoints += 500000 * player.researches[55];
+		player.researchPoints += 5 * player.researches[56];
+		player.researchPoints += 25 * player.researches[57];
+		player.researchPoints += 125 * player.researches[58];
+		player.researchPoints += 625 * player.researches[59];
+		player.researchPoints += 3125 * player.researches[60];
+		player.researchPoints += 5 * player.researches[37];
+		player.researchPoints += 25 * player.researches[38];
+		player.researchPoints += 100 * player.researches[68];
+		player.researchPoints += 250 * player.researches[69];
+		player.researchPoints += 1000 * player.researches[70];
+
+		player.researches[19] = 0;
+		player.researches[20] = 0;
+		player.researches[51] = 0;
+		player.researches[52] = 0;
+		player.researches[53] = 0;
+		player.researches[54] = 0;
+		player.researches[55] = 0;
+		player.researches[56] = 0;
+		player.researches[57] = 0;
+		player.researches[58] = 0;
+		player.researches[59] = 0;
+		player.researches[60] = 0;
+		player.researches[37] = 0;
+		player.researches[38] = 0;
+		player.researches[68] = 0;
+		player.researches[69] = 0;
+		player.researches[70] = 0;   
+	   }
+
+	   if (player.offerpromo8used === undefined){
+		player.offerpromo8used = false;
+		player.researchPoints += 5 * player.researches[61];
+		player.researchPoints += 20 * player.researches[62];
+		player.researchPoints += 80 * player.researches[63];
+		player.researchPoints += 320 * player.researches[64];
+		player.researchPoints += 1280 * player.researches[65];
+
+		player.researches[61] = 0;
+		player.researches[62] = 0;
+		player.researches[63] = 0;
+		player.researches[64] = 0;
+		player.researches[65] = 0;
+
+
+	}
+
+	if (player.offerpromo9used === undefined){
+		player.offerpromo9used = false;
+	}
+	if (player.offerpromo10used === undefined){
+		player.offerpromo10used = false;
+		player.resettoggle1 = 1;
+		player.resettoggle2 = 1;
+		player.resettoggle3 = 1;
+		player.retrychallenges = false
+	}
+	if (player.offerpromo11used === undefined){
+		player.offerpromo11used = false;
+	}
+	if (player.offerpromo12used === undefined) {
+		player.offerpromo12used = false;
+	}
+	if (player.offerpromo13used === undefined){
+		player.offerpromo13used = false;
+		player.researches.push(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
+	    player.achievements.push(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
+	    player.offeringlocktoggle = false;
+		player.obtainiumlocktoggle = false;
+		player.researchPoints += 51200 * player.researches[50];
+		player.researches[50] = 0;
+		player.maxofferings = player.runeshards;
+		player.maxobtainium = player.researchPoints;
+
+	}
+	if (player.researches[76] === undefined){
+		player.offerpromo13used = false;
+		player.researches.push(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
+		player.achievements.push(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
+		player.maxofferings = player.runeshards;
+		player.maxobtainium = player.researchPoints;
+		player.researchPoints += 51200 * player.researches[50];
+		player.researches[50] = 0;
+		player.offeringlocktoggle = false;
+		player.obtainiumlocktoggle = false;
+	}
+
+	if (player.resettoggle1 == 0) {
+		player.resettoggle1 = 1;
+		player.resettoggle2 = 1;
+		player.resettoggle3 = 1;
+	}
+	if (player.reincarnationCount < 0.5 && player.unlocks.rrow4 == true) {
+		player.unlocks = {
+			coinone: false,
+			cointwo: false,
+			cointhree: false,
+			coinfour: false,
+			prestige: false,
+			generation: false,
+			transcend: false,
+			reincarnate: false,
+			rrow1: false,
+			rrow2: false,
+			rrow3: false,
+			rrow4: false
+		}
+	}
+
+	var i
+for (i = 1; i < player.achievements.length; i++) {
+	if (player.achievements[i] > 0.5 && player.achievements[i] !== undefined) {
+		achievementaward(i, 0)
+	}
+}
+var j
+for (j = 1; j < player.upgrades.length; j++) {
+		upgradeupdate(j);
+	}
+
+for (j = 1; j < (100); j++) {
+	var k = "res" + j
+	if (player.researches[j] > 0.5 && player.researches[j] < researchMaxLevels[j]) {document.getElementById(k).style.backgroundColor = "purple"}
+	else if (player.researches[j] > 0.5 && player.researches[j] >= researchMaxLevels[j]) {document.getElementById(k).style.backgroundColor = "green"}
+	else {document.getElementById(k).style.backgroundColor = "black"}
+}
+
+
+	
+var q = ['coin','crystal','mythos','particle','offering']
+for (j = 0; j <= 4; j++) {
+	for (k = 0; k < 3; k++) {
+		if (k == 0){var d = 'one'}
+		if (k == 1){var d = 'ten'}
+		if (k == 2){var d = 'hundred'}
+		var e = q[j] + d
+	document.getElementById(e).style.backgroundColor = "#000000"
+	}
+	if (player[q[j] + 'buyamount'] == 1) {var c = 'one'}
+	if (player[q[j] + 'buyamount'] == 10) {var c = 'ten'}
+	if (player[q[j] + 'buyamount'] == 100) {var c = 'hundred'}
+
+	var b = q[j] + c
+	document.getElementById(b).style.backgroundColor = "green"
+
+}
+
+if (player.shoptoggles.coin == false) {document.getElementById("shoptogglecoin").textContent = "Auto: OFF"}
+if (player.shoptoggles.prestige == false) {document.getElementById("shoptoggleprestige").textContent = "Auto: OFF"}
+if (player.shoptoggles.transcend == false) {document.getElementById("shoptoggletranscend").textContent = "Auto: OFF"}
+if (player.shoptoggles.generator == false) {document.getElementById("shoptogglegenerator").textContent = "Auto: OFF"}
+
+
+	var p = ""
+	if (player.currentChallengeRein == 'six') {p = " || TAX+ [Reincarnation]"}
+	if (player.currentChallengeRein == 'seven') {p = " || MULTIPLIER/ACCELERATOR-- [Reincarnation]"}
+	if (player.currentChallenge == "" && (player.currentChallengeRein == "six" || player.currentChallengeRein == "seven")) {document.getElementById("currentchallenge").textContent = "Current Challenge:" + p}
+	if (player.currentChallenge == 'one'){document.getElementById("currentchallenge").textContent = "Current Challenges: No Multipliers [Transcension]" + p}
+	if (player.currentChallenge == 'two'){document.getElementById("currentchallenge").textContent = "Current Challenges: No Accelerators [Transcension]" + p}
+	if (player.currentChallenge == 'three'){document.getElementById("currentchallenge").textContent = "Current Challenges: No Shards [Transcension]" + p}
+	if (player.currentChallenge == 'four'){document.getElementById("currentchallenge").textContent = "Current Challenges: Fast Cost Growth [Transcension]" + p}
+	if (player.currentChallenge == 'five'){document.getElementById("currentchallenge").textContent = "Current Challenges: Reduced Diamonds [Transcension]" + p}
+	
+
+revealStuff();
+toggleauto();
+
+if (player.offlinetick < 1.5e12) {player.offlinetick = Date.now()}
+var updatedtime = Date.now()
+if ((updatedtime - player.offlinetick) > 10000) {
+	console.log(player.offlinetick)
+	var timeadd = Math.min(28800, (updatedtime - player.offlinetick) / 1000);
+	player.prestigecounter += timeadd;
+	player.transcendcounter += timeadd;
+	player.reincarnationcounter += timeadd;
+	
+	if (player.researches[61] > 0.5) {
+		player.obtainiumtimer += timeadd
+		var u = 1;
+		if(player.upgrades[69] > 0.5){u = Math.min(3,Decimal.pow(Decimal.log(reincarnationPointGain.add(10), 10), 0.5))}
+		player.researchPoints += Math.floor((1 + player.researches[64]) * u * player.obtainiumtimer / (60 - player.researches[62] - player.researches[63]))
+		var a = player.obtainiumtimer % (60 - player.researches[62] - player.researches[63])
+		player.obtainiumtimer = a
+	}
+	console.log("You were offline for " + (updatedtime - player.offlinetick) / 1000 + " seconds!")
+}
+player.offlinetick = updatedtime
+saveSynergy();
+
+var m = 1;
+m *= (1 + player.researches[4]/10) * (1 + player.researches[21]/800)
+
+document.getElementById("runeshowpower1").textContent = "Speed Rune Bonus: " + "+" + format(Math.floor(player.runelevels[0] * m)) + " Accelerators, +" + (player.runelevels[0]/2  * m).toPrecision(2) +"% Accelerators, +" + format(Math.floor(player.runelevels[0]/10 * m)) + " Accelerator Boosts."
+if (player.achievements[38] == 1)document.getElementById("runeshowpower2").textContent = "Duplication Rune Bonus: " + "+" + Math.floor(player.runelevels[1] * m / 10) * Math.floor(10 + player.runelevels[1] * m /10) / 2 + " +" + m *player.runelevels[1]/2 +"% Multipliers, -" + (100 * (1 - Math.pow(10, - player.runelevels[1]/500))).toPrecision(4)  + "% Tax Growth.";
+if (player.achievements[44] == 1)document.getElementById("runeshowpower3").textContent = "Prism Rune Bonus: " + "All Crystal Producer production multiplied by " + format(Decimal.pow(player.runelevels[2] * m, 2).times(Decimal.pow(2, player.runelevels[2] * m - 8).add(1))) + ", gain +" + format(Math.floor(player.runelevels[2]/10 * m)) + " free crystal levels.";
+if (player.achievements[102] == 1)document.getElementById("runeshowpower4").textContent = "Thrift Rune Bonus: " + "Delay all producer cost increases by " + (player.runelevels[3]/4 * m).toPrecision(3) + "% buildings. Increase offering recycling chance: " + player.runelevels[3]/8 + "%.";
+document.getElementById("researchrunebonus").textContent = "Thanks to researches, your effective levels are increased by " + (100 * (1 + player.researches[4]/10) * (1 + player.researches[21]/800) - 100).toPrecision(4) + "%";
+
+if (player.resettoggle1 == 1) {document.getElementById("prestigeautotoggle").textContent = "Mode: AMOUNT"}
+if (player.resettoggle2 == 1) {document.getElementById("transcendautotoggle").textContent = "Mode: AMOUNT"}
+if (player.resettoggle3 == 1) {document.getElementById("reincarnateautotoggle").textContent = "Mode: AMOUNT"}
+
+if (player.resettoggle1 == 2) {document.getElementById("prestigeautotoggle").textContent = "Mode: TIME"}
+if (player.resettoggle2 == 2) {document.getElementById("transcendautotoggle").textContent = "Mode: TIME"}
+if (player.resettoggle3 == 2) {document.getElementById("reincarnateautotoggle").textContent = "Mode: TIME"}
+
+if (player.retrychallenges){document.getElementById("retrybutton").textContent = "Retry: ON"}
+if (!player.retrychallenges){document.getElementById("retrybutton").textContent = "Retry: OFF"}
+
+
+document.getElementById("preload").style.display = "none"
+}
+}
+
+(function () {
+	const dec = LZString.decompressFromBase64(localStorage.getItem('Synergysave2'));
+	const isLZString = dec !== '';
+ 
+	if(isLZString) {
+		localStorage.clear();
+		localStorage.setItem('Synergysave2', btoa(dec));
+		loadSynergy();
+		alert('Transferred save to new format successfully!');
+	}
+ })();
+
+//
 
 function updatetimer() {
 	player.offlinetick = Date.now();
-	saveSynergy();
+    saveSynergy();
 }
 
-function format(input, accuracy = 0) {
+function format(input, accuracy = 0, short = true) {
 	if (input instanceof Decimal) {
 		var power = input.e
 		var matissa = input.mantissa
@@ -570,6 +1383,8 @@ function format(input, accuracy = 0) {
 		return (input)
 	}
 	if (matissa < 0) {matissa *= -1}
+
+	if (short){
 	if(power > 5.5) {
 	 matissa = matissa.toFixed(2)
 	 if (matissa >= 10) {
@@ -604,7 +1419,15 @@ function format(input, accuracy = 0) {
 	else {
 		var n = 0
 		return(n.toString())
-}
+	}
+	}
+
+	if(!short){
+		var n = matissa * Math.pow(10, power);
+		n = n.toFixed(0);
+		return(n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+		}
+
 }
 // Update calculations for Accelerator/Multiplier as well as just Production modifiers in general [Lines 600-897]
 
@@ -677,7 +1500,7 @@ function updateAllTick() {
 	totalAcceleratorBoost = Math.floor(player.acceleratorBoostBought + freeAcceleratorBoost) * 100/100;
 
 
-		a += totalAcceleratorBoost * (5 + 2 * player.researches[18] + 2 * player.researches[19] + player.researches[20]);
+		a += totalAcceleratorBoost * (5 + 2 * player.researches[18] + 2 * player.researches[19] + 3 * player.researches[20]);
 		if (player.unlocks.prestige == true) {
 		a += player.runelevels[0]  * (1 + player.runelevels[1] / 200) * (1 + 1/5 * player.researches[4]) * (1 + 1/800 * player.researches[21])
 		}
@@ -812,7 +1635,7 @@ function updateAllMultiplier() {
     a *=(1 + 1/5 * player.researches[2])
 	a *=(1 + 1/20 * player.researches[11] + 1/40 * player.researches[12] + 1/200 * player.researches[13] + 1/400 * player.researches[14] + 1/500 * player.researches[15])
 	a *=(1 + player.runelevels[1]/200 * (1 + player.researches[4]/5) * (1 + player.researches[21]/800))
-	if ((player.currentChallenge !== "" || player.currentChallengeRein !== "") && player.upgrades[50] > 0.5) {a *= 1.25}
+	if ((player.currentChallenge !== "" || player.currentChallengeRein !== "") && player.upgrades[50] > 0.5) {a *= 1.25};
 		
 	a = Math.floor(a)
 	freeMultiplier = a;
@@ -878,9 +1701,6 @@ if (player.upgrades[43] > 0.5) {
 if (player.upgrades[48] > 0.5) {
 	s = s.times(Math.pow((totalMultiplier * totalAccelerator / 1000 + 1), 8));
 }
-if (player.upgrades[50] > 0.5 && player.currentChallenge !== "") {
-	s = s.times(1e25);
-}
 if (player.currentChallengeRein == "six") {s = s.dividedBy(1e250)}
 if (player.currentChallengeRein == "seven") {s = s.dividedBy("1e1250")}
 c = Decimal.pow(s , 1 + 0.001 * player.researches[17]);
@@ -932,7 +1752,7 @@ coinThreeMulti = new Decimal(1);
 		coinThreeMulti = coinThreeMulti.times("1e4000")
 	}
 	if (player.upgrades[58] > 0.5) {
-		coinThreeMulti = coinThreeMulti.times("1e10000")
+		coinThreeMulti = coinThreeMulti.times("1e15000")
 	}
 
 coinFourMulti = new Decimal(1);
@@ -946,7 +1766,7 @@ coinFourMulti = new Decimal(1);
 	}
 
 	if (player.upgrades[59] > 0.5) {
-		coinFourMulti = coinFourMulti.times("1e12500")
+		coinFourMulti = coinFourMulti.times("1e25000")
 	}
 
 coinFiveMulti = new Decimal(1);
@@ -956,7 +1776,7 @@ coinFiveMulti = new Decimal(1);
 	}
 
 	if (player.upgrades[60] > 0.5) {
-		coinFiveMulti = coinFiveMulti.times("1e20000")
+		coinFiveMulti = coinFiveMulti.times("1e35000")
 	}
 	
 globalCrystalMultiplier = new Decimal(1)
@@ -969,7 +1789,7 @@ if (player.achievements[37] > 0.5 && player.prestigePoints.greaterThanOrEqualTo(
 if (player.achievements[43] > 0.5) {
 	globalCrystalMultiplier = globalCrystalMultiplier.times(Decimal.pow(player.runelevels[2] * (1 + player.researches[4]/5) * (1 + player.researches[21]/800), 2).times(Decimal.pow(2, player.runelevels[2] * (1 + player.researches[5]/10) * (1 + player.researches[21]/800)  - 8).add(1)))
 }
-if (player.upgrades[36] > 0.5) {globalCrystalMultiplier = globalCrystalMultiplier.times(Decimal.min(1e500, Decimal.pow(player.prestigePoints, 1/500)))}
+if (player.upgrades[36] > 0.5) {globalCrystalMultiplier = globalCrystalMultiplier.times(Decimal.min("1e5000", Decimal.pow(player.prestigePoints, 1/500)))}
 if (player.upgrades[63] > 0.5) {globalCrystalMultiplier = globalCrystalMultiplier.times(Decimal.pow(player.reincarnationPoints.add(1),6))}
 if (player.researches[39] > 0.5) {globalCrystalMultiplier = globalCrystalMultiplier.times(Decimal.pow(reincarnationMultiplier, 1/50))}
 
@@ -1008,97 +1828,110 @@ globalCrystalMultiplier = globalCrystalMultiplier.times(Decimal.pow(1.05, player
 	mythosupgrade13 = new Decimal(1);
 	mythosupgrade14 = new Decimal(1);
 	mythosupgrade15 = new Decimal(1);
-	if (player.upgrades[53] == 1){mythosupgrade13 = mythosupgrade13.times(Decimal.pow(acceleratorEffect, 1/500))}
-	if (player.upgrades[54] == 1){mythosupgrade14 = mythosupgrade14.times(Decimal.pow(multiplierEffect, 1/180))}
-	if (player.upgrades[55] == 1){mythosupgrade15 = mythosupgrade15.times(Decimal.pow("1e1000", buildingPower - 1))}
+	if (player.upgrades[53] == 1){mythosupgrade13 = mythosupgrade13.times(Decimal.min("1e1250", Decimal.pow(acceleratorEffect, 1/125)))};
+	if (player.upgrades[54] == 1){mythosupgrade14 = mythosupgrade14.times(Decimal.min("1e2000", Decimal.pow(multiplierEffect, 1/180)))};
+	if (player.upgrades[55] == 1){mythosupgrade15 = mythosupgrade15.times(Decimal.pow("1e1000", buildingPower - 1))};
 }
-
-// Decide production values for resourceGain() and for generation in updateAll() [Lines 901 - 924]
-
-function coinProduction() {
-
-
-
-	produceFirst = (player.firstGeneratedCoin.add(player.firstOwnedCoin)).times(globalCoinMultiplier).times(coinOneMulti).times(player.firstProduceCoin).dividedBy(taxdivisor);
-	produceSecond = (player.secondGeneratedCoin.add(player.secondOwnedCoin)).times(globalCoinMultiplier).times(coinTwoMulti).times(player.secondProduceCoin).dividedBy(taxdivisor);
-	produceThird = (player.thirdGeneratedCoin.add(player.thirdOwnedCoin)).times(globalCoinMultiplier).times(coinThreeMulti).times(player.thirdProduceCoin).dividedBy(taxdivisor);
-	produceFourth = (player.fourthGeneratedCoin.add(player.fourthOwnedCoin)).times(globalCoinMultiplier).times(coinFourMulti).times(player.fourthProduceCoin).dividedBy(taxdivisor);
-	produceFifth = (player.fifthGeneratedCoin.add(player.fifthOwnedCoin)).times(globalCoinMultiplier).times(coinFiveMulti).times(player.fifthProduceCoin).dividedBy(taxdivisor);
-	produceTotal = produceFirst.add(produceSecond).add(produceThird).add(produceFourth).add(produceFifth);
-
-	if (produceFirst.lessThanOrEqualTo(.0001)) {produceFirst = new Decimal(0)}
-	if (produceSecond.lessThanOrEqualTo(.0001)) {produceSecond = new Decimal(0)}
-	if (produceThird.lessThanOrEqualTo(.0001)) {produceThird = new Decimal(0)}
-	if (produceFourth.lessThanOrEqualTo(.0001)) {produceFourth = new Decimal(0)}
-	if (produceFifth.lessThanOrEqualTo(.0001)) {produceFifth = new Decimal(0)}
-
-	producePerSecond = produceTotal.times(40);
-	}
-
-function mythosProduction() {
-	produceMythos = (player.firstGeneratedMythos.add(player.firstOwnedMythos)).times(globalMythosMultiplier);
-	producePerSecondMythos = produceMythos.times(40);
-	}
-
-function particlesProduction() {
-	var a = new Decimal(1);
-	if (player.upgrades[67] > 0.5) {a = Decimal.pow(1.03, player.firstOwnedParticles + player.secondOwnedParticles + player.thirdOwnedParticles + player.fourthOwnedParticles + player.fifthOwnedParticles)}
-	produceParticles = new Decimal("0");
-
-	produceParticles = (player.firstGeneratedParticles.add(player.firstOwnedParticles)).times(player.firstProduceParticles).times(a);
-	producePerSecondParticles = produceParticles.times(40);
-
-	}
 
  // Function that adds to resources each tick. [Lines 928 - 989]
 
-function resourceGain(){
-		calculatetax();
+function resourceGain(dt){
 		updateAllTick();
 		updateAllMultiplier();
 		multipliers();
-		coinProduction();
+		calculatetax();
 		if (produceTotal.greaterThanOrEqualTo(0.001)) {
-		player.coins = player.coins.add(produceTotal);
-		player.coinsThisPrestige = player.coinsThisPrestige.add(produceTotal);
-		player.coinsThisTranscension = player.coinsThisTranscension.add(produceTotal);
-		player.coinsThisReincarnation = player.coinsThisReincarnation.add(produceTotal);
-		player.coinsTotal = player.coinsTotal.add(produceTotal)
+			var addcoin = new Decimal.min(produceTotal.dividedBy(taxdivisor), Decimal.pow(10, maxexponent - Decimal.log(taxdivisorcheck , 10)))
+		player.coins = player.coins.add(addcoin.times(dt/0.025));
+		player.coinsThisPrestige = player.coinsThisPrestige.add(addcoin.times(dt/0.025));
+		player.coinsThisTranscension = player.coinsThisTranscension.add(addcoin.times(dt/0.025));
+		player.coinsThisReincarnation = player.coinsThisReincarnation.add(addcoin.times(dt/0.025));
+		player.coinsTotal = player.coinsTotal.add(addcoin.times(dt/0.025))
 		}
+
 		resetCurrency();
 		if (player.upgrades[93] == 1 && player.coinsThisPrestige.greaterThanOrEqualTo(1e16)) {
-			player.prestigePoints = player.prestigePoints.add(Decimal.floor(prestigePointGain.dividedBy(4000)))
+			player.prestigePoints = player.prestigePoints.add(Decimal.floor(prestigePointGain.dividedBy(4000).times(dt/0.025)))
 		}
 		if (player.upgrades[100] == 1 && player.coinsThisTranscension.greaterThanOrEqualTo(1e100)) {
-			player.transcendPoints = player.transcendPoints.add(Decimal.floor(transcendPointGain.dividedBy(4000)))
+			player.transcendPoints = player.transcendPoints.add(Decimal.floor(transcendPointGain.dividedBy(4000).times(dt/0.025)))
 		}
+
+		produceFirstDiamonds = player.firstGeneratedDiamonds.add(player.firstOwnedDiamonds).times(player.firstProduceDiamonds).times(globalCrystalMultiplier)
+		produceSecondDiamonds = player.secondGeneratedDiamonds.add(player.secondOwnedDiamonds).times(player.secondProduceDiamonds).times(globalCrystalMultiplier)
+		produceThirdDiamonds = player.thirdGeneratedDiamonds.add(player.thirdOwnedDiamonds).times(player.thirdProduceDiamonds).times(globalCrystalMultiplier)
+		produceFourthDiamonds = player.fourthGeneratedDiamonds.add(player.fourthOwnedDiamonds).times(player.fourthProduceDiamonds).times(globalCrystalMultiplier)
+		produceFifthDiamonds = player.fifthGeneratedDiamonds.add(player.fifthOwnedDiamonds).times(player.fifthProduceDiamonds).times(globalCrystalMultiplier)
 	
+		player.fourthGeneratedDiamonds = player.fourthGeneratedDiamonds.add(produceFifthDiamonds.times(dt/0.025))
+		player.thirdGeneratedDiamonds = player.thirdGeneratedDiamonds.add(produceFourthDiamonds.times(dt/0.025))
+		player.secondGeneratedDiamonds = player.secondGeneratedDiamonds.add(produceThirdDiamonds.times(dt/0.025))
+		player.firstGeneratedDiamonds = player.firstGeneratedDiamonds.add(produceSecondDiamonds.times(dt/0.025))
+		produceDiamonds = produceFirstDiamonds;    
+		
 		if (player.currentChallenge !== "three") {
-			player.transcendShards = player.transcendShards.add(produceMythos);
-		}		
-	
-	player.reincarnationShards = player.reincarnationShards.add(produceParticles);
-
-
-		if (player.researches[71] > 0.5 && player.challengecompletions.one < (25 + player.researches[66]) && player.coins.greaterThanOrEqualTo(Decimal.pow(10, 2 * challengebaserequirements.one * Math.pow(1 + player.challengecompletions.one, 2)))) {
-			player.challengecompletions.one += 1;
-			challengeDisplay(1,false)
+		player.prestigeShards = player.prestigeShards.add(produceDiamonds.times(dt/0.025))
 		}
-		if (player.researches[72] > 0.5 && player.challengecompletions.two < (25 + player.researches[67]) && player.coins.greaterThanOrEqualTo(Decimal.pow(10, 2.72 * challengebaserequirements.two * Math.pow(1 + player.challengecompletions.two, 2)))) {
+
+		produceFifthMythos = player.fifthGeneratedMythos.add(player.fifthOwnedMythos).times(player.fifthProduceMythos).times(globalMythosMultiplier).times(grandmasterMultiplier).times(mythosupgrade15)
+		produceFourthMythos = player.fourthGeneratedMythos.add(player.fourthOwnedMythos).times(player.fourthProduceMythos).times(globalMythosMultiplier)
+		produceThirdMythos = player.thirdGeneratedMythos.add(player.thirdOwnedMythos).times(player.thirdProduceMythos).times(globalMythosMultiplier).times(mythosupgrade14)
+		produceSecondMythos = player.secondGeneratedMythos.add(player.secondOwnedMythos).times(player.secondProduceMythos).times(globalMythosMultiplier)
+		produceFirstMythos =  player.firstGeneratedMythos.add(player.firstOwnedMythos).times(player.firstProduceMythos).times(globalMythosMultiplier).times(mythosupgrade13)
+		player.fourthGeneratedMythos = player.fourthGeneratedMythos.add(produceFifthMythos.times(dt/0.025));
+		player.thirdGeneratedMythos = player.thirdGeneratedMythos.add(produceFourthMythos.times(dt/0.025));
+		player.secondGeneratedMythos = player.secondGeneratedMythos.add(produceThirdMythos.times(dt/0.025));
+		player.firstGeneratedMythos = player.firstGeneratedMythos.add(produceSecondMythos.times(dt/0.025));
+
+		
+		produceMythos = new Decimal("0");
+		produceMythos = (player.firstGeneratedMythos.add(player.firstOwnedMythos)).times(player.firstProduceMythos).times(globalMythosMultiplier).times(mythosupgrade13);
+		producePerSecondMythos = produceMythos.times(40);
+
+		var pm = new Decimal('1');
+		if (player.upgrades[67] > 0.5) {pm = pm.times(Decimal.pow(1.03, player.firstOwnedParticles + player.secondOwnedParticles + player.thirdOwnedParticles + player.fourthOwnedParticles + player.fifthOwnedParticles))}
+		produceFifthParticles = player.fifthGeneratedParticles.add(player.fifthOwnedParticles).times(player.fifthProduceParticles)
+        produceFourthParticles = player.fourthGeneratedParticles.add(player.fourthOwnedParticles).times(player.fourthProduceParticles)
+        produceThirdParticles = player.thirdGeneratedParticles.add(player.thirdOwnedParticles).times(player.thirdProduceParticles)
+        produceSecondParticles = player.secondGeneratedParticles.add(player.secondOwnedParticles).times(player.secondProduceParticles)
+        produceFirstParticles =  player.firstGeneratedParticles.add(player.firstOwnedParticles).times(player.firstProduceParticles).times(pm)
+		player.fourthGeneratedParticles = player.fourthGeneratedParticles.add(produceFifthParticles.times(dt/0.025));
+		player.thirdGeneratedParticles = player.thirdGeneratedParticles.add(produceFourthParticles.times(dt/0.025));
+		player.secondGeneratedParticles = player.secondGeneratedParticles.add(produceThirdParticles.times(dt/0.025));
+		player.firstGeneratedParticles = player.firstGeneratedParticles.add(produceSecondParticles.times(dt/0.025));
+
+		  produceParticles = new Decimal("0");
+		  produceParticles = (player.firstGeneratedParticles.add(player.firstOwnedParticles)).times(player.firstProduceParticles).times(pm);
+		  producePerSecondParticles = produceParticles.times(40);
+
+		if (player.currentChallenge !== "three") {player.transcendShards = player.transcendShards.add(produceMythos.times(dt/0.025));}
+		player.reincarnationShards = player.reincarnationShards.add(produceParticles.times(dt/0.025));
+
+
+		if (player.researches[71] > 0.5 && player.challengecompletions.one < (Math.min(player.highestchallengecompletions.one, 25 + player.researches[66])) && player.coins.greaterThanOrEqualTo(Decimal.pow(10, 1.25 * challengebaserequirements.one * Math.pow(1 + player.challengecompletions.one, 2)))) {
+			player.challengecompletions.one += 1;		
+			challengeDisplay(1,false,true);
+			challengeachievementcheck('one',true)
+		}
+		if (player.researches[72] > 0.5 && player.challengecompletions.two < (Math.min(player.highestchallengecompletions.two, 25 + player.researches[66])) && player.coins.greaterThanOrEqualTo(Decimal.pow(10, 1.6 * challengebaserequirements.two * Math.pow(1 + player.challengecompletions.two, 2)))) {
 			player.challengecompletions.two += 1
-			challengeDisplay(2,false)
+			challengeDisplay(2,false,true)
+			challengeachievementcheck('two',true)
 		}
-		if (player.researches[73] > 0.5 && player.challengecompletions.three < (25 + player.researches[68]) && player.coins.greaterThanOrEqualTo(Decimal.pow(10, 2.5 * challengebaserequirements.three * Math.pow(1 + player.challengecompletions.three, 2)))) {
+		if (player.researches[73] > 0.5 && player.challengecompletions.three < (Math.min(player.highestchallengecompletions.three, 25 + player.researches[66])) && player.coins.greaterThanOrEqualTo(Decimal.pow(10, 1.7 * challengebaserequirements.three * Math.pow(1 + player.challengecompletions.three, 2)))) {
 			player.challengecompletions.three += 1
-			challengeDisplay(3,false)
+			challengeDisplay(3,false,true)
+			challengeachievementcheck('three',true)
 		}
-		if (player.researches[74] > 0.5 && player.challengecompletions.four < (25 + player.researches[69]) && player.coins.greaterThanOrEqualTo(Decimal.pow(10, 2.25 * challengebaserequirements.four * Math.pow(1 + player.challengecompletions.four, 2)))) {
+		if (player.researches[74] > 0.5 && player.challengecompletions.four < (Math.min(player.highestchallengecompletions.four, 25 + player.researches[66])) && player.coins.greaterThanOrEqualTo(Decimal.pow(10, 1.45 * challengebaserequirements.four * Math.pow(1 + player.challengecompletions.four, 2)))) {
 			player.challengecompletions.four += 1
-			challengeDisplay(4,false)
+			challengeDisplay(4,false,true)
+			challengeachievementcheck('four',true)
 		}
-		if (player.researches[75] > 0.5 && player.challengecompletions.five < (25 + player.researches[70]) && player.coins.greaterThanOrEqualTo(Decimal.pow(10, 2.4 * challengebaserequirements.five * Math.pow(1 + player.challengecompletions.five, 2)))) {
+		if (player.researches[75] > 0.5 && player.challengecompletions.five < (Math.min(player.highestchallengecompletions.five, 25 + player.researches[66])) && player.coins.greaterThanOrEqualTo(Decimal.pow(10, 2 * challengebaserequirements.five * Math.pow(1 + player.challengecompletions.five, 2)))) {
 			player.challengecompletions.five += 1
-			challengeDisplay(5,false)
+			challengeDisplay(5,false,true)
+			challengeachievementcheck('five',true)
 		}
 
 		if (player.coins.greaterThanOrEqualTo(1000) && player.unlocks.coinone == false) {
@@ -1118,327 +1951,6 @@ function resourceGain(){
 			revealStuff();
 		}
 		htmlInserts();
-	}
-
-	// Toggle Functions [Lines 993 - 1013]
-
-function toggleTabs(i) {
-		currentTab = i;
-		hideStuff();
-	}
-
-function toggleSettings(i) {
-		if (player.toggles[cardinals[i]] == true) {
-			player.toggles[cardinals[i]] = false
-		}
-		else {player.toggles[cardinals[i]] = true}
-		toggleauto();
-	}
-
-function toggleChallenges(i) {
-	if (player.currentChallenge == "" && (i == 'one' || i == 'two' || i == 'three' || i == 'four' || i == 'five')) {
-		player.currentChallenge = i;
-		reset(2);
-		player.transcendCount -= 1;
-	}
-	if (player.currentChallenge == "" && (i == 'six' || i == 'seven')) {
-		player.currentChallengeRein = i;
-		reset(3);
-		player.reincarnationCount -= 1;
-	}
-		var x = ""
-		var y = ""
-		if (player.currentChallengeRein == 'six') {x = " || TAX+ [Reincarnation]"}
-		if (player.currentChallengeRein == 'seven') {x = " || MULTIPLIER/ACCELERATOR-- [Reincarnation]"}
-		if (player.currentChallengeRein !== "" && player.currentChallenge !== "") { y = "s"}
-		if (i == player.currentChallenge || i == player.currentChallengeRein){
-		if (i == 'one'){document.getElementById("currentchallenge").textContent = "Current Challenge" + y + ": No Multipliers [Transcension]" + x}
-		if (i == 'two'){document.getElementById("currentchallenge").textContent = "Current Challenge" + y + ": No Accelerators [Transcension]" + x}
-		if (i == 'three'){document.getElementById("currentchallenge").textContent = "Current Challenge" + y + ": No Shards [Transcension]" + x}
-		if (i == 'four'){document.getElementById("currentchallenge").textContent = "Current Challenge" + y + ": Fast Cost Growth [Transcension]" + x}
-		if (i == 'five'){document.getElementById("currentchallenge").textContent = "Current Challenge" + y + ": Reduced Diamonds [Transcension]" + x}
-		if (i !== 'one' && i !== 'two' && i !== 'three' && i !== 'four' && i !== 'five') {document.getElementById("currentchallenge").textContent = "Current Challenge: None [Transcension]" + x}
-		}
-	}
-
-
-function toggleBuyAmount(quantity, type) {
-	player[type + 'buyamount'] = quantity 
-	if (quantity == 1) {var a = "one"}
-	if (quantity == 10) {var a = "ten"}
-	if (quantity == 100) {var a = "hundred"}
-
-	
-	var c = type + a
-	var d = ""
-	 d = d + c
-
-	document.getElementById(d).style.backgroundColor = "Green";
-	if (quantity !== 1) {
-		a = "one"
-		d = type + a
-		document.getElementById(d).style.backgroundColor = "Black"
-	}
-	if (quantity !== 10) {
-		a = "ten"
-		d = type + a
-		document.getElementById(d).style.backgroundColor = "Black"
-	}
-	if (quantity !== 100) {
-		a = "hundred"
-		d = type + a
-		document.getElementById(d).style.backgroundColor = "Black"
-	}
-} 
-
-function toggleShops(i) {
-	if (i==1 && player.shoptoggles.coin == false) {player.shoptoggles.coin = true; document.getElementById("shoptogglecoin").textContent = "Auto: ON"} else if (i == 1 && player.shoptoggles.coin == true) {player.shoptoggles.coin = false; document.getElementById("shoptogglecoin").textContent = "Auto: OFF"}
-	if (i==2 && player.shoptoggles.prestige == false) {player.shoptoggles.prestige = true; document.getElementById("shoptoggleprestige").textContent = "Auto: ON"} else if (i == 2 && player.shoptoggles.prestige == true) {player.shoptoggles.prestige = false; document.getElementById("shoptoggleprestige").textContent = "Auto: OFF"}
-	if (i==3 && player.shoptoggles.transcend == false) {player.shoptoggles.transcend = true; document.getElementById("shoptoggletranscend").textContent = "Auto: ON"} else if (i == 3 && player.shoptoggles.transcend == true) {player.shoptoggles.transcend = false; document.getElementById("shoptoggletranscend").textContent = "Auto: OFF"}
-	if (i==4 && player.shoptoggles.generators == false) {player.shoptoggles.generators = true; document.getElementById("shoptogglegenerator").textContent = "Auto: ON"} else if (i == 4 && player.shoptoggles.generators == true) {player.shoptoggles.generators = false; document.getElementById("shoptogglegenerator").textContent = "Auto: OFF"}
-
-}
-
-function keyboardtabchange(i) {
-	var q = 3;
-	if (player.unlocks.coinfour == true) {q += 1}
-	if (player.unlocks.prestige == true) {q += 2}
-	if (player.unlocks.transcend == true) {q += 2}
-	if (player.unlocks.reincarnate == true) {q += 2}
-	player.tabnumber += i
-	if (player.tabnumber == q) {player.tabnumber = 1}
-	if (player.tabnumber == 0) {player.tabnumber = q - 1}
-
-	if (player.tabnumber == 1) {toggleTabs("buildings")}
-	if (player.tabnumber == 2) {toggleTabs("upgrades")}
-	if (player.tabnumber == 3) {toggleTabs("achievements")}
-	if (player.tabnumber == 4) {toggleTabs("prestige")}
-	if (player.tabnumber == 5) {toggleTabs("runes")}
-	if (player.tabnumber == 6) {toggleTabs("transcension")}
-	if (player.tabnumber == 7) {toggleTabs("challenges")}
-	if (player.tabnumber == 8) {toggleTabs("reincarnation")}
-	if (player.tabnumber == 9) {toggleTabs("researches")}
-
-	
-
-}
-
-	// Buy Automation and Generation Functions [Lines 1017 - 1123]
-
-function buyAutobuyers(i, state) {
-		var q = i + 80
-		var type = ""
-		if (q <= 87) {type = "prestigePoints"}
-		else if (q <= 93) {type  = "transcendPoints"}
-		else {type = "reincarnationPoints"}
-
-		var cost = Decimal.pow(10, upgradeCosts[q])
-		if (player[type].greaterThanOrEqualTo(cost) && player.upgrades[q] == 0) {
-			player[type] = player[type].sub(cost);
-			player.upgrades[q] = 1;
-			upgradeupdate(q, state);
-		}
-	}
-	
-
-	
-//Buy Accelerators, Multipliers, and Buildings. Also buy Upgrades, A. Boosts & Research Here [Lines 1127 - 1244]
-
-function buyAccelerator(){
-	for(player.acceleratorCost; player.coins.greaterThanOrEqualTo(player.acceleratorCost);) {
-
-		player.coins = player.coins.sub(player.acceleratorCost);
-		player.acceleratorCost = player.acceleratorCost.times(4);
-		player.acceleratorCost = player.acceleratorCost.dividedBy(costDivisor);
-		player.acceleratorBought += 1;
-	
-		if (player.acceleratorBought > (125 + 5 * player.challengecompletions.four)){
-		player.acceleratorCost = player.acceleratorCost.times(4 * player.acceleratorBought - (500 + 20 * player.challengecompletions.four))
-		}
-		if (player.acceleratorBought > (2000 + 5 * player.challengecompletions.four)){
-		player.acceleratorCost = player.acceleratorCost.times(Decimal.pow(2, player.acceleratorBought - (2000 + 5 * player.challengecompletions.four)))
-		}
-
-		if (player.currentChallenge == "four") {
-		player.acceleratorCost = player.acceleratorCost.times(Decimal.pow(10, player.acceleratorBought))
-		}
-	}
-		player.prestigenoaccelerator = false;
-		player.transcendnoaccelerator = false;
-		player.reincarnatenoaccelerator = false;
-		updateAllTick();
-	}
-
-function buyMultiplier(){
-	for(player.multiplierCost; player.coins.greaterThanOrEqualTo(player.multiplierCost);) {
-		player.coins = player.coins.sub(player.multiplierCost);
-		player.multiplierBought += 1;
-		player.multiplierCost = player.multiplierCost.times(10);
-		player.multiplierCost = player.multiplierCost.dividedBy(costDivisor);
-
-		if (player.multiplierBought > (75 + 2 * player.challengecompletions.four)){
-		player.multiplierCost = player.multiplierCost.times(10 * player.multiplierBought - (750 + 20 * player.challengecompletions.four))
-		}
-		if (player.multiplierBought > (2000 + 2 * player.challengecompletions.four)){
-		player.multiplierCost = player.multiplierCost.times(Decimal.pow(2, player.multiplierBought - (2000 + 2 * player.challengecompletions.four)))
-		}
-		if (player.currentChallenge == "four") {
-		player.multiplierCost = player.multiplierCost.times(Decimal.pow(10, player.multiplierBought))
-		}
-		
-	}
-		player.prestigenomultiplier = false;
-		player.transcendnomultiplier = false;
-		player.reincarnatenomultiplier = false;
-
-		updateAllMultiplier();
-	}
-	
-function buyProducer(pos, type, num) {
-	var r = 1;
-	r += 1/400 * player.runelevels[3]
-	r += 1/200 * (player.researches[56] + player.researches[57] + player.researches[58] + player.researches[59] + player.researches[60])
-	r += 1/100 * player.challengecompletions.seven
-	if (type == 'Diamonds'){var tag = "prestigePoints"; var amounttype = "crystal"}
-	if (type == 'Mythos'){var tag = "transcendPoints"; var amounttype = "mythos"}
-	if (type == 'Particles') {var tag = "reincarnationPoints"; var amounttype = "particle"}
-	if (type == "Coin") {var tag = "coins"; var amounttype = "coin"}
-		while(player[tag].greaterThanOrEqualTo(player[pos + 'Cost' + type]) && ticker < player[amounttype + 'buyamount']) {
-			player[tag] = player[tag].sub(player[pos + 'Cost' + type]);
-			player[pos + 'Owned' + type] += 1;
-			player[pos + 'Cost' + type] = player[pos + 'Cost' + type].times(Decimal.pow(1.25, num));
-			player[pos + 'Cost' + type] = player[pos + 'Cost' + type].add(1);
-			if (player[pos + 'Owned' + type] >= (1000 * r)){
-			player[pos + 'Cost' + type] = player[pos + 'Cost' + type].times(player[pos + 'Owned' + type]).dividedBy(1000).times(1 + num/2);
-			}
-			if (player[pos + 'Owned' + type] >= (5000 * r)){
-			player[pos + 'Cost' + type] = player[pos + 'Cost' + type].times(player[pos + 'Owned' + type]).times(10).times(10 + num * 10);
-			 }  
-			if (player[pos + 'Owned' + type] >= (20000 * r)){
-			player[pos + 'Cost' + type] = player[pos + 'Cost' + type].times(Decimal.pow(player[pos + 'Owned' + type], 3)).times(100000).times(100 + num * 100)  
-			 }
-			if (player.currentChallenge == "four" && (type == "Coin" || type == "Diamonds")) {
-				 player[pos + 'Cost' + type] = player[pos + 'Cost' + type].times(Math.pow(100 * player[pos + 'Owned' + type] + 10000, 1.25 + 1/4 * player.challengecompletions.four));
-				 if (player[pos + 'Owned' + type] >= 1000 - (10 * player.challengecompletions.four)) {
-					player[pos + 'Cost' + type] = player[pos + 'Cost' + type].times(Decimal.pow(1.25, player[pos + 'Owned' + type]));
-				 }
-				 }
-				 ticker += 1;
-			 }
-			 ticker = 0;
-			if (player.firstOwnedCoin >= 1 && player.achievements[1] < 0.5) {achievementaward(1)}
-			if (player.firstOwnedCoin >= 10 && player.achievements[2] < 0.5) {achievementaward(2)}
-			if (player.firstOwnedCoin >= 100 && player.achievements[3] < 0.5) {achievementaward(3)}
-			if (player.firstOwnedCoin >= 1000 && player.achievements[4] < 0.5) {achievementaward(4)}
-			if (player.firstOwnedCoin >= 5000 && player.achievements[5] < 0.5) {achievementaward(5)}
-			if (player.firstOwnedCoin >= 10000 && player.achievements[6] < 0.5) {achievementaward(6)}
-			if (player.firstOwnedCoin >= 20000 && player.achievements[7] < 0.5) {achievementaward(7)}
-			if (player.secondOwnedCoin >= 1 && player.achievements[8] < 0.5) {achievementaward(8)}
-            if (player.secondOwnedCoin >= 10 && player.achievements[9] < 0.5) {achievementaward(9)}
-            if (player.secondOwnedCoin >= 100 && player.achievements[10] < 0.5) {achievementaward(10)}
-            if (player.secondOwnedCoin >= 1000 && player.achievements[11] < 0.5) {achievementaward(11)}
-            if (player.secondOwnedCoin >= 5000 && player.achievements[12] < 0.5) {achievementaward(12)}
-            if (player.secondOwnedCoin >= 10000 && player.achievements[13] < 0.5) {achievementaward(13)}
-			if (player.secondOwnedCoin >= 20000 && player.achievements[14] < 0.5) {achievementaward(14)}
-			if (player.thirdOwnedCoin >= 1 && player.achievements[15] < 0.5) {achievementaward(15)}
-            if (player.thirdOwnedCoin >= 10 && player.achievements[16] < 0.5) {achievementaward(16)}
-            if (player.thirdOwnedCoin >= 100 && player.achievements[17] < 0.5) {achievementaward(17)}
-            if (player.thirdOwnedCoin >= 1000 && player.achievements[18] < 0.5) {achievementaward(18)}
-            if (player.thirdOwnedCoin >= 5000 && player.achievements[19] < 0.5) {achievementaward(19)}
-            if (player.thirdOwnedCoin >= 10000 && player.achievements[20] < 0.5) {achievementaward(20)}
-			if (player.thirdOwnedCoin >= 20000 && player.achievements[21] < 0.5) {achievementaward(21)}
-			if (player.fourthOwnedCoin >= 1 && player.achievements[22] < 0.5) {achievementaward(22)}
-            if (player.fourthOwnedCoin >= 10 && player.achievements[23] < 0.5) {achievementaward(23)}
-            if (player.fourthOwnedCoin >= 100 && player.achievements[24] < 0.5) {achievementaward(24)}
-            if (player.fourthOwnedCoin >= 1000 && player.achievements[25] < 0.5) {achievementaward(25)}
-            if (player.fourthOwnedCoin >= 5000 && player.achievements[26] < 0.5) {achievementaward(26)}
-            if (player.fourthOwnedCoin >= 10000 && player.achievements[27] < 0.5) {achievementaward(27)}
-			if (player.fourthOwnedCoin >= 20000 && player.achievements[28] < 0.5) {achievementaward(28)}
-			if (player.fifthOwnedCoin >= 1 && player.achievements[29] < 0.5) {achievementaward(29)}
-            if (player.fifthOwnedCoin >= 10 && player.achievements[30] < 0.5) {achievementaward(30)}
-            if (player.fifthOwnedCoin >= 66 && player.achievements[31] < 0.5) {achievementaward(31)}
-            if (player.fifthOwnedCoin >= 666 && player.achievements[32] < 0.5) {achievementaward(32)}
-            if (player.fifthOwnedCoin >= 6666 && player.achievements[33] < 0.5) {achievementaward(33)}
-            if (player.fifthOwnedCoin >= 17777 && player.achievements[34] < 0.5) {achievementaward(34)}
-			if (player.fifthOwnedCoin >= 42777 && player.achievements[35] < 0.5) {achievementaward(35)}
-	}
-
-function buyResearch(index) {
-		if (player.researches[index] < researchMaxLevels[index] && player.researchPoints >= (researchBaseCosts[index])) {
-			player.researchPoints -= researchBaseCosts[index]
-			player.researches[index] += 1;
-			researchfiller2 = "Level: " + player.researches[index] + "/" + researchMaxLevels[index]
-			researchdescriptions(index)
-
-			if (index == 47 && player.unlocks.rrow1 == false) {player.unlocks.rrow1 = true; revealStuff()}
-			if (index == 48 && player.unlocks.rrow2 == false) {player.unlocks.rrow2 = true; revealStuff()}
-			if (index == 49 && player.unlocks.rrow3 == false) {player.unlocks.rrow3 = true; revealStuff()}
-			if (index == 50 && player.unlocks.rrow4 == false) {player.unlocks.rrow4 = true; revealStuff()}
-
-        }
-    }
-
-function buyUpgrades(type, pos, state) {
-		var addendum = ""
-		if (type == "prestige" || type == "transcend" || type == "reincarnation") {
-			addendum = "Point"
-		} 		
-		if (player[type + addendum + 's'].greaterThanOrEqualTo(Decimal.pow(10, upgradeCosts[pos])) && player.upgrades[pos] < 0.5) {
-			player[type + addendum + 's'] = player[type + addendum + 's'].sub(Decimal.pow(10, upgradeCosts[pos]))
-			player.upgrades[pos] = 1;
-			upgradeupdate(pos, state)
-		}
-
-		if (type == "transcend") {
-			player.reincarnatenocoinprestigeortranscendupgrades = false;
-			player.reincarnatenocoinprestigetranscendorgeneratorupgrades = false;
-		}
-		if (type == "prestige") {
-			player.transcendnocoinorprestigeupgrades = false;
-			player.reincarnatenocoinorprestigeupgrades = false;
-			player.reincarnatenocoinprestigeortranscendupgrades = false;
-			player.reincarnatenocoinprestigetranscendorgeneratorupgrades = false;
-		}
-		if (type == "coin") {
-			player.prestigenocoinupgrades = false;
-			player.transcendnocoinupgrades = false;
-			player.transcendnocoinorprestigeupgrades = false;
-			player.reincarnatenocoinupgrades = false;
-			player.reincarnatenocoinorprestigeupgrades = false;
-			player.reincarnatenocoinprestigeortranscendupgrades = false;
-			player.reincarnatenocoinprestigetranscendorgeneratorupgrades = false;
-		}
-
-	}
-	
-function buyCrystalUpgrades(i) {
-	var u = i - 1
-	var c = 0
-	c += Math.floor(player.runelevels[2]/10 * (1 + player.researches[5] /10) * (1 + player.researches[21]/800)) * 100/100
-	if (player.upgrades[73] > 0.5 && player.currentChallengeRein !== "") {c += 10}
-	if (player.prestigeShards.greaterThanOrEqualTo(Decimal.pow(10, (crystalUpgradesCost[u] + crystalUpgradeCostIncrement[u] * Math.floor(Math.pow(player.crystalUpgrades[u] + 0.5 - c, 2) /2))))) {
-		player.prestigeShards = player.prestigeShards.sub(Decimal.pow(10, (crystalUpgradesCost[u] + crystalUpgradeCostIncrement[u] * Math.floor(Math.pow(player.crystalUpgrades[u] + 0.5 -c, 2)/2))));
-		player.crystalUpgrades[u] += 1;
-
-	}
-	crystalupgradedescriptions(i)
-}	
-function boostAccelerator() {
-				if (player.prestigePoints.greaterThanOrEqualTo(player.acceleratorBoostCost)) {
-					player.acceleratorBoostBought += 1;
-					player.acceleratorBoostCost = player.acceleratorBoostCost.times(1e10).times(Decimal.pow(10, player.acceleratorBoostBought));
-					if (player.acceleratorBoostBought > 1000) {player.acceleratorBoostCost = player.acceleratorBoostCost.times(Decimal.pow(10, Math.pow(player.acceleratorBoostBought - 1000, 2)))}
-					player.transcendnoaccelerator = false;
-					player.reincarnatenoaccelerator = false;
-					if (player.upgrades[46] < 0.5) {
-						var j
-						for (j = 21; j < 41; j++) {
-							player.upgrades[j] = 0;
-						}
-						reset(1);
-						player.prestigePoints = new Decimal(0);
-					}
-				}
 	}
 
 	//===================================================================
@@ -1462,58 +1974,84 @@ function resetCurrency() {
 	}
 
 	reincarnationPointGain = Decimal.floor(Decimal.pow(player.transcendShards.dividedBy(1e300), 0.01));
+	if (player.achievements[50] == 1){reincarnationPointGain = reincarnationPointGain.times(2)}
 	if (player.upgrades[65] > 0.5) {reincarnationPointGain = reincarnationPointGain.times(5)}
 	}
 
-function resetCheck(i) {
+function resetCheck(i,manual=true) {
 	if (i == 'prestige') {
 		if (player.coinsThisPrestige.greaterThanOrEqualTo(1e16) || prestigePointGain.greaterThanOrEqualTo(100)) {
-			resetConfirmation('prestige')
+			if (manual) {
+			resetConfirmation('prestige');
+			}
+			if (!manual) {
+			resetachievementcheck(1)
+			reset(1);
+			}
 		}
 		else {}
 	}
 	if (i == 'transcend') {
 		if ((player.coinsThisTranscension.greaterThanOrEqualTo(1e100) || transcendPointGain.greaterThanOrEqualTo(0.5)) && player.currentChallenge == "") {
-			resetConfirmation('transcend')
+			if (manual) {
+			resetConfirmation('transcend');
+			}
+			if (!manual) {
+			resetachievementcheck(2)
+			reset(2);
+			}
 		}
 	}
 	if (i == 'challenge') {
-		if (player.currentChallenge !== "") {
-			var q = player.currentChallenge;
+		var q = player.currentChallenge;
 			var x = 0
 			if (q == "one") {x = 66}
 			if (q == "two") {x = 67}
 			if (q == "three") {x = 68}
 			if (q == "four") {x = 69}
 			if (q == "five") {x = 70} 
+		if (player.currentChallenge !== "") {
+		
 			if (player.coinsThisTranscension.greaterThanOrEqualTo(Decimal.pow(10, challengebaserequirements[q] * Math.pow(1 + player.challengecompletions[q], 2))) && player.challengecompletions[q] < (25 + player.researches[x])) {
 			player.challengecompletions[q] += 1;
 			var y = x - 65
-			challengeDisplay(y,false)
+			challengeDisplay(y,true)
 			}
 			if (player.challengecompletions[q] > player.highestchallengecompletions[q]) {
 				player.highestchallengecompletions[q] += 1;
+				var y = x - 65;
+				challengeDisplay(y,true)
 				player.worlds += (1 + Math.floor(player.highestchallengecompletions[q]/10)) * 100/100}
 				if (q == "one"){kongregate.stats.submit("challengeone", player.highestchallengecompletions[q])}
 				if (q == "two"){kongregate.stats.submit("challengetwo", player.highestchallengecompletions[q])}
 				if (q == "three"){kongregate.stats.submit("challengethree", player.highestchallengecompletions[q])}
 				if (q == "four"){kongregate.stats.submit("challengefour", player.highestchallengecompletions[q])}
 				if (q == "five"){kongregate.stats.submit("challengefive", player.highestchallengecompletions[q])}
-			}
+			
 			challengeachievementcheck(q)
 			reset(2);
+			}
+			if (!player.retrychallenges || manual  || player.challengecompletions[q] >= (25 + player.researches[x])) {
 			player.currentChallenge = ""
+			}
 			var p = ""
 			if (player.currentChallengeRein == "six") {p = " || TAX+ [Reincarnation]"}
 			if (player.currentChallengeRein == "seven") {p = " || MULTIPLIER/ACCELERATOR-- [Reincarnation]"}
-			document.getElementById("currentchallenge").textContent = "Current Challenge: None [Trasncension]" + p
-			player.transcendCount -= 1;
+			if (!player.retrychallenges || manual || player.challengecompletions[q] >= (25 + player.researches[x])) {
+			document.getElementById("currentchallenge").textContent = "Current Challenge: None [Transcension]" + p
+			}
 			console.log(player.highestchallengecompletions.one)
 		}
 	
 	if (i == "reincarnate") {
 		if (reincarnationPointGain > 0.5 && player.currentChallenge == "" && player.currentChallengeRein == "") {
-			resetConfirmation('reincarnate')
+			if (manual) {
+			resetConfirmation('reincarnate');
+			}
+			if (!manual) {
+			resetachievementcheck(3)
+			reset(3);
+			}
 		}
 	}
 	if (i == "reincarnationchallenge"){
@@ -1529,9 +2067,10 @@ function resetCheck(i) {
 		reset(3)
 		challengeachievementcheck(q)
 		if (player.challengecompletions[q] > player.highestchallengecompletions[q]) {player.highestchallengecompletions[q] += 1; player.worlds += player.highestchallengecompletions[q]}
+		if (!player.retrychallenges || manual) {
 		player.currentChallengeRein = ""
 		document.getElementById("currentchallenge").textContent = "Current Challenge: None"
-		player.reincarnationCount -= 1
+		}
 	}	
 	}
 }	
@@ -1578,7 +2117,7 @@ function resetConfirmation(i) {
 	}
 	}
 
-// Functions which update the game each tick [HTML + Generation] [Lines 1330 - 1766]
+// Functions which update the game each, roughly each tick. [Lines 1330 - 1766]
 
 function updateAll() {
 
@@ -1594,25 +2133,31 @@ function updateAll() {
 
 //Autobuy "Building" Tab
 
-		if (player.toggles.one == true && player.upgrades[81] == 1 && player.coins.greaterThanOrEqualTo(player.firstCostCoin)) {buyProducer('first','Coin',1)}
-		if (player.toggles.two == true && player.upgrades[82] == 1 && player.coins.greaterThanOrEqualTo(player.secondCostCoin)) {buyProducer('second','Coin',2)}
-		if (player.toggles.three == true && player.upgrades[83] == 1 && player.coins.greaterThanOrEqualTo(player.thirdCostCoin)) {buyProducer('third','Coin',3);}
-		if (player.toggles.four == true && player.upgrades[84] == 1 && player.coins.greaterThanOrEqualTo(player.fourthCostCoin)) {buyProducer('fourth','Coin',4);}
-		if (player.toggles.five == true && player.upgrades[85] == 1 && player.coins.greaterThanOrEqualTo(player.fifthCostCoin)) {buyProducer('fifth','Coin',5);}
+		if (player.toggles.one == true && player.upgrades[81] == 1 && player.coins.greaterThanOrEqualTo(player.firstCostCoin)) {buyProducer('first','Coin',1,true)}
+		if (player.toggles.two == true && player.upgrades[82] == 1 && player.coins.greaterThanOrEqualTo(player.secondCostCoin)) {buyProducer('second','Coin',2,true)}
+		if (player.toggles.three == true && player.upgrades[83] == 1 && player.coins.greaterThanOrEqualTo(player.thirdCostCoin)) {buyProducer('third','Coin',3,true);}
+		if (player.toggles.four == true && player.upgrades[84] == 1 && player.coins.greaterThanOrEqualTo(player.fourthCostCoin)) {buyProducer('fourth','Coin',4,true);}
+		if (player.toggles.five == true && player.upgrades[85] == 1 && player.coins.greaterThanOrEqualTo(player.fifthCostCoin)) {buyProducer('fifth','Coin',5,true);}
 		if (player.toggles.six == true && player.upgrades[86] == 1 && player.coins.greaterThanOrEqualTo(player.acceleratorCost)) {buyAccelerator();}		
 		if (player.toggles.seven == true && player.upgrades[87] == 1 && player.coins.greaterThanOrEqualTo(player.multiplierCost)) {buyMultiplier();}
-		if (player.toggles.eight == true && player.upgrades[88] == 1 && player.prestigePoints.greaterThanOrEqualTo(player.acceleratorBoostCost)) {boostAccelerator();}
+		if (player.toggles.eight == true && player.upgrades[88] == 1 && player.prestigePoints.greaterThanOrEqualTo(player.acceleratorBoostCost)) {boostAccelerator(true);}
 
 //Autobuy "Prestige" Tab
 
-		if (player.toggles.ten == true && player.achievements[78] == 1 && player.prestigePoints.greaterThanOrEqualTo(player.firstCostDiamonds)) {buyProducer('first', 'Diamonds', 1)}
-		if (player.toggles.eleven == true && player.achievements[85] == 1 && player.prestigePoints.greaterThanOrEqualTo(player.secondCostDiamonds)) {buyProducer('second', 'Diamonds', 3)}
-		if (player.toggles.twelve == true && player.achievements[92] == 1 && player.prestigePoints.greaterThanOrEqualTo(player.thirdCostDiamonds)) {buyProducer('third', 'Diamonds', 6)}
-		if (player.toggles.thirteen == true && player.achievements[99] == 1 && player.prestigePoints.greaterThanOrEqualTo(player.fourthCostDiamonds)) {buyProducer('fourth', 'Diamonds', 10)}
-		if (player.toggles.fourteen == true && player.achievements[106] == 1 && player.prestigePoints.greaterThanOrEqualTo(player.fifthCostDiamonds)) {buyProducer('fifth', 'Diamonds', 15)}
+		if (player.toggles.ten == true && player.achievements[78] == 1 && player.prestigePoints.greaterThanOrEqualTo(player.firstCostDiamonds)) {buyProducer('first', 'Diamonds', 1,true)}
+		if (player.toggles.eleven == true && player.achievements[85] == 1 && player.prestigePoints.greaterThanOrEqualTo(player.secondCostDiamonds)) {buyProducer('second', 'Diamonds', 3,true)}
+		if (player.toggles.twelve == true && player.achievements[92] == 1 && player.prestigePoints.greaterThanOrEqualTo(player.thirdCostDiamonds)) {buyProducer('third', 'Diamonds', 6,true)}
+		if (player.toggles.thirteen == true && player.achievements[99] == 1 && player.prestigePoints.greaterThanOrEqualTo(player.fourthCostDiamonds)) {buyProducer('fourth', 'Diamonds', 10,true)}
+		if (player.toggles.fourteen == true && player.achievements[106] == 1 && player.prestigePoints.greaterThanOrEqualTo(player.fifthCostDiamonds)) {buyProducer('fifth', 'Diamonds', 15,true)}
 
-		if (player.toggles.fifteen == true && player.achievements[43] == 1 && prestigePointGain.greaterThanOrEqualTo(player.prestigePoints.times(Decimal.pow(10, player.prestigeamount))) && player.coinsThisPrestige.greaterThanOrEqualTo(1e16)) {resetachievementcheck(1);reset(1);}
 
+		if (player.resettoggle1 == 1 || player.resettoggle1 == 0){
+			if (player.toggles.fifteen == true && player.achievements[43] == 1 && prestigePointGain.greaterThanOrEqualTo(player.prestigePoints.times(Decimal.pow(10, player.prestigeamount))) && player.coinsThisPrestige.greaterThanOrEqualTo(1e16)){resetachievementcheck(1); reset(1)}
+		}
+		if (player.resettoggle1 == 2) {
+			var time = Math.max(0.25, player.prestigeamount);
+		if (player.toggles.fifteen == true && player.achievements[43] == 1 && player.prestigecounter >= time && player.coinsThisPrestige.greaterThanOrEqualTo(1e16)) {resetachievementcheck(1);reset(1);}
+		}
 		var c = 0;
 		c += Math.floor(player.runelevels[2]/10 * (1 + player.researches[5] /10) * (1 + player.researches[21]/800)) * 100/100
 		if (player.upgrades[73] > 0.5 && player.currentChallengeRein !== ""){c += 10}
@@ -1639,14 +2184,33 @@ function updateAll() {
 
 //Autobuy "Transcension" Tab
 
-		if (player.toggles.sixteen == true && player.upgrades[94] == 1 && player.transcendPoints.greaterThanOrEqualTo(player.firstCostMythos)) {buyProducer('first', 'Mythos', 1)}
-		if (player.toggles.seventeen == true && player.upgrades[95] == 1 && player.transcendPoints.greaterThanOrEqualTo(player.secondCostMythos)) {buyProducer('second', 'Mythos', 3)}
-		if (player.toggles.eighteen == true && player.upgrades[96] == 1 && player.transcendPoints.greaterThanOrEqualTo(player.thirdCostMythos)) {buyProducer('third', 'Mythos', 6)}
-		if (player.toggles.nineteen == true && player.upgrades[97] == 1 && player.transcendPoints.greaterThanOrEqualTo(player.fourthCostMythos)) {buyProducer('fourth', 'Mythos', 10)}
-		if (player.toggles.twenty == true && player.upgrades[98] == 1 && player.transcendPoints.greaterThanOrEqualTo(player.fifthCostMythos)) {buyProducer('fifth', 'Mythos', 15)}
+		if (player.toggles.sixteen == true && player.upgrades[94] == 1 && player.transcendPoints.greaterThanOrEqualTo(player.firstCostMythos)) {buyProducer('first', 'Mythos', 1, true)}
+		if (player.toggles.seventeen == true && player.upgrades[95] == 1 && player.transcendPoints.greaterThanOrEqualTo(player.secondCostMythos)) {buyProducer('second', 'Mythos', 3, true)}
+		if (player.toggles.eighteen == true && player.upgrades[96] == 1 && player.transcendPoints.greaterThanOrEqualTo(player.thirdCostMythos)) {buyProducer('third', 'Mythos', 6, true)}
+		if (player.toggles.nineteen == true && player.upgrades[97] == 1 && player.transcendPoints.greaterThanOrEqualTo(player.fourthCostMythos)) {buyProducer('fourth', 'Mythos', 10, true)}
+		if (player.toggles.twenty == true && player.upgrades[98] == 1 && player.transcendPoints.greaterThanOrEqualTo(player.fifthCostMythos)) {buyProducer('fifth', 'Mythos', 15, true)}
 
+		if (player.resettoggle2 == 1 || player.resettoggle2 == 0){
+			if (player.toggles.twentyone == true && player.upgrades[89] == 1 && transcendPointGain.greaterThanOrEqualTo(player.transcendPoints.times(Decimal.pow(10, player.transcendamount))) && player.coinsThisTranscension.greaterThanOrEqualTo(1e100) && player.currentChallenge == ""){resetachievementcheck(2); reset(2)}
+		}
+		if (player.resettoggle2 == 2){
+			var time = Math.max(0.25, player.transcendamount);
+		if (player.toggles.twentyone == true && player.upgrades[89] == 1 && player.transcendcounter >= time && player.coinsThisTranscension.greaterThanOrEqualTo(1e100) && player.currentChallenge == "") {resetachievementcheck(2);reset(2);}
+		}
+//Challenge Tab Updates
 
-		if (player.toggles.twentyone == true && player.upgrades[89] == 1 && transcendPointGain.greaterThanOrEqualTo(player.transcendPoints.times(Decimal.pow(10, player.transcendamount))) && player.coinsThisTranscension.greaterThanOrEqualTo(1e100) && player.currentChallenge == "") {resetachievementcheck(2);reset(2);}
+		var chal = player.currentChallenge;
+		var reinchal = player.currentChallengeRein;
+		if (chal !== ""){
+		if (player.coinsThisTranscension.greaterThanOrEqualTo(Decimal.pow(10, challengebaserequirements[chal] * Math.pow(1 + player.challengecompletions[chal], 2)))){
+			resetCheck('challenge',false);
+		}
+		}
+		if (reinchal !== ""){
+			if (player.transcendShards.greaterThanOrEqualTo(Decimal.pow(10, challengebaserequirementsrein[reinchal] * Math.pow(1 + player.challengecompletions[reinchal], 2)))) {
+			resetCheck('reincarnationchallenge',false)
+			}
+		}
 
 //Autobuy "Reincarnation" Tab
 
@@ -1655,9 +2219,13 @@ function updateAll() {
 //		if (player.toggles.twentyfour == true && player.reincarnationPoints.greaterThanOrEqualTo(player.thirdCostParticles)) {buyProducer('third', 'Particles', 2)}
 //		if (player.toggles.twentyfive == true && player.reincarnationPoints.greaterThanOrEqualTo(player.fourthCostParticles)) {buyProducer('fourth', 'Particles', 2.5)}
 //		if (player.toggles.twentysix == true && player.reincarnationPoints.greaterThanOrEqualTo(player.fifthCostParticles)) {buyProducer('fifth', 'Particles', 3)}
-
-		if (player.toggles.twentyseven == true && player.researches[46] > 0.5 && player.transcendShards.greaterThanOrEqualTo("1e300") && reincarnationPointGain.greaterThanOrEqualTo(player.reincarnationamount) && player.currentChallenge == "" && player.currentChallengeRein == "") {resetachievementcheck(3);reset(3);}
-
+		if (player.resettoggle3 == 2) {
+			var time = Math.max(0.25, player.reincarnationamount);
+		if (player.toggles.twentyseven == true && player.researches[46] > 0.5 && player.transcendShards.greaterThanOrEqualTo("1e300") && player.reincarnationcounter >= time && player.currentChallenge == "" && player.currentChallengeRein == "") {resetachievementcheck(3);reset(3);}
+		}
+		if (player.resettoggle3 == 1 || player.resettoggle3 == 0){
+		if (player.toggles.twentyseven == true && player.researches[46] > 0.5 && reincarnationPointGain.greaterThanOrEqualTo(player.reincarnationPoints.times(Decimal.pow(10, player.reincarnationamount))) && player.transcendShards.greaterThanOrEqualTo(1e300) && player.currentChallenge == "" && player.currentChallengeRein == ""){resetachievementcheck(3); reset(3)}
+		}
 //Generation
 
 
@@ -1697,552 +2265,88 @@ function updateAll() {
 		if (b !== 0){player.fifthGeneratedDiamonds = player.fifthGeneratedDiamonds.add(Decimal.pow(player.firstGeneratedMythos.add(player.firstOwnedMythos).add(1), b))}
 		if (c !== 0){player.fifthGeneratedMythos = player.fifthGeneratedMythos.add(Decimal.pow(player.firstGeneratedParticles.add(player.firstOwnedParticles).add(1),c))}
 
-
-		  produceFifthMythos = player.fifthGeneratedMythos.add(player.fifthOwnedMythos).times(player.fifthProduceMythos).times(globalMythosMultiplier).times(grandmasterMultiplier).times(mythosupgrade15)
-		  produceFourthMythos = player.fourthGeneratedMythos.add(player.fourthOwnedMythos).times(player.fourthProduceMythos).times(globalMythosMultiplier)
-		  produceThirdMythos = player.thirdGeneratedMythos.add(player.thirdOwnedMythos).times(player.thirdProduceMythos).times(globalMythosMultiplier).times(mythosupgrade14)
-		  produceSecondMythos = player.secondGeneratedMythos.add(player.secondOwnedMythos).times(player.secondProduceMythos).times(globalMythosMultiplier)
-		  produceFirstMythos =  player.firstGeneratedMythos.add(player.firstOwnedMythos).times(player.firstProduceMythos).times(globalMythosMultiplier).times(mythosupgrade13)
-		  
-		  player.firstGeneratedMythos = player.firstGeneratedMythos.add(produceSecondMythos);
-		  player.secondGeneratedMythos = player.secondGeneratedMythos.add(produceThirdMythos);
-		  player.thirdGeneratedMythos = player.thirdGeneratedMythos.add(produceFourthMythos);
-		  player.fourthGeneratedMythos = player.fourthGeneratedMythos.add(produceFifthMythos);
-		
-		  var pm = new Decimal('1');
-		  if (player.upgrades[67] > 0.5) {pm = pm.times(Decimal.pow(1.03, player.firstOwnedParticles + player.secondOwnedParticles + player.thirdOwnedParticles + player.fourthOwnedParticles + player.fifthOwnedParticles))}
-		  produceFifthParticles = player.fifthGeneratedParticles.add(player.fifthOwnedParticles).times(player.fifthProduceParticles)
-          produceFourthParticles = player.fourthGeneratedParticles.add(player.fourthOwnedParticles).times(player.fourthProduceParticles)
-          produceThirdParticles = player.thirdGeneratedParticles.add(player.thirdOwnedParticles).times(player.thirdProduceParticles)
-          produceSecondParticles = player.secondGeneratedParticles.add(player.secondOwnedParticles).times(player.secondProduceParticles)
-          produceFirstParticles =  player.firstGeneratedParticles.add(player.firstOwnedParticles).times(player.firstProduceParticles).times(pm)
-
-		  player.firstGeneratedParticles = player.firstGeneratedParticles.add(produceSecondParticles);
-		  player.secondGeneratedParticles = player.secondGeneratedParticles.add(produceThirdParticles);
-		  player.thirdGeneratedParticles = player.thirdGeneratedParticles.add(produceFourthParticles);
-		  player.fourthGeneratedParticles = player.fourthGeneratedParticles.add(produceFifthParticles);
-
-
-		  if (player.achievements[50] > 0.5) {
-			  player.obtainiumtimer += 0.05
-			  if (player.obtainiumtimer >= (5 * player.fastestreincarnate + 1)) {
-				player.researchPoints += 1
-				player.obtainiumtimer = 0;
-			  }
-		  }
-
-		  produceFirstDiamonds = player.firstGeneratedDiamonds.add(player.firstOwnedDiamonds).times(player.firstProduceDiamonds).times(globalCrystalMultiplier)
-		  produceSecondDiamonds = player.secondGeneratedDiamonds.add(player.secondOwnedDiamonds).times(player.secondProduceDiamonds).times(globalCrystalMultiplier)
-		  produceThirdDiamonds = player.thirdGeneratedDiamonds.add(player.thirdOwnedDiamonds).times(player.thirdProduceDiamonds).times(globalCrystalMultiplier)
-		  produceFourthDiamonds = player.fourthGeneratedDiamonds.add(player.fourthOwnedDiamonds).times(player.fourthProduceDiamonds).times(globalCrystalMultiplier)
-		  produceFifthDiamonds = player.fifthGeneratedDiamonds.add(player.fifthOwnedDiamonds).times(player.fifthProduceDiamonds).times(globalCrystalMultiplier)
-	  
-		  player.fourthGeneratedDiamonds = player.fourthGeneratedDiamonds.add(produceFifthDiamonds)
-		  player.thirdGeneratedDiamonds = player.thirdGeneratedDiamonds.add(produceFourthDiamonds)
-		  player.secondGeneratedDiamonds = player.secondGeneratedDiamonds.add(produceThirdDiamonds)
-		  player.firstGeneratedDiamonds = player.firstGeneratedDiamonds.add(produceSecondDiamonds)
-		  produceDiamonds = produceFirstDiamonds;    
-		  
-		  if (player.currentChallenge !== "three") {
-		  player.prestigeShards = player.prestigeShards.add(produceDiamonds)
-		  }
-	  
-	}
-
-function autoUpgrades() {
-	if (player.upgrades[90] > 0.5 && player.shoptoggles.generators == true){
-		
-		var i;
-		for (i = 1; i < 6; i++) {if (player.prestigePoints.greaterThanOrEqualTo(Decimal.pow(10, upgradeCosts[(100+i)])) && player.shoptoggles.generators == true) {buyGenerator(i, true)}}
-		var j;
-		for (j = 6; j < 11; j++) {if (player.coins.greaterThanOrEqualTo(Decimal.pow(10,upgradeCosts[(100+j)])) && player.shoptoggles.generators == true){buyGenerator(j, true)}}
-		var k;
-		for (k = 11; k < 16; k++) {if (player.prestigePoints.greaterThanOrEqualTo(Decimal.pow(10,upgradeCosts[(100+k)])) && player.shoptoggles.generators == true){buyGenerator(k, true)}}
-		var l;
-		for (l = 16; l < 21; l++) {if (player.transcendPoints.greaterThanOrEqualTo(Decimal.pow(10,upgradeCosts[(100+l)])) && player.shoptoggles.generators == true){buyGenerator(l, true)}}
-	}
-	if (player.upgrades[91] > 0.5){
-		var i;
-		for (i = 1; i < 21; i++) {if (player.coins.greaterThanOrEqualTo(Decimal.pow(10,upgradeCosts[i])) && player.shoptoggles.coin == true){buyUpgrades('coin',i,true)}}
-	}
-	if (player.upgrades[92] > 0.5){
-		var i;
-		for (i = 21; i < 41; i++) {if (player.prestigePoints.greaterThanOrEqualTo(Decimal.pow(10,upgradeCosts[i])) && player.shoptoggles.prestige == true){buyUpgrades('prestige',i,true)}}
-	}
-	if (player.upgrades[99] > 0.5){
-		var i;
-		for (i = 41; i < 61; i++) {if (player.transcendPoints.greaterThanOrEqualTo(Decimal.pow(10,upgradeCosts[i])) && player.shoptoggles.transcend == true){buyUpgrades('transcend',i,true)}}
-	}
-
-}
-
-function revealStuff() {
-			var c1 = document.getElementsByClassName("coinunlock1");
-			for (var i = 0; i < c1.length; i++) {
-	  		c1[i].style.display = "none";
-			}
-			var c2 = document.getElementsByClassName("coinunlock2");
-  			for (var i = 0; i < c2.length; i++) {
-			c2[i].style.display = "none";
-		 	 }
-		 	 var c3 = document.getElementsByClassName("coinunlock3");
-  			for (var i = 0; i < c3.length; i++) {
-			c3[i].style.display = "none";
-		 	 }
-		 	 var c4 = document.getElementsByClassName("coinunlock4");
-  			for (var i = 0; i < c4.length; i++) {
-			c4[i].style.display = "none";
-		 	 }
-
-			var a = document.getElementsByClassName("prestigeunlock");
-  			for (var i = 0; i < a.length; i++) {
-			a[i].style.display = "none";
-		  }
-			var b = document.getElementsByClassName("generationunlock");
-			for (var i = 0; i < b.length; i++) {
-			b[i].style.display = "none";
-			}
-			var c = document.getElementsByClassName("transcendunlock");
-  			for (var i = 0; i < c.length; i++) {
-			c[i].style.display = "none";
-		  }
-			var d = document.getElementsByClassName("reincarnationunlock");
-  			for (var i = 0; i < d.length; i++) {
-			d[i].style.display = "none";
-	}
-			var e = document.getElementsByClassName("auto");
-			for (var i = 0; i < e.length; i++) {
-			e[i].style.display = "none";
-			}
-			var f = document.getElementsByClassName("reinrow1");
-			for (var i = 0; i < f.length; i++) {
-			f[i].style.display = "none";
-			}
-			var g = document.getElementsByClassName("reinrow2");
-			for (var i = 0; i < g.length; i++) {
-			g[i].style.display = "none";
-			}
-			var h = document.getElementsByClassName("reinrow3");
-			for (var i = 0; i < h.length; i++) {
-			h[i].style.display = "none";
-			}
-			var j = document.getElementsByClassName("reinrow4");
-			for (var i = 0; i < j.length; i++) {
-			j[i].style.display = "none";
-			}
-
-
-		document.getElementById("rune2area").style.display = "none"
-		document.getElementById("rune3area").style.display = "none"
-		document.getElementById("rune4area").style.display = "none"
-		document.getElementById("prestigeautomation").style.display = "none"
-		document.getElementById("transcendautomation").style.display = "none"
-		document.getElementById("reincarnateautomation").style.display = "none"
-		
-		if(player.achievements[38] == 1) document.getElementById("rune2area").style.display = "block";
-		if(player.achievements[44] == 1) document.getElementById("rune3area").style.display = "block";
-		if(player.achievements[102] == 1) document.getElementById("rune4area").style.display = "block";
-		if(player.achievements[43] == 1) document.getElementById("prestigeautomation").style.display = "block";
-		if(player.upgrades[89] == 1) document.getElementById("transcendautomation").style.display = "block";
-		if(player.researches[46] == 1) document.getElementById("reincarnateautomation").style.display = "block";
-
-		if (player.unlocks.coinone == true) {
-			var c1 = document.getElementsByClassName("coinunlock1");
-			for (var i = 0; i < c1.length; i++) {
-	  		c1[i].style.display = "block";
-			}
+		if (player.runeshards > player.maxofferings) {
+			player.maxofferings = player.runeshards;
+			kongregate.stats.submit("maxoffering",player.maxofferings);
 		}
-		if (player.unlocks.cointwo == true) {
-			var c2 = document.getElementsByClassName("coinunlock2");
-  			for (var i = 0; i < c2.length; i++) {
-			c2[i].style.display = "block";
-		 	 }
-		}
-		if (player.unlocks.cointhree == true) {
-			var c3 = document.getElementsByClassName("coinunlock3");
-  			for (var i = 0; i < c3.length; i++) {
-			c3[i].style.display = "block";
-		 	 }
-		}
-		if (player.unlocks.coinfour == true) {
-			var c4 = document.getElementsByClassName("coinunlock4");
-  			for (var i = 0; i < c4.length; i++) {
-			c4[i].style.display = "block";
-		 	 }
-		}
-
-
-		if (player.unlocks.prestige == true) {
-			var a = document.getElementsByClassName("prestigeunlock");
-  			for (var i = 0; i < a.length; i++) {
-			a[i].style.display = "block";
-		  }
-		}
-		if (player.unlocks.generation == true) {
-			var b = document.getElementsByClassName("generationunlock");
-			for (var i = 0; i < b.length; i++) {
-			b[i].style.display = "block";
-			}	
-		}
-		if (player.unlocks.transcend == true) {
-			var c = document.getElementsByClassName("transcendunlock");
-  			for (var i = 0; i < c.length; i++) {
-			c[i].style.display = "block";
-		  }
-		}
-		if (player.unlocks.reincarnate == true) {
-			var d = document.getElementsByClassName("reincarnationunlock");
-			for (var i = 0; i < d.length; i++) {
-		    d[i].style.display = "block";
-  }
-}
-	    if (player.unlocks.rrow1 == true) {
-	var e = document.getElementsByClassName("reinrow1");
-	for (var i = 0; i < e.length; i++) {
-	e[i].style.display = "block";
-			}
-		}
-		if (player.unlocks.rrow2 == true) {
-			var e = document.getElementsByClassName("reinrow2");
-			for (var i = 0; i < e.length; i++) {
-			e[i].style.display = "block";
-					}
-				}
-				if (player.unlocks.rrow3 == true) {
-					var e = document.getElementsByClassName("reinrow3");
-					for (var i = 0; i < e.length; i++) {
-					e[i].style.display = "block";
-							}
-						}
-						if (player.unlocks.rrow4 == true) {
-							var e = document.getElementsByClassName("reinrow4");
-							for (var i = 0; i < e.length; i++) {
-							e[i].style.display = "block";
-									}
-								}
-		var e = document.getElementsByClassName("auto");
-			if (player.upgrades[81] == 1){e[0].style.display = "block";}
-			if (player.upgrades[82] == 1){e[1].style.display = "block";}
-			if (player.upgrades[83] == 1){e[2].style.display = "block";}
-			if (player.upgrades[84] == 1){e[3].style.display = "block";}
-			if (player.upgrades[85] == 1){e[4].style.display = "block";}
-			if (player.upgrades[86] == 1){e[5].style.display = "block";}
-			if (player.upgrades[87] == 1){e[6].style.display = "block";}
-			if (player.upgrades[88] == 1){e[7].style.display = "block";}
-			if (player.upgrades[91] == 1){e[8].style.display = "block";}
-			if (player.upgrades[92] == 1){e[9].style.display = "block";}
-			if (player.upgrades[99] == 1){e[10].style.display = "block";}
-			if (player.upgrades[90] == 1){e[11].style.display = "block";}
-			if (player.unlocks.prestige) {e[12].style.display = "block";}
-			if (player.achievements[78] == 1){e[13].style.display = "block";}
-			if (player.achievements[85] == 1){e[14].style.display = "block";}
-			if (player.achievements[92] == 1){e[15].style.display = "block";}
-			if (player.achievements[99] == 1){e[16].style.display = "block";}
-			if (player.achievements[106] == 1){e[17].style.display = "block";}
-			if (player.achievements[43] == 1){e[18].style.display = "block";}
-			if (player.upgrades[94] == 1){e[19].style.display = "block";}
-			if (player.upgrades[95] == 1){e[20].style.display = "block";}
-			if (player.upgrades[96] == 1){e[21].style.display = "block";}
-			if (player.upgrades[97] == 1){e[22].style.display = "block";}
-			if (player.upgrades[98] == 1){e[23].style.display = "block";}
-			if (player.upgrades[89] == 1){e[24].style.display = "block";}
-			if (player.researches[46] == 1){e[30].style.display = "block";}
-			if (player.prestigeCount > 0.5 || player.reincarnationCount > 0.5){e[31].style.display = "block";}
-			if (player.transcendCount > 0.5 || player.reincarnationCount > 0.5){e[32].style.display = "block";}
-			if (player.reincarnationCount > 0.5){e[33].style.display = "block";}
-
-
-			}
-		
-
-function toggleauto() {
-	var e = document.getElementsByClassName("auto");
-		for (var i = 0; i < e.length; i++) {
-			var a = ""
-			var b = ""
-			if ((i <= 7 && i>=0) || (i <= 17 && i >= 13) || (i <= 23 && i >= 19) || (i <= 29 && i >= 25)) {a = "Auto ["}
-			if (i == 12) {a = "Hover-to-buy ["}
-			if (i == 18) {a = "Auto Prestige ["}
-			if (i == 24) {a = "Auto Transcend ["}
-			if (i == 30) {a = "Auto Reincarnate ["}
-			if ((i == 31) || (i == 32) || (i == 33)){
-				a = "["
-			}
-			var u = 0
-			if (i <= 7) {u = i}
-			if (i >= 12) {u = i - 4}
-			if (player.toggles[cardinals[u]] == true){b = "ON]"}
-			if (player.toggles[cardinals[u]] == false) {b = "OFF]"}
-
-			if (i <= 7 || i >= 12) {
-			e[i].textContent = a + b
-			}
-	}
-
-}	
-
-function hideStuff() {
-		document.getElementById("buildings").style.display = "none"	
-		document.getElementById("buildingstab").style.backgroundColor = "black";
-		document.getElementById("upgrades").style.display = "none"
-		document.getElementById("upgradestab").style.backgroundColor = "black"
-		document.getElementById("settings").style.display = "none"
-		document.getElementById("settingstab").style.backgroundColor = "black"
-		document.getElementById("settingstab").style.color = "white"
-		document.getElementById("statistics").style.display = "none"
-		document.getElementById("achievementstab").style.backgroundColor = "black"
-		document.getElementById("achievementstab").style.color = "white"
-		document.getElementById("prestige").style.display = "none"
-		document.getElementById("prestigetab").style.backgroundColor = "black"
-		document.getElementById("runes").style.display = "none"
-		document.getElementById("runestab").style.backgroundColor = "black"
-		document.getElementById("transcension").style.display = "none"
-		document.getElementById("transcensiontab").style.backgroundColor = "black"
-		document.getElementById("challenges").style.display = "none"
-		document.getElementById("challengetab").style.backgroundColor = "black"
-		document.getElementById("reincarnation").style.display = "none"
-		document.getElementById("reincarnationtab").style.backgroundColor = "black"
-		document.getElementById("research").style.display = "none"
-		document.getElementById("researchtab").style.backgroundColor = "black"
-
-		document.getElementById("activaterune2").style.display = "none"
-		document.getElementById("activaterune3").style.display = "none"
-		document.getElementById("activaterune4").style.display = "none"
-
-		if (currentTab == "buildings") {
-			document.getElementById("buildingstab").style.backgroundColor = "gold";
-			document.getElementById("buildings").style.display = "block"
-		}
-		if (currentTab == "upgrades") {
-			document.getElementById("upgrades").style.display = "block"
-			document.getElementById("upgradestab").style.backgroundColor = "gold"
-			document.getElementById("upgradedescription").textContent = "Hover over an upgrade to view details!"
-		}
-		if (currentTab == "settings") {
-			document.getElementById("settings").style.display = "block"
-			document.getElementById("settingstab").style.backgroundColor = "white"
-			document.getElementById("settingstab").style.color = "black"
-
-
-		}
-		if (currentTab == "achievements") {
-			document.getElementById("statistics").style.display = "block"
-			document.getElementById("achievementstab").style.backgroundColor = "white"
-			document.getElementById("achievementstab").style.color = "black"
-
-		}
-		if (currentTab == "prestige") {
-			document.getElementById("prestige").style.display = "block"
-			document.getElementById("prestigetab").style.backgroundColor = "blue"
-		}
-		if (currentTab == "runes") {
-			document.getElementById("runes").style.display = "block"
-			document.getElementById("runestab").style.backgroundColor = "blue"
-			document.getElementById("runeshowlevelup").textContent = "Hey, hover over a rune icon to get details on what each one does and what benefits they're giving you!"
-			document.getElementById("researchrunebonus").textContent = "Thanks to researches, your effective levels are increased by " + (100 * (1 + player.researches[4]/10) * (1 + player.researches[21]/800) - 100).toPrecision(4) + "%"
-
-			displayruneinformation([1, 2, 3, 4], 0);
-		}
-		if (currentTab == "transcension") {
-			document.getElementById("transcension").style.display = "block"
-			document.getElementById("transcensiontab").style.backgroundColor = "plum"
-		}
-		if (currentTab == "challenges") {
-			document.getElementById("challenges").style.display = "block"
-			document.getElementById("challengetab").style.backgroundColor = "plum"
-		}
-		if (currentTab == "reincarnation") {
-			document.getElementById("reincarnation").style.display = "block"
-			document.getElementById("reincarnationtab").style.backgroundColor = "green"
-
-		}
-		if (currentTab == "researches") {
-			document.getElementById("research").style.display = "block"
-			document.getElementById("researchtab").style.backgroundColor = "green"
-
-		}
-
-		if (player.achievements[38] > 0.5) {
-			document.getElementById("activaterune2").style.display = "block"
-		}
-		if (player.achievements[44] > 0.5) {
-			document.getElementById("activaterune3").style.display = "block"
-		}
-		if (player.achievements[102]> 0.5) {
-			document.getElementById("activaterune4").style.display = "block"
+		if (player.researchPoints > player.maxobtainium){
+			player.maxobtainium = player.researchPoints;
+			var c = player.maxobtainium
+			c = Math.floor(c/10000) * 100/100
+			kongregate.stats.submit("maxobtainium",c);
 		}
 	}
-	
-	function htmlInserts() {
-        document.getElementById("coinDisplay").textContent = format(player.coins)
-        document.getElementById("offeringDisplay").textContent = format(player.runeshards)
-        document.getElementById("diamondDisplay").textContent = format(player.prestigePoints)
-        document.getElementById("crystalDisplay").textContent = format(player.prestigeShards)
-        document.getElementById("mythosDisplay").textContent = format(player.transcendPoints)
-        document.getElementById("mythosshardDisplay").textContent = format(player.transcendShards)
-        document.getElementById("particlesDisplay").textContent = format(player.reincarnationPoints)
-        document.getElementById("atomsDisplay").textContent = format(player.reincarnationShards)
-        document.getElementById("obtainiumDisplay").textContent = format(player.researchPoints)
-        document.getElementById("quarksDisplay").textContent = format(player.worlds)
- 
-        if (currentTab == "buildings") {
-            document.getElementById("buildtext1").textContent = "Workers: " + format(player.firstOwnedCoin) + " [+" + format(player.firstGeneratedCoin) + "]"
-            document.getElementById("buildtext2").textContent = "Coins/Sec: " + format((produceFirst).times(40),2) + " [" + (produceFirst.dividedBy(produceTotal.add(0.00001)).times(100)).toPrecision(3) + "%]"
-            document.getElementById("buildtext3").textContent = "Investments: " + format(player.secondOwnedCoin) + " [+" + format(player.secondGeneratedCoin) + "]"
-            document.getElementById("buildtext4").textContent = "Coins/Sec: " + format((produceSecond).times(40),2) + " [" + (produceSecond.dividedBy(produceTotal.add(0.00001)).times(100)).toPrecision(3) + "%]"
-            document.getElementById("buildtext5").textContent = "Printers: " + format(player.thirdOwnedCoin) + " [+" + format(player.thirdGeneratedCoin) + "]"
-            document.getElementById("buildtext6").textContent = "Coins/Sec: " + format((produceThird).times(40),2) + " [" + (produceThird.dividedBy(produceTotal.add(0.00001)).times(100)).toPrecision(3) + "%]"
-            document.getElementById("buildtext7").textContent = "Coin Mints: " + format(player.fourthOwnedCoin) + " [+" + format(player.fourthGeneratedCoin) + "]"
-            document.getElementById("buildtext8").textContent = "Coins/Sec: " + format((produceFourth).times(40),2) + " [" + (produceFourth.dividedBy(produceTotal.add(0.00001)).times(100)).toPrecision(3) + "%]"
-            document.getElementById("buildtext9").textContent = "Alchemies: " + format(player.fifthOwnedCoin) + " [+" + format(player.fifthGeneratedCoin) + "]"
-            document.getElementById("buildtext10").textContent = "Coins/Sec: " + format((produceFifth).times(40),2) + " [" + (produceFifth.dividedBy(produceTotal.add(0.00001)).times(100)).toPrecision(3) + "%]"
-            document.getElementById("buildtext11").textContent = "Accelerators: " + format(player.acceleratorBought) + " [+" + format(freeAccelerator) + "]"
-            document.getElementById("buildtext12").textContent = "Acceleration Power: " + ((acceleratorPower - 1)*(100)).toPrecision(4) +  "% || Acceleration Multiplier: " + format(acceleratorEffect) + "x"
-            document.getElementById("buildtext13").textContent = "Multipliers: " + format(player.multiplierBought) + " [+" + format(freeMultiplier) + "]"
-            document.getElementById("buildtext14").textContent = "Multiplier Power: " + multiplierPower.toPrecision(4) + "x || Multiplier: " + format(multiplierEffect,2) + "x"
-            document.getElementById("buildtext15").textContent = "Accelerator Boost: " + format(player.acceleratorBoostBought) + " [+" + freeAcceleratorBoost + "]"
-            document.getElementById("buildtext16").textContent = "Reset Diamonds and Prestige Upgrades, but add " + (tuSevenMulti * (1 + player.researches[16]/50) * (1 + player.challengecompletions.two / 100)).toPrecision(4) + "% Acceleration Power and 5 free Accelerators."
- 
-            document.getElementById("buycoin1").textContent = "Cost: " + format(player.firstCostCoin) + " coins."
-            document.getElementById("buycoin2").textContent = "Cost: " + format(player.secondCostCoin) + " coins."
-            document.getElementById("buycoin3").textContent = "Cost: " + format(player.thirdCostCoin) + " coins."
-            document.getElementById("buycoin4").textContent = "Cost: " + format(player.fourthCostCoin) + " coins."
-            document.getElementById("buycoin5").textContent = "Cost: " + format(player.fifthCostCoin) + " coins."
-            document.getElementById("buyaccelerator").textContent = "Cost: " + format(player.acceleratorCost) + " coins."
-            document.getElementById("buymultiplier").textContent = "Cost: " + format(player.multiplierCost) + " coins."
-            document.getElementById("buyacceleratorboost").textContent = "Cost: " + format(player.acceleratorBoostCost) + " Diamonds."
-            document.getElementById("taxinfo").textContent = "Due to your excessive wealth, all coin production is divided by " + format(taxdivisor,2) + " to pay taxes!"
-        }
- 
-        // if (currentTab == "upgrades") {
-            
-        // }
- 
-        // if (currentTab == "settings") {}
- 
-        if (currentTab == "achievements") {
-            document.getElementById("achievementpoints").textContent  = "Achievement Points: " + player.achievementPoints
-        }
- 
-        if (currentTab == "prestige") {
-            document.getElementById("prestigeshardinfo").textContent = "You have " + format(player.prestigeShards,2) + " Crystals, multiplying Coin production by " + format(prestigeMultiplier,2) + "x."
-            document.getElementById("prestigetext1").textContent = "Refineries: " + format(player.firstOwnedDiamonds) + " [+" + format(player.firstGeneratedDiamonds,2) + "]"
-            document.getElementById("prestigetext2").textContent = "Crystal/sec: " + format((produceFirstDiamonds).times(20),2)
-            document.getElementById("prestigetext3").textContent = "Coal Plants: " + format(player.secondOwnedDiamonds) + " [+" + format(player.secondGeneratedDiamonds,2) + "]"
-            document.getElementById("prestigetext4").textContent = "Ref./Sec: " + format((produceSecondDiamonds).times(20),2)
-            document.getElementById("prestigetext5").textContent = "Coal Rigs: " + format(player.thirdOwnedDiamonds) + " [+" + format(player.thirdGeneratedDiamonds,2) + "]"
-            document.getElementById("prestigetext6").textContent = "Plants/Sec: " + format((produceThirdDiamonds).times(20),2) 
-            document.getElementById("prestigetext7").textContent = "Pickaxes: " + format(player.fourthOwnedDiamonds) + " [+" + format(player.fourthGeneratedDiamonds,2) + "]"
-            document.getElementById("prestigetext8").textContent = "Rigs/Sec: " + format((produceFourthDiamonds).times(20),2) 
-            document.getElementById("prestigetext9").textContent = "Pandora's Boxes: " + format(player.fifthOwnedDiamonds) + " [+" + format(player.fifthGeneratedDiamonds,2) + "]"
-            document.getElementById("prestigetext10").textContent = "Pickaxes/Sec: " + format((produceFifthDiamonds).times(20),2) 
-            
-            document.getElementById("buydiamond1").textContent = "Cost: " + format(player.firstCostDiamonds,2) + " Diamonds"
-            document.getElementById("buydiamond2").textContent = "Cost: " + format(player.secondCostDiamonds,2) + " Diamonds"
-            document.getElementById("buydiamond3").textContent = "Cost: " + format(player.thirdCostDiamonds) + " Diamonds"
-            document.getElementById("buydiamond4").textContent = "Cost: " + format(player.fourthCostDiamonds) + " Diamonds"
-            document.getElementById("buydiamond5").textContent = "Cost: " + format(player.fifthCostDiamonds) + " Diamonds"
-            document.getElementById("autoprestige").textContent = "Prestige when exponent of diamonds increases by " + (player.prestigeamount) + " [Enter a number above to toggle]" 
-        }
-        if (currentTab == "runes"){
-            document.getElementById("runeshards").textContent = "You have " + format(player.runeshards) + " Offerings."
-            document.getElementById("rune1level").textContent = "Level: " + player.runelevels[0] + "/500"
-            document.getElementById("rune2level").textContent = "Level: " + player.runelevels[1] + "/500"
-            document.getElementById("rune3level").textContent = "Level: " + player.runelevels[2] + "/500"
-            document.getElementById("rune4level").textContent = "Level: " + player.runelevels[3] + "/500"
-            document.getElementById("rune1exp").textContent = "+1 in " + format(Math.ceil(Math.max(0, (1 * Math.pow(player.runelevels[0] , 3) * (4 * player.runelevels[0] + 100)/500 * (1 - 0.02 * player.challengecompletions.seven) - player.runeexp[0])))) + " EXP" 
-            document.getElementById("rune2exp").textContent = "+1 in " + format(Math.ceil(Math.max(0, (4 * Math.pow(player.runelevels[1] , 3) * (4 * player.runelevels[1] + 100)/500 * (1 - 0.02 * player.challengecompletions.seven) - player.runeexp[1])))) + " EXP"
-            document.getElementById("rune3exp").textContent = "+1 in " + format(Math.ceil(Math.max(0, (9 * Math.pow(player.runelevels[2] , 3) * (4 * player.runelevels[2] + 100)/500 * (1 - 0.02 * player.challengecompletions.eight) - player.runeexp[2])))) + " EXP"
-            document.getElementById("rune4exp").textContent = "+1 in " + format(Math.ceil(Math.max(0, (16 * Math.pow(player.runelevels[3] , 3) * (4 * player.runelevels[3] + 100)/500 * (1 - 0.02 * player.challengecompletions.six) - player.runeexp[3])))) + " EXP"
-			document.getElementById("runedetails").textContent = "Gain " + (25 + 3 * player.researches[22] + 2 * player.researches[23] + 3 * player.upgrades[66] + 5 * player.upgrades[61]) + " EXP per offering sacrificed. Gain more offerings through resetting longer runs!" 
- 
-           
-			
-			document.getElementById("runerecycle").textContent = "You have " +(0.5 + 5 * player.achievements[79] + 5 * player.achievements[86] + 5 * player.achievements[93] + 5 * player.achievements[100] + 5 * player.achievements[107] + 5 * player.achievements[114] + 10 * player.achievements[121] + 10 * player.achievements[128] + 5 * player.upgrades[61] + Math.min(25, player.runelevels[3]/8))  + "% chance of recycling your offerings. Recycled offerings are not spent!"
-        }
-        if (currentTab == "transcension") {
-            document.getElementById("transcendshardinfo").textContent = "You have " + format(player.transcendShards,2) + " Mythos Shards, providing " + format(totalMultiplierBoost) + " Multiplier Power boosts."
-            document.getElementById("transcendtext1").textContent = "Augments: " + format(player.firstOwnedMythos) + " [+" + format(player.firstGeneratedMythos,2) + "]"
-            document.getElementById("transcendtext2").textContent = "Shards/Sec: " + format((produceFirstMythos).times(40),2) 
-            document.getElementById("transcendtext3").textContent = "Enchantments: " + format(player.secondOwnedMythos) + " [+" + format(player.secondGeneratedMythos,2) + "]"
-            document.getElementById("transcendtext4").textContent = "Augments/Sec: " + format((produceSecondMythos).times(40),2) 
-            document.getElementById("transcendtext5").textContent = "Wizards: " + format(player.thirdOwnedMythos) + " [+" + format(player.thirdGeneratedMythos,2) + "]"
-            document.getElementById("transcendtext6").textContent = "Enchantments/Sec: " + format((produceThirdMythos).times(40),2) 
-            document.getElementById("transcendtext7").textContent = "Oracles: " + format(player.fourthOwnedMythos) + " [+" + format(player.fourthGeneratedMythos,2) + "]"
-            document.getElementById("transcendtext8").textContent = "Wizards/Sec: " + format((produceFourthMythos).times(40),2) 
-            document.getElementById("transcendtext9").textContent = "Grandmasters: " + format(player.fifthOwnedMythos) + " [+" + format(player.fifthGeneratedMythos,2) + "]"
-            document.getElementById("transcendtext10").textContent = "Oracles/Sec: " + format((produceFifthMythos).times(40),2)
-            
-            document.getElementById("buymythos1").textContent = "Cost: " + format(player.firstCostMythos,2) + " Mythos"
-            document.getElementById("buymythos2").textContent = "Cost: " + format(player.secondCostMythos) + " Mythos"
-            document.getElementById("buymythos3").textContent = "Cost: " + format(player.thirdCostMythos) + " Mythos"
-            document.getElementById("buymythos4").textContent = "Cost: " + format(player.fourthCostMythos) + " Mythos"
-            document.getElementById("buymythos5").textContent = "Cost: " + format(player.fifthCostMythos) + " Mythos"
-            document.getElementById("autotranscend").textContent = "Transcend when exponent of Mythos increases by " + player.transcendamount + " [Enter a number above to toggle]" 
-        }
-		
-		// if (currentTab == "challenges") {
-        // }
- 
-        if (currentTab == "reincarnation") {
-            document.getElementById("reincarnationshardinfo").textContent = "You have " + format(player.reincarnationShards,2) + " Reincarnation Shards, providing " + buildingPower.toPrecision(4) + " Building Power. Multiplier to Coin Production: " + format(reincarnationMultiplier)
-            document.getElementById("reincarnationtext1").textContent = "Protons: " + format(player.firstOwnedParticles) + " [+" + format(player.firstGeneratedParticles,2) + "]"
-            document.getElementById("reincarnationtext6").textContent = "Atoms/Sec: " + format((produceFirstParticles).times(40),2) 
-            document.getElementById("reincarnationtext2").textContent = "Elements: " + player.secondOwnedParticles + " [+" + format(player.secondGeneratedParticles,2) + "]"
-            document.getElementById("reincarnationtext7").textContent = "Protons/Sec: " + format((produceSecondParticles).times(40),2) 
-            document.getElementById("reincarnationtext3").textContent = "Pulsars: " + player.thirdOwnedParticles + " [+" + format(player.thirdGeneratedParticles,2) + "]"
-            document.getElementById("reincarnationtext8").textContent = "Elements/Sec: " + format((produceThirdParticles).times(40),2) 
-            document.getElementById("reincarnationtext4").textContent = "Quasars: " + player.fourthOwnedParticles + " [+" + format(player.fourthGeneratedParticles,2) + "]"
-            document.getElementById("reincarnationtext9").textContent = "Pulsars/Sec: " + format((produceFourthParticles).times(40),2) 
-            document.getElementById("reincarnationtext5").textContent = "Galactic Nuclei: " + player.fifthOwnedParticles + " [+" + format(player.fifthGeneratedParticles,2) + "]"
-            document.getElementById("reincarnationtext10").textContent = "Quasars/Sec: " + format((produceFifthParticles).times(40),2) 
-            
-            document.getElementById("buyparticles1").textContent = "Cost: " + format(player.firstCostParticles) + " Particles"
-            document.getElementById("buyparticles2").textContent = "Cost: " + format(player.secondCostParticles) + " Particles"
-            document.getElementById("buyparticles3").textContent = "Cost: " + format(player.thirdCostParticles) + " Particles"
-            document.getElementById("buyparticles4").textContent = "Cost: " + format(player.fourthCostParticles) + " Particles"
-            document.getElementById("buyparticles5").textContent = "Cost: " + format(player.fifthCostParticles) + " Particles"
-            document.getElementById("autoreincarnate").textContent = "Reincarnate when you can gain " + format(player.reincarnationamount) + " Particles. [Enter a number above to toggle]"
-        }
- 
-        if (currentTab == "researches") {
-            document.getElementById("researchinfo").textContent = "You have " + format(player.researchPoints) + " Obtanium"
-    }
-    
-    }
 
+// Functions which (try) to successfully load the game
 
 function constantIntervals() {
-	setInterval(mythosProduction, 25);
-	setInterval(particlesProduction, 25);
-	setInterval(saveSynergy, 5000);
-	setInterval(resourceGain, 25);
-	setInterval(updateAll, 50);
-	setInterval(resettimers, 50);
-	setInterval(autoUpgrades, 200);
+		setInterval(saveSynergy, 5000);
+		setInterval(autoUpgrades, 200);
+		setInterval(buttoncolorchange, 200)
+		setInterval(updateAll,50)
+		document.getElementById("preload").style.display = "none"
+	}
+
+lastUpdate = 0;
+gameInterval = 0;
+
+function createTimer() {
+lastUpdate = Date.now();
+gameInterval = setInterval(tick, 25);
+}
+
+function tick() {
+	var now = Date.now();
+    var dt = Math.min(7200, (now - lastUpdate)/1000);
+	lastUpdate = now;
+	player.prestigecounter += dt;
+	player.transcendcounter += dt;
+	player.reincarnationcounter += dt;
+	if(player.researches[61] > 0.5){player.obtainiumtimer += dt;}
+
+	if (player.researches[61] > 0.5) {
+		var u = 1;
+		var v = 0;
+		  if(player.upgrades[69] > 0.5){u = Math.min(3,Decimal.pow(Decimal.log(reincarnationPointGain.add(10), 10), 0.5))}
+			if(player.obtainiumtimer >= (60 - player.researches[62] - player.researches[63])) {
+		  player.researchPoints += Math.floor((1 + player.researches[64]) * u) * 100/100 * Math.floor((player.obtainiumtimer / (60 - player.researches[62] - player.researches[63])))
+		  v = player.obtainiumtimer % (60 - player.researches[62] - player.researches[63])
+		  player.obtainiumtimer = v;		
+		}
+		document.getElementById("automaticobtainium").textContent = "Thanks to research, you will automatically gain " + format(Math.floor((1 + player.researches[64]) * u)) + " obtainium in " + format((60 - player.researches[62] - player.researches[63] - player.obtainiumtimer),1) + " seconds." 
+	}
+
+	if (dt > 1) {
+		while(dt > 1){
+			player.prestigecounter += 1;
+			player.transcendcounter += 1;
+			player.reincarnationcounter += 1;
+			resourceGain(1);
+			updateAll();
+			dt -= 1
+		}
+		player.prestigecounter += dt;
+		player.transcendcounter += dt;
+		player.reincarnationcounter += dt;
+		resourceGain(dt);
+		updateAll();
+	}
+	else if (dt <= 1){
+			resourceGain(dt);
+	}
 }
 
 window['addEventListener' in window ? 'addEventListener' : 'attachEvents']('beforeunload', function() {
 	updatetimer();
-});
-
-window['addEventListener' in window ? 'addEventListener' : 'attachEvents']('load', function() {
+ });
+ 
+ window['addEventListener' in window ? 'addEventListener' : 'attachEvents']('load', function() {
 	loadSynergy();
 	saveSynergy();
 	revealStuff();
 	hideStuff();
+	createTimer();
 	constantIntervals();
 	htmlInserts();
-});
-
-(function () {
-	const dec = LZString.decompressFromBase64(localStorage.getItem('Synergysave2'));
-	const isLZString = dec !== '';
-
-	if(isLZString) {
-		localStorage.clear();
-		localStorage.setItem('Synergysave2', btoa(dec));
-		loadSynergy();
-		alert('Transferred save to new format successfully!');
-	}
-})();
+ });
+ 
