@@ -1,0 +1,22 @@
+{
+  "name": "synergism",
+  "version": "1.008-beta1",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npx babel . --ignore \"node_modules\" --out-file index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Pseudonian/synergism.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Pseudonian/synergism/issues"
+  },
+  "homepage": "https://github.com/Pseudonian/synergism#readme"
+}

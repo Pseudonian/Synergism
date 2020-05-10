@@ -1641,12 +1641,14 @@ window['addEventListener' in window ? 'addEventListener' : 'attachEvent']('load'
 		alert('Transferred save to new format successfully!');
 	}
 	
-	loadSynergy();
-	saveSynergy();
-	revealStuff();
-	hideStuff();
-	createTimer();
-	constantIntervals();
-	htmlInserts();
+	setTimeout(function() {
+		loadSynergy();
+		saveSynergy();
+		revealStuff();
+		hideStuff();
+		createTimer();
+		constantIntervals();
+		htmlInserts();
+	}, 2000);
 });
  
