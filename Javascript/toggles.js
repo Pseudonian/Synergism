@@ -3,11 +3,12 @@ function toggleTabs(i) {
     hideStuff();
 }
 
-function toggleSettings(i) {
-    if (player.toggles[cardinals[i]] == true) {
-        player.toggles[cardinals[i]] = false
-    }
-    else {player.toggles[cardinals[i]] = true}
+function toggleSettings(i, self) {
+    player.toggles[cardinals[i]] = !player.toggles[cardinals[i]];
+
+    const c = '2px solid ' + (player.toggles[cardinals[i]] ? 'green' : 'red');
+    self.style.border = c;
+
     toggleauto();
 }
 
@@ -67,12 +68,24 @@ if (quantity !== 100) {
 }
 } 
 
-function toggleShops(i) {
-if (i==1 && player.shoptoggles.coin == false) {player.shoptoggles.coin = true; document.getElementById("shoptogglecoin").textContent = "Auto: ON"} else if (i == 1 && player.shoptoggles.coin == true) {player.shoptoggles.coin = false; document.getElementById("shoptogglecoin").textContent = "Auto: OFF"}
-if (i==2 && player.shoptoggles.prestige == false) {player.shoptoggles.prestige = true; document.getElementById("shoptoggleprestige").textContent = "Auto: ON"} else if (i == 2 && player.shoptoggles.prestige == true) {player.shoptoggles.prestige = false; document.getElementById("shoptoggleprestige").textContent = "Auto: OFF"}
-if (i==3 && player.shoptoggles.transcend == false) {player.shoptoggles.transcend = true; document.getElementById("shoptoggletranscend").textContent = "Auto: ON"} else if (i == 3 && player.shoptoggles.transcend == true) {player.shoptoggles.transcend = false; document.getElementById("shoptoggletranscend").textContent = "Auto: OFF"}
-if (i==4 && player.shoptoggles.generators == false) {player.shoptoggles.generators = true; document.getElementById("shoptogglegenerator").textContent = "Auto: ON"} else if (i == 4 && player.shoptoggles.generators == true) {player.shoptoggles.generators = false; document.getElementById("shoptogglegenerator").textContent = "Auto: OFF"}
-
+/**
+ * Turn on or off a shop
+ * @param {number} i
+ * @param {Element} Button element
+ */
+function toggleShops(i, self) {
+    const toggles = player.shoptoggles;
+    const order = {
+        1: 'coin',
+        2: 'prestige',
+        3: 'transcend',
+        4: 'generator'
+    }
+    if(order[i]) {
+        toggles[order[i]] = !toggles[order[i]];
+        self.textContent = 'Auto: ' + (toggles[order[i]] ? 'OFF' : 'ON');
+        self.style.border = '2px solid ' + (toggles[order[i]] ? 'red' : 'green');
+    }
 }
 
 function keyboardtabchange(i) {
