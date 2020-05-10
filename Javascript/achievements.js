@@ -416,108 +416,95 @@ function resetachievementcheck(i) {
 }
 
 
-function challengeachievementcheck(i,auto=false) {
-    var generatorcheck = Math.max(player.upgrades[101] + player.upgrades[102] + player.upgrades[103] + player.upgrades[104] + player.upgrades[105])
-if (i == 'one') {
-    if (player.challengecompletions.one > 0.5) {achievementaward(78)}
-    if (player.challengecompletions.one > 2.5) {achievementaward(79)}
-    if (player.challengecompletions.one > 4.5) {achievementaward(80)}
-    if (player.challengecompletions.one > 9.5) {achievementaward(81)}
-    if (player.challengecompletions.one > 19.5) {achievementaward(82)}
-    if (player.challengecompletions.one > 49.5) {achievementaward(83)}
-    if (player.challengecompletions.one > 74.5) {achievementaward(84)}
+function challengeachievementcheck(i, auto = 0) {
+    const generatorcheck = player.upgrades.slice(101, 106).reduce(function(a, b) { return a+b }, 0);
+    
+    if (i == 'one') {
+        if (player.challengecompletions.one > 0.5) {achievementaward(78)}
+        if (player.challengecompletions.one > 2.5) {achievementaward(79)}
+        if (player.challengecompletions.one > 4.5) {achievementaward(80)}
+        if (player.challengecompletions.one > 9.5) {achievementaward(81)}
+        if (player.challengecompletions.one > 19.5) {achievementaward(82)}
+        if (player.challengecompletions.one > 49.5) {achievementaward(83)}
+        if (player.challengecompletions.one > 74.5) {achievementaward(84)}
 
-    if (!auto) {
-    if (player.coinsThisTranscension.greaterThanOrEqualTo("1e1000") && generatorcheck == 0){achievementaward(75)}
+        if (!auto) {
+        if (player.coinsThisTranscension.greaterThanOrEqualTo("1e1000") && generatorcheck == 0){achievementaward(75)}
+        }
+    } else if (i == 'two') {
+        if (player.challengecompletions.two > 0.5) {achievementaward(85)}
+        if (player.challengecompletions.two > 2.5) {achievementaward(86)}
+        if (player.challengecompletions.two > 4.5) {achievementaward(87)}
+        if (player.challengecompletions.two > 9.5) {achievementaward(88)}
+        if (player.challengecompletions.two > 19.5) {achievementaward(89)}
+        if (player.challengecompletions.two > 49.5) {achievementaward(90)}
+        if (player.challengecompletions.two > 74.5) {achievementaward(91)}
+        if (!auto) {
+        if (player.coinsThisTranscension.greaterThanOrEqualTo("1e1000") && generatorcheck == 0){achievementaward(76)}
+        }
+    } else if (i == 'three') {
+        if (!auto) {
+            if (player.coinsThisTranscension.greaterThanOrEqualTo("1e99999") && generatorcheck == 0) {
+                achievementaward(77)
+            }
+        }
+        if (player.challengecompletions.three > 0.5) {achievementaward(92)}
+        if (player.challengecompletions.three > 2.5) {achievementaward(93)}
+        if (player.challengecompletions.three > 4.5) {achievementaward(94)}
+        if (player.challengecompletions.three > 9.5) {achievementaward(95)}
+        if (player.challengecompletions.three > 19.5) {achievementaward(96)}
+        if (player.challengecompletions.three > 49.5) {achievementaward(97)}
+        if (player.challengecompletions.three > 74.5) {achievementaward(98)}
+    } else if (i == 'four') {
+        if (player.challengecompletions.four > 0.5) {achievementaward(99)}
+        if (player.challengecompletions.four > 2.5) {achievementaward(100)}
+        if (player.challengecompletions.four > 4.5) {achievementaward(101)}
+        if (player.challengecompletions.four > 9.5) {achievementaward(102)}
+        if (player.challengecompletions.four > 19.5) {achievementaward(103)}
+        if (player.challengecompletions.four > 49.5) {achievementaward(104)}
+        if (player.challengecompletions.four > 74.5) {achievementaward(105)}
+    } else if (i == 'five') {
+        if (!auto) {
+            if (player.coinsThisTranscension.greaterThanOrEqualTo("1e120000")) {
+                achievementaward(63)
+            }
+        }
+        if (player.challengecompletions.five > 0.5) {achievementaward(106)}
+        if (player.challengecompletions.five > 2.5) {achievementaward(107)}
+        if (player.challengecompletions.five > 4.5) {achievementaward(108)}
+        if (player.challengecompletions.five > 9.5) {achievementaward(109)}
+        if (player.challengecompletions.five > 19.5) {achievementaward(110)}
+        if (player.challengecompletions.five > 49.5) {achievementaward(111)}
+        if (player.challengecompletions.five > 74.5) {achievementaward(112)}
+    } else if (i == 'six') {
+        if (player.challengecompletions.six > 0.5) {achievementaward(113)}
+        if (player.challengecompletions.six > 1.5) {achievementaward(114)}
+        if (player.challengecompletions.six > 2.5) {achievementaward(115)}
+        if (player.challengecompletions.six > 4.5) {achievementaward(116)}
+        if (player.challengecompletions.six > 9.5) {achievementaward(117)}
+        if (player.challengecompletions.six > 14.5) {achievementaward(118)}
+        if (player.challengecompletions.six > 24.5) {achievementaward(119)}
+    } else if (i == 'seven') {
+        if (player.challengecompletions.seven > 0.5) {achievementaward(120)}
+        if (player.challengecompletions.seven > 1.5) {achievementaward(121)}
+        if (player.challengecompletions.seven > 2.5) {achievementaward(122)}
+        if (player.challengecompletions.seven > 4.5) {achievementaward(123)}
+        if (player.challengecompletions.seven > 9.5) {achievementaward(124)}
+        if (player.challengecompletions.seven > 14.5) {achievementaward(125)}
+        if (player.challengecompletions.seven > 24.5) {achievementaward(126)}
     }
-}
-if (i == 'two') {
-    if (player.challengecompletions.two > 0.5) {achievementaward(85)}
-    if (player.challengecompletions.two > 2.5) {achievementaward(86)}
-    if (player.challengecompletions.two > 4.5) {achievementaward(87)}
-    if (player.challengecompletions.two > 9.5) {achievementaward(88)}
-    if (player.challengecompletions.two > 19.5) {achievementaward(89)}
-    if (player.challengecompletions.two > 49.5) {achievementaward(90)}
-    if (player.challengecompletions.two > 74.5) {achievementaward(91)}
-    if (!auto) {
-    if (player.coinsThisTranscension.greaterThanOrEqualTo("1e1000") && generatorcheck == 0){achievementaward(76)}
-    }
-}
-if (i == 'three') {
-    if (!auto) {
-    if (player.coinsThisTranscension.greaterThanOrEqualTo("1e99999") && generatorcheck == 0){achievementaward(77)}
-    }
-    if (player.challengecompletions.three > 0.5) {achievementaward(92)}
-    if (player.challengecompletions.three > 2.5) {achievementaward(93)}
-    if (player.challengecompletions.three > 4.5) {achievementaward(94)}
-    if (player.challengecompletions.three > 9.5) {achievementaward(95)}
-    if (player.challengecompletions.three > 19.5) {achievementaward(96)}
-    if (player.challengecompletions.three > 49.5) {achievementaward(97)}
-    if (player.challengecompletions.three > 74.5) {achievementaward(98)}
-}
-if (i == 'four') {
-    if (player.challengecompletions.four > 0.5) {achievementaward(99)}
-    if (player.challengecompletions.four > 2.5) {achievementaward(100)}
-    if (player.challengecompletions.four > 4.5) {achievementaward(101)}
-    if (player.challengecompletions.four > 9.5) {achievementaward(102)}
-    if (player.challengecompletions.four > 19.5) {achievementaward(103)}
-    if (player.challengecompletions.four > 49.5) {achievementaward(104)}
-    if (player.challengecompletions.four > 74.5) {achievementaward(105)}
-}
-if (i == 'five') {
-    if (!auto) {
-    if (player.coinsThisTranscension.greaterThanOrEqualTo("1e120000")) {achievementaward(63)}
-    }
-    if (player.challengecompletions.five > 0.5) {achievementaward(106)}
-    if (player.challengecompletions.five > 2.5) {achievementaward(107)}
-    if (player.challengecompletions.five > 4.5) {achievementaward(108)}
-    if (player.challengecompletions.five > 9.5) {achievementaward(109)}
-    if (player.challengecompletions.five > 19.5) {achievementaward(110)}
-    if (player.challengecompletions.five > 49.5) {achievementaward(111)}
-    if (player.challengecompletions.five > 74.5) {achievementaward(112)}
-}
-if (i == 'six') {
-    if (player.challengecompletions.six > 0.5) {achievementaward(113)}
-    if (player.challengecompletions.six > 1.5) {achievementaward(114)}
-    if (player.challengecompletions.six > 2.5) {achievementaward(115)}
-    if (player.challengecompletions.six > 4.5) {achievementaward(116)}
-    if (player.challengecompletions.six > 9.5) {achievementaward(117)}
-    if (player.challengecompletions.six > 14.5) {achievementaward(118)}
-    if (player.challengecompletions.six > 24.5) {achievementaward(119)}
-}
-if (i == 'seven') {
-    if (player.challengecompletions.seven > 0.5) {achievementaward(120)}
-    if (player.challengecompletions.seven > 1.5) {achievementaward(121)}
-    if (player.challengecompletions.seven > 2.5) {achievementaward(122)}
-    if (player.challengecompletions.seven > 4.5) {achievementaward(123)}
-    if (player.challengecompletions.seven > 9.5) {achievementaward(124)}
-    if (player.challengecompletions.seven > 14.5) {achievementaward(125)}
-    if (player.challengecompletions.seven > 24.5) {achievementaward(126)}
-}
 }
 
 function achievementdescriptions(i) {
-    var x = "adesc" + i
-    var y = window[x]
-    var z = ""
-    var k = ""
-   
-    var j = "areward" + i
-    k = window[j]
-    if (k === undefined) {
-        k = ""
-    } 
+    var y = window['adesc' + i] || '';
+    var z = player.achievements[i] > .5 ? ' COMPLETED!' : '';
+    var k = window['areward' + i] || '';
 
-    if (player.achievements[i] > 0.5) {
-        z = z + " COMPLETED!"
-    }
-    document.getElementById("achievementdescription").textContent = y + z
+    document.getElementById("achievementdescription").textContent = y + z;
+    document.getElementById("achievementdescription").style.color = player.achievements[i] > .5 ? 'gold' : 'white';
     document.getElementById("achievementreward").textContent = "Reward: " + achievementpointvalues[i] + " AP. " + achievementpointvalues[i] + " Quarks! " + k
-    if (player.achievements[i] > 0.5) {
-        document.getElementById("achievementdescription").style.color = "gold"
-    }
-    else {document.getElementById("achievementdescription").style.color = "white"}
 }
+
 function achievementaward(num) {
     if (player.achievements[num] < 0.5) {
         player.achievementPoints += achievementpointvalues[num]
@@ -525,11 +512,7 @@ function achievementaward(num) {
         document.getElementById("achievementprogress").textContent = "Achievement Points: " + player.achievementPoints + "/" + totalachievementpoints + " [" + (100 * player.achievementPoints / totalachievementpoints).toPrecision(4) + "%]"
     }
     player.achievements[num] = 1;
-    var x = "ach" + num
-    document.getElementById(x).style.backgroundColor = "Green"
-    achievementunlock()
-}
-
-function achievementunlock() {
-    revealStuff()
+    /*var x = "ach" + num*/
+    document.getElementById("ach" + num).style.backgroundColor = "Green"
+    revealStuff();
 }

@@ -259,11 +259,7 @@ function reset(i) {
 
     player.prestigePoints = player.prestigePoints.add(prestigePointGain);
     player.prestigeShards = new Decimal("0");
-    player.prestigenoaccelerator = true;
-    player.prestigenomultiplier = true;
-    player.prestigenocoinupgrades = true;
-
-    player.unlocks.prestige = true;
+    player.prestigenoaccelerator = player.prestigenomultiplier = player.prestigenocoinupgrades = player.unlocks.prestige = !0;
 
     if (player.prestigecounter < player.fastestprestige) {
         player.fastestprestige = player.prestigecounter;
@@ -304,10 +300,7 @@ function reset(i) {
         player.prestigePoints = new Decimal("0");
         player.transcendPoints = player.transcendPoints.add(transcendPointGain);
         player.transcendShards = new Decimal("0");
-        player.transcendnocoinupgrades = true;
-        player.transcendnocoinorprestigeupgrades = true;
-        player.transcendnoaccelerator = true;
-        player.transcendnomultiplier = true;
+        player.transcendnocoinupgrades = player.transcendnocoinorprestigeupgrades = player.transcendnoaccelerator = player.transcendnomultiplier = !0;
 
         if (player.achievements[78] > 0.5) {
             player.firstOwnedDiamonds += 1
