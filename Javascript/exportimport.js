@@ -64,7 +64,8 @@ function promocodes(code) {
     }
 
     if(el.textContent.length) {
-        // remove text after 5 seconds
-        setTimeout(() => el.textContent = '', 5000);
+        setTimeout(function() { 
+            el.textContent = ''
+        }, 30000);
     }
 }

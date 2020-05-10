@@ -367,10 +367,10 @@ function saveSynergy() {
 
 
 
-function loadSynergy(imported = 0) {
+function loadSynergy() {
    
    
-   document.addEventListener("keydown", function onPress(event) {
+   document.addEventListener("keydown", function (event) {
 	   var type = ""
 	   var pos = ""
 	   var num = 0
@@ -406,7 +406,7 @@ function loadSynergy(imported = 0) {
    const data = saveString ? JSON.parse(atob(saveString)) : null;
 
    if (data) {
-	   	function isDecimal(o = {}) {
+	   	function isDecimal(o) {
 		   	if(!(o instanceof Object)) {
 			   	return false;
 		   	}
@@ -661,7 +661,10 @@ function updatetimer() {
     saveSynergy();
 }
 
-function format(input, accuracy = 0, short = true) {
+function format(input, accuracy /*= 0*/, short /*= true*/) {
+	accuracy = accuracy || 0;
+	short = short || true;
+
 	if (input instanceof Decimal) {
 		var power = input.e
 		var matissa = input.mantissa
@@ -1269,7 +1272,8 @@ function resetCurrency() {
 	if (player.upgrades[65] > 0.5) {reincarnationPointGain = reincarnationPointGain.times(5)}
 	}
 
-function resetCheck(i,manual=true) {
+function resetCheck(i,manual/*=true*/) {
+	manual = manual || 1;
 	if (i == 'prestige') {
 		if (player.coinsThisPrestige.greaterThanOrEqualTo(1e16) || prestigePointGain.greaterThanOrEqualTo(100)) {
 			if (manual) {
@@ -1627,7 +1631,7 @@ function tick() {
 	}
 }
  
-window['addEventListener' in window ? 'addEventListener' : 'attachEvents']('load', function() {
+window['addEventListener' in window ? 'addEventListener' : 'attachEvent']('load', function() {
 	const dec = LZString.decompressFromBase64(localStorage.getItem('Synergysave2'));
 	const isLZString = dec !== '';
 	

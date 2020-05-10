@@ -5,9 +5,9 @@
         player.reincarnationcounter += 0.05;
     }
     
-    function displayruneinformation(i,updatelevelup = true) {
-        var m = 1;
-            m *= (1 + player.researches[4]/10) * (1 + player.researches[21]/800)
+    function displayruneinformation(i,updatelevelup /*= true*/) {
+        updatelevelup = updatelevelup || 1;
+        var m = (1 + player.researches[4]/10) * (1 + player.researches[21]/800)
         if (i == 1) {
             if (updatelevelup) {document.getElementById("runeshowlevelup").textContent = "+1 Accelerator, +0.5% Accelerators per level. +1 Accelerator Boost every 10 levels!"}
             document.getElementById("runeshowpower1").textContent = "Speed Rune Bonus: " + "+" + format(Math.floor(player.runelevels[0] * m)) + " Accelerators, +" + (player.runelevels[0]/2  * m).toPrecision(4) +"% Accelerators, +" + format(Math.floor(player.runelevels[0]/10 * m)) + " Accelerator Boosts."

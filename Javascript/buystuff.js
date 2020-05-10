@@ -1,6 +1,8 @@
-function buyAccelerator(autobuyer=false){
+function buyAccelerator(autobuyer/*=false*/) {
 	var autobuyamount = 0;
-	if(autobuyer){autobuyamount = 9999}
+	if(autobuyer) {
+		autobuyamount = 9999
+	}
 	var buythisamount = Math.max(player.coinbuyamount, autobuyamount)
 	while(player.coins.greaterThanOrEqualTo(player.acceleratorCost) && ticker < buythisamount) {
 
@@ -37,7 +39,7 @@ function buyAccelerator(autobuyer=false){
 
 	}
 
-function buyMultiplier(autobuyer=false){
+function buyMultiplier(autobuyer/*=false*/){
 	var autobuyamount = 0;
 	if(autobuyer){autobuyamount = 9999}
 	var buythisamount = Math.max(player.coinbuyamount, autobuyamount)
@@ -74,7 +76,7 @@ function buyMultiplier(autobuyer=false){
 
 	}
 	
-function buyProducer(pos,type,num,autobuyer=false) {
+function buyProducer(pos,type,num,autobuyer/*=false*/) {
 	var autobuyamount = 0;
 	var r = 1;
 	r += 1/400 * player.runelevels[3]
@@ -206,7 +208,7 @@ function buyCrystalUpgrades(i) {
 	}
 	crystalupgradedescriptions(i)
 }	
-function boostAccelerator(automated = false) {
+function boostAccelerator(automated /*= false*/) {
 	var buyamount = 1;
 	if (player.upgrades[46] == 1) {
 	buyamount = player.coinbuyamount;
