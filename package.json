@@ -7,7 +7,7 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npx babel . --ignore \"node_modules\" --out-file index.js"
+    "build": "npx babel . --ignore \"node_modules,break_infinity.js,lz-string.js\" --out-file index.js --minified --compact true --no-comments"
   },
   "repository": {
     "type": "git",
