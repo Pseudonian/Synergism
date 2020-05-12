@@ -5,7 +5,7 @@
   "main": "Synergism.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "cmd /c \"npx babel . --ignore \"node_modules,lz-string.js,break_infinity.js\" --no-comments -o index.js & npx terser --mangle -e -o synergism.min.js index.js\""
+    "build": "cmd /c \"npx babel . --ignore \"node_modules,lz-string.js,break_infinity.js\" --no-comments -o index.js & npx terser --mangle -o synergism.min.js index.js\""
   },
   "repository": {
     "type": "git",
