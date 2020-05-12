@@ -375,8 +375,8 @@ function loadSynergy() {
 	   	function isDecimal(o) {
 		   	if(!(o instanceof Object)) {
 			   	return false;
-		   	}
-		   	return Object.keys(o).length === 2 && Object.keys(o).every(function(v) { return ['mantissa', 'exponent'].includes(v) });
+			}   
+		   	return Object.keys(o).length === 2 && Object.keys(o).every(function(v) { return ['mantissa', 'exponent'].indexOf(v) > -1 });
 	   	}
 
 	   	if(data.version) {
