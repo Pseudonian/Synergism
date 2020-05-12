@@ -1,14 +1,13 @@
+/**
+ * Export the save as a txt file. Works in IE8+, unless there is an alternative to `Element.prototype.click`.
+ */
 function exportSynergism() {
-    var string = localStorage.getItem("Synergysave2");
-    document.getElementById('exporttext').textContent = string
-
-    var text = document.getElementById('exporttext')
-    text.select()
-    document.execCommand("copy")
-
-    document.getElementById("exportinfo").textContent = "Copied to clickboard! Paste it somewhere safe."
-    document.getElementById("importinfo").textContent = ""
-  }
+    const a = document.createElement('a');
+    a.setAttribute('href', 'data:text/plain;charset=utf-8,' + localStorage.getItem('Synergysave2'));
+    a.setAttribute('download', 'save.txt');
+    a.setAttribute('id', 'downloadSave');
+    a.click();
+}
 
 function importSynergism() {
     const input = prompt("Got a save? Great! Just paste it below.");
@@ -22,7 +21,7 @@ function importSynergism() {
             const data = JSON.parse(atob(input));
             if (data.exporttest === "YES!" && data.kongregatetest !== "YES!") {
                 localStorage.setItem("Synergysave2", input);
-                loadSynergy(true);
+                loadSynergy();
                 document.getElementById("importinfo").textContent = "Successfully imported your savefile. Go nuts!"
             } else { //
                 document.getElementById("importinfo").textContent = "Savefile code invalid. Try again with a valid code! Unless, of course, you were entering a Promo Code?"
