@@ -1,3 +1,4 @@
 # Khafra 
 node_modules
 index.js
+*.min.js

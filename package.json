@@ -1,13 +1,11 @@
 {
   "name": "synergism",
-  "version": "1.008.1",
-  "description": "",
-  "main": "index.js",
-  "dependencies": {},
-  "devDependencies": {},
+  "version": "1.0.0",
+  "description": "1. `npm i`.\r 2. `npm run-script build`.\r 3. Start up server.",
+  "main": "Synergism.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npx babel . --ignore \"node_modules,break_infinity.js,lz-string.js\" --out-file index.js --minified --compact true --no-comments"
+    "build": "cmd /c \"npx babel . --ignore \"node_modules,lz-string.js,break_infinity.js\" --no-comments -o index.js & npx terser --mangle -e -o synergism.min.js index.js\""
   },
   "repository": {
     "type": "git",
@@ -18,5 +16,11 @@
   "bugs": {
     "url": "https://github.com/Pseudonian/synergism/issues"
   },
-  "homepage": "https://github.com/Pseudonian/synergism#readme"
+  "homepage": "https://github.com/Pseudonian/synergism#readme",
+  "dependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.6",
+    "terser": "^4.6.13"
+  },
+  "devDependencies": {}
 }
