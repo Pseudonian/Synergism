@@ -1,7 +1,12 @@
 /**
- * Export the save as a txt file. Works in IE8+, unless there is an alternative to `Element.prototype.click`.
+ * Copy the save file to clipboard (IE) or export it as a file (EVERYTHING else).
  */
 function exportSynergism() {
+    if('clipboardData' in window) {
+        window.clipboardData.setData('Text', localStorage.getItem('Synergysave2'));
+        return;
+    }
+
     const a = document.createElement('a');
     a.setAttribute('href', 'data:text/plain;charset=utf-8,' + localStorage.getItem('Synergysave2'));
     a.setAttribute('download', 'save.txt');
