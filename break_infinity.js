@@ -3,7 +3,7 @@
     typeof define === 'function' && define.amd ? define(factory) :
     (global = global || self, global.Decimal = factory());
   }(this, function () { 'use strict';
-  
+    // Khafra says fuck you for removing these
     Math.sign = Math.sign || function(x) {
       return ((x > 0) - (x < 0)) || +x;
     };
@@ -22,10 +22,10 @@
         return Number.isInteger(value) && Math.abs(value) <= Number.MAX_SAFE_INTEGER;
     };
 
-	Math.trunc = Math.trunc || function (v) {
-		return v < 0 ? Math.ceil(v) : Math.floor(v);
-	};
-  
+	  Math.trunc = Math.trunc || function (v) {
+		  return v < 0 ? Math.ceil(v) : Math.floor(v);
+	  };
+    // end of fuck you
 
     var padEnd = function (string, maxLength, fillString) {
   

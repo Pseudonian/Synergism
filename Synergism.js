@@ -555,10 +555,10 @@ for (j = 0; j <= 4; j++) {
 
 }
 
-if (player.shoptoggles.coin == false) {document.getElementById("shoptogglecoin").textContent = "Auto: OFF"}
-if (player.shoptoggles.prestige == false) {document.getElementById("shoptoggleprestige").textContent = "Auto: OFF"}
-if (player.shoptoggles.transcend == false) {document.getElementById("shoptoggletranscend").textContent = "Auto: OFF"}
-if (player.shoptoggles.generator == false) {document.getElementById("shoptogglegenerator").textContent = "Auto: OFF"}
+if (player.shoptoggles.coin == false) {document.getElementById("shoptogglecoin").textContent = "Auto: [OFF]"}
+if (player.shoptoggles.prestige == false) {document.getElementById("shoptoggleprestige").textContent = "Auto: [OFF]"}
+if (player.shoptoggles.transcend == false) {document.getElementById("shoptoggletranscend").textContent = "Auto: [OFF]"}
+if (player.shoptoggles.generator == false) {document.getElementById("shoptogglegenerator").textContent = "Auto: [OFF]"}
 
 
 	var p = ""
@@ -1597,6 +1597,22 @@ function tick() {
 	}
 }
 
+/**
+ * Update border colors for buttons automatically. Called after loadSynergy in the window.onload event.
+ */
+const buttonUpdate = function() {
+	const buttons = document.querySelectorAll('button');
+
+	for(let i = 0; i < buttons.length; i++) {
+		if(buttons[i].id.indexOf('toggle') === -1) {
+			continue;
+		}
+
+		const state = buttons[i].textContent.indexOf('[ON]') > -1;
+		buttons[i].style.border = '2px solid ' + (state ? 'green' : 'red');
+	}
+}
+
 document['addEventListener' in document ? 'addEventListener' : 'attachEvent']('keydown', function (event) {
 	var type = ""
 	var pos = ""
@@ -1646,6 +1662,8 @@ window['addEventListener' in window ? 'addEventListener' : 'attachEvent']('load'
 		createTimer();
 		constantIntervals();
 		htmlInserts();
+
+		buttonUpdate();
 	}, 2000);
 });
  

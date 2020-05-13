@@ -3,6 +3,11 @@ function toggleTabs(i) {
     hideStuff();
 }
 
+/**
+ * Toggle an auto-buyer
+ * @param {number} i number to toggle 
+ * @param {Element} self html element
+ */
 function toggleSettings(i, self) {
     player.toggles[cardinals[i]] = !player.toggles[cardinals[i]];
 
