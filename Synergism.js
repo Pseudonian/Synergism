@@ -1613,7 +1613,17 @@ const buttonUpdate = function() {
 	}
 }
 
+/**
+ * Handle hotkeys
+ */
 document['addEventListener' in document ? 'addEventListener' : 'attachEvent']('keydown', function (event) {
+	// activeElement is the focused element on page
+	// if the autoprestige input is focused, hotkeys shouldn't work
+	// fixes https://github.com/Pseudo-Corp/Synergism-Issue-Tracker/issues/2
+	if(document.querySelector('.transcendunlock') === document.activeElement) {
+		return;
+	}
+
 	var type = ""
 	var pos = ""
 	var num = 0
