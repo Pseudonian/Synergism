@@ -142,6 +142,12 @@ if (player.unlocks.rrow2 == true) {
                     e[i].style.display = "block";
                             }
                         }
+    if (player.achievements[123] == 1){
+                            let e = document.getElementsByClassName("chal7");
+                            for (var i = 0; i < e.length; i++){
+                                e[i].style.display= "block"
+                            }
+                        }
 var e = document.getElementsByClassName("auto");
     if (player.upgrades[81] == 1){e[0].style.display = "block";}
     if (player.upgrades[82] == 1){e[1].style.display = "block";}
@@ -350,19 +356,17 @@ if (currentTab == "prestige") {
 }
 if (currentTab == "runes"){
     document.getElementById("runeshards").textContent = "You have " + format(player.runeshards) + " Offerings."
-    document.getElementById("rune1level").textContent = "Level: " + player.runelevels[0] + "/500"
-    document.getElementById("rune2level").textContent = "Level: " + player.runelevels[1] + "/500"
-    document.getElementById("rune3level").textContent = "Level: " + player.runelevels[2] + "/500"
-    document.getElementById("rune4level").textContent = "Level: " + player.runelevels[3] + "/500"
+    document.getElementById("rune1level").textContent = "Level: " + player.runelevels[0] + "/" + (500 + player.researches[78])
+    document.getElementById("rune2level").textContent = "Level: " + player.runelevels[1] + "/" + (500 + player.researches[80])
+    document.getElementById("rune3level").textContent = "Level: " + player.runelevels[2] + "/" + (500 + player.researches[79])
+    document.getElementById("rune4level").textContent = "Level: " + player.runelevels[3] + "/" + (500 + player.researches[77])
     document.getElementById("rune1exp").textContent = "+1 in " + format(Math.ceil(Math.max(0, (1 * Math.pow(player.runelevels[0] , 3) * (4 * player.runelevels[0] + 100)/500 * (1 - 0.02 * player.challengecompletions.seven) - player.runeexp[0]))),2) + " EXP" 
     document.getElementById("rune2exp").textContent = "+1 in " + format(Math.ceil(Math.max(0, (4 * Math.pow(player.runelevels[1] , 3) * (4 * player.runelevels[1] + 100)/500 * (1 - 0.02 * player.challengecompletions.seven) - player.runeexp[1]))),2) + " EXP"
     document.getElementById("rune3exp").textContent = "+1 in " + format(Math.ceil(Math.max(0, (9 * Math.pow(player.runelevels[2] , 3) * (4 * player.runelevels[2] + 100)/500 * (1 - 0.02 * player.challengecompletions.eight) - player.runeexp[2]))),2) + " EXP"
     document.getElementById("rune4exp").textContent = "+1 in " + format(Math.ceil(Math.max(0, (16 * Math.pow(player.runelevels[3] , 3) * (4 * player.runelevels[3] + 100)/500 * (1 - 0.02 * player.challengecompletions.six) - player.runeexp[3]))),2) + " EXP"
-    document.getElementById("runedetails").textContent = "Gain " + (25 + 3 * player.researches[22] + 2 * player.researches[23] + 3 * player.upgrades[66] + 5 * player.upgrades[61]) + " EXP per offering sacrificed. Gain more offerings through resetting longer runs!"  
-    
+    document.getElementById("runedetails").textContent = "Gain " + (25 + 3 * player.researches[22] + 2 * player.researches[23] + 3 * player.upgrades[66] + 5 * player.upgrades[61]) + " EXP per offering sacrificed. Gain more offerings through resetting longer runs!"
     document.getElementById("runerecycle").textContent = "You have " +(5 * player.achievements[80] + 5 * player.achievements[87] + 5 * player.achievements[94] + 5 * player.achievements[101] + 5 * player.achievements[108] + 5 * player.achievements[115] + 10 * player.achievements[122] + 10 * player.achievements[129] + 5 * player.upgrades[61] + Math.min(25, player.runelevels[3]/8))  + "% chance of recycling your offerings. Recycled offerings are not spent!"
-    /* Updated this for v1.0084: Recycle chance now properly displays */
-  }
+}
 if (currentTab == "transcension") {
     document.getElementById("transcendshardinfo").textContent = "You have " + format(player.transcendShards,2) + " Mythos Shards, providing " + format(totalMultiplierBoost) + " Multiplier Power boosts."
     document.getElementById("transcendtext1").textContent = "Augments: " + format(player.firstOwnedMythos) + " [+" + format(player.firstGeneratedMythos,2) + "]"
