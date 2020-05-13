@@ -20,13 +20,17 @@ var researchBaseCosts = [0, 1, 1, 1, 1, 1,
 							10, 50, 25, 2500, 100000,
 							100, 1000, 10000, 100000, 1000000,
 							2, 500, 250000, 2500, 50000,
-							5, 50, 500, 500, 5000,
-							2, 8, 320, 1280, 51200,
+							1, 1, 5, 25, 125,
+							2, 5, 320, 1280, 3e7,
 							10, 100, 1000, 100000, 2000000,
 							10, 100, 1000, 25000, 500000,
 							5, 10, 80, 5000, 20000,
 							2, 20, 200, 2000, 20000,
 							10, 40, 160, 1000, 10000,
+							1e7, 1e7, 2e7, 3e7, 4e7,
+							2e7, 2e7, 4e7, 8e7, 1.6e8,
+							1e7, 1e7, 1e7, 1e8, 1e9
+
 							]
 
 
@@ -46,6 +50,10 @@ var researchMaxLevels = [0, 1, 1, 1, 1, 1,
 							 1, 28, 28, 3, 50,
 							 50, 50, 50, 50, 50,
 							 1, 1, 1, 1, 1,
+							 100, 250, 250, 250, 250,
+							 1000, 1000, 1000, 1000,
+							 1, 100, 100, 100, 100,
+							 100, 100, 100, 100, 100
 							 ]								
 
 var ticker = 0;
@@ -157,12 +165,12 @@ var challengebaserequirements = {
 var challengebaserequirementsrein = {
 	six: 125,
 	seven: 500,
-	eight: 2500,
+	eight: 999999,
 }
 
 var prestigeamount = 1;
 var taxdivisor = new Decimal("1");
-
+var taxdivisorcheck = new Decimal("1");
 var runemultiplierincrease = {
 	one: 1,
 	two: 1,
@@ -175,3 +183,7 @@ var mythosupgrade13 = new Decimal("1");
 var mythosupgrade14 = new Decimal("1");
 var mythosupgrade15 = new Decimal("1");
 var challengefocus = 0;
+
+var maxexponent = 10000;
+
+var maxbuyresearch = false;
