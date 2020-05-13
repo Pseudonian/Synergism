@@ -495,6 +495,11 @@ function loadSynergy() {
 		player.obtainiumlocktoggle = false;
 	}
 
+
+
+
+	
+
 	if (player.resettoggle1 == 0) {
 		player.resettoggle1 = 1;
 		player.resettoggle2 = 1;
@@ -587,7 +592,9 @@ if ((updatedtime - player.offlinetick) > 10000) {
 	if (player.researches[61] > 0.5) {
 		player.obtainiumtimer += timeadd
 		var u = 1;
-		if(player.upgrades[69] > 0.5){u = Math.min(3,Decimal.pow(Decimal.log(reincarnationPointGain.add(10), 10), 0.5))}
+		if(player.upgrades[69] > 0.5) {
+			u = Math.min(3,Decimal.pow(Decimal.log(reincarnationPointGain.add(10), 10), 0.5))
+		}
 		player.researchPoints += Math.floor((1 + player.researches[64]) * u * player.obtainiumtimer / (60 - player.researches[62] - player.researches[63]))
 		var a = player.obtainiumtimer % (60 - player.researches[62] - player.researches[63])
 		player.obtainiumtimer = a
@@ -1337,33 +1344,29 @@ function resetCheck(i,manual/*=true*/) {
 }	
 
 function resetConfirmation(i) {
-	if (i == 'prestige') {
+	if (i === 'prestige') {
 		if (player.toggles.twentyeight == true) {
 			var r = confirm("Prestige will reset coin upgrades, coin producers AND crystals. The first prestige unlocks new features. Would you like to prestige? [Toggle this message in settings.]")
-				if (r == true) {
-					resetachievementcheck(1)
-					reset(1);
-				}
-		}
-		else {
+			if (r) {
+				resetachievementcheck(1)
+				reset(1);
+			}
+		} else {
 			resetachievementcheck(1);
 			reset(1);
 		}
-	}
-	if (i == 'transcend') {
-		if (player.toggles.twentynine == true) {
+	} else if (i === 'transcend') {
+		if (player.toggles.twentynine) {
 			var z = confirm("Transcends will reset coin and prestige upgrades, coin producers, crystal producers AND diamonds. The first transcension unlocks new features. Would you like to prestige? [Toggle this message in settings.]")
-				if (z == true) {
-					resetachievementcheck(2)
-					reset(2);
-				}
-		}
-		else {
+			if (z) {
+				resetachievementcheck(2)
+				reset(2);
+			}
+		} else {
 			resetachievementcheck(2)
 			reset(2);
 		}
-	}
-	if (i == 'reincarnate') {
+	} else if (i === 'reincarnate') {
 		if (player.toggles.thirty == true) {
 			var z = confirm("Reincarnating will reset EVERYTHING but in return you will get extraordinarily powerful Particles, and unlock some very strong upgrades and some new features. would you like to Reincarnate? [Disable this message in settings]")
 				if (z == true) {
@@ -1663,7 +1666,7 @@ window['addEventListener' in window ? 'addEventListener' : 'attachEvent']('load'
 		localStorage.setItem('Synergysave2', btoa(dec));
 		alert('Transferred save to new format successfully!');
 	}
-	
+
 	setTimeout(function() {
 		loadSynergy();
 		saveSynergy();

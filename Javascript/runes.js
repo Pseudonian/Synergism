@@ -103,7 +103,7 @@
     }
     }
     }
-    console.log(player.runeexp[2] - (runeexpbase[k] * Math.pow(player.runelevels[k], 3) * ((4 * player.runelevels[k]) + 100)/500 * r))
+    // console.log(player.runeexp[2] - (runeexpbase[k] * Math.pow(player.runelevels[k], 3) * ((4 * player.runelevels[k]) + 100)/500 * r))
 
 }
 
