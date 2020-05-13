@@ -149,7 +149,10 @@ function buyProducer(pos,type,num,autobuyer/*=false*/) {
 	}
 
 function buyResearch(index) {
-		if (player.researches[index] < researchMaxLevels[index] && player.researchPoints >= (researchBaseCosts[index])) {
+    let buyamount = 1;
+    let i = 1;
+    if (maxbuyresearch){buyamount = 1000}
+		while(player.researches[index] < researchMaxLevels[index] && player.researchPoints >= (researchBaseCosts[index]) && buyamount >= i) {
 			player.researchPoints -= researchBaseCosts[index]
 			player.researches[index] += 1;
 			researchfiller2 = "Level: " + player.researches[index] + "/" + researchMaxLevels[index]
@@ -159,7 +162,7 @@ function buyResearch(index) {
 			if (index == 48 && player.unlocks.rrow2 == false) {player.unlocks.rrow2 = true; revealStuff()}
 			if (index == 49 && player.unlocks.rrow3 == false) {player.unlocks.rrow3 = true; revealStuff()}
 			if (index == 50 && player.unlocks.rrow4 == false) {player.unlocks.rrow4 = true; revealStuff()}
-
+            i++
         }
     }
 
