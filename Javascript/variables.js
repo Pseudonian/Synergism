@@ -27,7 +27,7 @@ var researchBaseCosts = [0, 1, 1, 1, 1, 1,
 							5, 10, 80, 5000, 20000,
 							2, 20, 200, 2000, 20000,
 							10, 40, 160, 1000, 10000,
-							2e8, 1e7, 2e7, 3e7, 4e7,
+							1e7, 1e7, 2e7, 3e7, 4e7,
 							2e7, 2e7, 4e7, 8e7, 1.6e8,
 							1e7, 1e7, 1e7, 1e8, 1e9
 
@@ -50,7 +50,7 @@ var researchMaxLevels = [0, 1, 1, 1, 1, 1,
 							 1, 28, 28, 3, 50,
 							 50, 50, 50, 50, 50,
 							 1, 1, 1, 1, 1,
-							 1, 500, 500, 500, 500,
+							 100, 250, 250, 250, 250,
 							 1000, 1000, 1000, 1000,
 							 1, 100, 100, 100, 100,
 							 100, 100, 100, 100, 100
@@ -146,7 +146,7 @@ let currentTab = "buildings"
 var researchfiller1 = "Hover over the grid to get details about researches!"
 var researchfiller2 = "Level: "
 
-// var ordinals = ["first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth", "ninth", "tenth", "eleventh", "twelfth", "thirteenth", "fourteenth", "fifteenth", "sixteenth", "seventeenth", "eighteenth", "nineteenth", "twentieth"]
+var ordinals = ["first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth", "ninth", "tenth", "eleventh", "twelfth", "thirteenth", "fourteenth", "fifteenth", "sixteenth", "seventeenth", "eighteenth", "nineteenth", "twentieth"]
 var cardinals = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen", "twenty", "twentyone", "twentytwo", "twentythree", "twentyfour", "twentyfive", "twentysix", "twentyseven", "twentyeight", "twentynine", "thirty", "thirtyone", "thirtytwo", "thirtythree", "thirtyfour"]
 
 var challengebaserequirements = {
@@ -165,7 +165,7 @@ var challengebaserequirements = {
 var challengebaserequirementsrein = {
 	six: 125,
 	seven: 500,
-	eight: 2500,
+	eight: 999999,
 }
 
 var prestigeamount = 1;
@@ -185,3 +185,5 @@ var mythosupgrade15 = new Decimal("1");
 var challengefocus = 0;
 
 var maxexponent = 10000;
+
+var maxbuyresearch = false;
