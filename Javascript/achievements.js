@@ -83,7 +83,7 @@ var adesc50 = "Going Quantum: Reincarnate for at least 1 Particle."
 var adesc51 = "Tunneling Vision: Reincarnate for at least 100,000 Particles."
 var adesc52 = "Simulating the World: Reincarnate for at least 1e+30 Particles."
 var adesc53 = "Multidimensional Creation: Reincarnate for at least 1e+200 Particles."
-var adesc54 = "Lepton Dance: Reincarnate for at least 1e+1000 Particles."
+var adesc54 = "Lepton Dance: Reincarnate for at least 1e+1500 Particles."
 var adesc55 = "Do we have enough yet?: Reincarnate for at least 1e+5000 Particles."
 var adesc56 = "I Feel Luck in My Cells: Reincarnate for at least 1e+7777 Particles."
 var adesc57 = "One Way Only: Prestige without buying multipliers."
@@ -284,6 +284,7 @@ var areward110 = "Delay tax growth by 4%."
 var areward115 = "+5% chance to not spend an offering when sacrificing."
 var areward117 = "Delay tax growth by 5.66%."
 var areward122= "+10% chance to not spend an offering when sacrificing."
+var areward123 = "Unlock 5 expensive yet powerful researches!"
 var areward124 = "Delay tax growth by 5.66%."
 var areward129= "+10% chance to not spend an offering when sacrificing."
 var areward131 = "Delay tax growth by 5.66%."
@@ -359,7 +360,7 @@ function resetachievementcheck(i) {
         if (transcendPointGain.greaterThanOrEqualTo(1e308)) {
             achievementaward(46)
         }
-        if (transcendPointGain.greaterThanOrEqualTo("1e2000")) {
+        if (transcendPointGain.greaterThanOrEqualTo("1e1500")) {
             achievementaward(47)
         }
         if (transcendPointGain.greaterThanOrEqualTo("1e25000")) {
@@ -498,6 +499,15 @@ function challengeachievementcheck(i, auto /*= 0*/) {
         if (player.challengecompletions.seven > 14.5) {achievementaward(125)}
         if (player.challengecompletions.seven > 24.5) {achievementaward(126)}
     }
+    if (i == 'eight') {
+        if (player.challengecompletions.eight > 0.5) {achievementaward(127)}
+        if (player.challengecompletions.eight > 1.5) {achievementaward(128)}
+        if (player.challengecompletions.eight > 2.5) {achievementaward(129)}
+        if (player.challengecompletions.eight > 4.5) {achievementaward(130)}
+        if (player.challengecompletions.eight > 9.5) {achievementaward(131)}
+        if (player.challengecompletions.eight > 14.5) {achievementaward(132)}
+        if (player.challengecompletions.eight > 24.5) {achievementaward(133)}
+}
 }
 
 function achievementdescriptions(i) {
@@ -514,10 +524,9 @@ function achievementaward(num) {
     if (player.achievements[num] < 0.5) {
         player.achievementPoints += achievementpointvalues[num]
         player.worlds += achievementpointvalues[num]
+        player.achievements[num] = 1;
+        revealStuff();
         document.getElementById("achievementprogress").textContent = "Achievement Points: " + player.achievementPoints + "/" + totalachievementpoints + " [" + (100 * player.achievementPoints / totalachievementpoints).toPrecision(4) + "%]"
     }
-    player.achievements[num] = 1;
-    /*var x = "ach" + num*/
     document.getElementById("ach" + num).style.backgroundColor = "Green"
-    revealStuff();
 }
