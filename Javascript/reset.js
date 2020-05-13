@@ -65,7 +65,7 @@ function resetdetails(i) {
         q *= 1.25
     }
     if (player.upgrades[75] > 0.5) {
-        q *= (1 + 2 * Math.min(1, Math.pow(player.maxobtainium / 100000, 0.5)))
+        q *= (1 + 2 * Math.min(1, Math.pow(player.maxobtainium / 30000000, 0.5)))
     }
     q = Math.floor(q) * 100 / 100
 
@@ -351,20 +351,21 @@ function reset(i) {
     if (i > 2.5) {
         var q = 1
         if (player.upgrades[69] > 0.5) {
-            q *= Math.min(10, Decimal.pow(Decimal.log(reincarnationPointGain.add(10), 10), 0.5))
+            q *= Math.min(10, Decimal.pow(Decimal.log(reincarnationPointGain.add(11), 10), 0.5))
         }
         if (player.upgrades[70] > 0.5) {
             q *= Math.pow(Math.min(19, 1 + 2 * player.reincarnationcounter / 400),2)
         }
         if (player.upgrades[72] > 0.5) {
-            q *= (1 + player.challengecompletions.six + player.challengecompletions.seven + player.challengecompletions.eight + player.challengecompletions.nine + player.challengecompletions.ten)
+            q *= Math.min(50, (1 + 2 * player.challengecompletions.six + 2 * player.challengecompletions.seven + 2 * player.challengecompletions.eight + 2 * player.challengecompletions.nine + 2 * player.challengecompletions.ten))
         }
-        if (player.upgrades[74] > 0.5) {
+        if (player.upgrades[74] > 0.5 && player.maxofferings !== undefined) {
             q *= (1 + 4 * Math.min(1, Math.pow(player.maxofferings / 100000, 0.5)))
         }
             q *= (1 + 1/50 * player.researches[65])
+            q *= (1 + 1/100 * player.researches[76])
         if (player.currentChallengeRein !== "" && (q < 1.5)) {
-            q *= 0
+            q = 0
         }
         q *= Math.min(1 + 3 * player.upgrades[70], Math.pow(player.reincarnationcounter/30, 2))
         player.researchPoints += Math.floor(q);
