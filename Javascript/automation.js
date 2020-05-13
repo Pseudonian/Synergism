@@ -1,4 +1,4 @@
-function buyGenerator(i, state) {
+function buyGenerator(i, state, auto = false) {
     if (i == 1 && player.prestigePoints.greaterThanOrEqualTo(1e12) && player.unlocks.generation == false) {player.unlocks.generation = true}
     var q = 100 + i
     let type = "transcendPoints"
@@ -11,16 +11,18 @@ function buyGenerator(i, state) {
         if (player.upgrades[q] == 0 && player[type].greaterThanOrEqualTo(cost)) {
 
             if (achievementCheck == 0) {
-                if(q >= 102 && q <= 105) {
-                    achievementaward(q - 31);
-                }
+                if (q == 102) {achievementaward(71)}
+                if (q == 103) {achievementaward(72)}
+                if (q == 104) {achievementaward(73)}
+                if (q == 105) {achievementaward(74)}
             }
 
             player[type] = player[type].sub(cost);
             player.upgrades[q] = 1;
             upgradeupdate(q, state)
         }
-    revealStuff()
+
+    if (!auto){revealStuff()}
 }
 
 function buyAutobuyers(i, state) {
