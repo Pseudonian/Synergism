@@ -60,8 +60,8 @@ var upgdesc59 = "Coin Mint production is multiplied by 1e+25000."
 var upgdesc60 = "Alchemies production is multiplied by 1e+35000." //Reincarnation Upgrades 61-100
 var upgdesc61 = "Welcome to reincarnation! +5% Offering Recycle, +5 EXP/Offering!"
 var upgdesc62 = "Completing challenges, automatically or manually, increase offerings gained in Reincarnation. Bonus subject to time multiplier!"
-var upgdesc63 = "Crystal Production is multiplied based on Particles to the sixth power."
-var upgdesc64 = "Mythos Shard Production is multiplied by your Particles to the second power."
+var upgdesc63 = "Crystal Production is multiplied based on Particles to the sixth power [Caps at 1e6000x]."
+var upgdesc64 = "Mythos Shard Production is multiplied by your Particles to the second power [Caps at 1e2000x]."
 var upgdesc65 = "Multiply the gain of Particles from Reincarnation by 5x!"
 var upgdesc66 = "When you use an Offering, every unlocked rune will get 3 free experience."
 var upgdesc67 = "Atom gain is increased by 3% per Particle producer purchased!"
@@ -69,10 +69,10 @@ var upgdesc68 = "Gain a free multiplier for every 1e1000x increase in tax."
 var upgdesc69 = "Gain more Obtainium based on your particle gain. [Works with automation at a reduced rate!]"
 var upgdesc70 = "Gain more Obtainium from Reincarnations based on how long your current reincarnation is."
 var upgdesc71 = "Runes will gain (Rune Level) additional EXP per offering used."
-var upgdesc72 = "Obtainium gain from Reincarnations is multiplied (1 + C) where C is #Reincarnation Challenges completed."
+var upgdesc72 = "Obtainium gain from Reincarnations is multiplied (1 + 2C) where C is #Reincarnation Challenges completed, up to 50x!"
 var upgdesc73 = "Gain +100% free accelerator boosts and +10 free Crystal Upgrade levels, but only in Reincarnation Challenges."
 var upgdesc74 = "Obtainium gain is increased based on highest ever unspent offerings. [Max: 100,000 unspent]"
-var upgdesc75 = "Offering gain is increased based on highest ever unspent obtainium [Max: 100,000 obtainium]"
+var upgdesc75 = "Offering gain is increased based on highest ever unspent obtainium [Max: 30,000,000 obtainium]"
 var upgdesc76 = "This upgrade added in an update near you!"
 var upgdesc77 = "This upgrade added in an update near you!"
 var upgdesc78 = "This upgrade added in an update near you!"
@@ -120,8 +120,8 @@ var upgdesc119 = "Protons -> Grandmaster exponent increased from 0.15 to 0.20"
 var upgdesc120 = "Protons -> Grandmaster exponent increased from 0.20 to 0.25"
 var crystalupgdesc1 = "Gain a 5% multiplicative boost to crystals per AP per level."
 var crystalupgdesc2 = "Gain a boost to crystals based on held coins per level."
-var crystalupgdesc3 = "Each purchased Crystal producer increases generation of Crystal producers by .1% per level."
-var crystalupgdesc4 = "Improve the multiplier to coin production by .05 exponent per level."
+var crystalupgdesc3 = "Each purchased Crystal producer increases generation of Crystal producers by .1% per level. [MAX: 12%]"
+var crystalupgdesc4 = "Improve the multiplier to coin production by .05 exponent per level. [MAX: +10.00]"
 var crystalupgdesc5 = "Every challenge completion increases crystal gain by 1% per level."
 var crystalupgdesc6 = "Coming SOON!"
 var crystalupgdesc7 = "Coming SOON!"
@@ -192,8 +192,8 @@ const upgradetexts = [
     function() { return "Look above!"},
     function() { return "+5% Offering Recycle/+5EXP per Offerings. Duh!"},
     function() { return "Base offering amount for Reincarnations +" + Math.floor(1/5 * (player.challengecompletions.one + player.challengecompletions.two + player.challengecompletions.three + player.challengecompletions.four + player.challengecompletions.five + player.challengecompletions.six + player.challengecompletions.seven + player.challengecompletions.eight)) + ". Challenge yourself!"},
-    function() { return "All crystal production x" + format(Decimal.pow(player.reincarnationPoints.add(1),6))},
-    function() { return "All mythos shard production x" + format(Decimal.pow(player.reincarnationPoints.add(1),2))},
+    function() { return "All crystal production x" + format(Decimal.min("1e6000", Decimal.pow(player.reincarnationPoints.add(1),6)))},
+    function() { return "All mythos shard production x" + format(Decimal.min("1e2000",Decimal.pow(player.reincarnationPoints.add(1),2)))},
     function() { return "5x Particle gain from Reincarnations. Duh!"},
     function() { return "It's quite clear in the description!"},
     function() { return "The first particle-tier producer is " + format(Decimal.pow(1.03, player.firstOwnedParticles + player.secondOwnedParticles + player.thirdOwnedParticles + player.fourthOwnedParticles + player.fifthOwnedParticles),2) + "x as productive."},
@@ -201,10 +201,10 @@ const upgradetexts = [
     function() { return "Cosmic Magnetics will allow you to gain " + format(Math.min(10, Decimal.pow(Decimal.log(reincarnationPointGain.add(10), 10), 0.5)),2) + "x as much Obtainium reincarnating, x" + format(Math.min(3,Decimal.pow(Decimal.log(reincarnationPointGain.add(10), 10), 0.5)),2) + " automation gain."},
     function() { return "Your patience will allow you to gain " + format(Math.min(4, Math.max(1, Math.pow(player.reincarnationcounter/30,2))) * Math.pow(Math.min(19, 1 + 2 * player.reincarnationcounter / 400),2),2) + "x more Obtainium on Reincarnation."},
     function() { return "Writing's on the wall. Look above!"},
-    function() { return "Obtainium multiplier: x" + (1 + player.challengecompletions.six + player.challengecompletions.seven + player.challengecompletions.eight + player.challengecompletions.nine + player.challengecompletions.ten)},
+    function() { return "Obtainium multiplier: x" + (Math.min(50 , 1 + 2 * player.challengecompletions.six + 2 * player.challengecompletions.seven + 2 * player.challengecompletions.eight + 2 * player.challengecompletions.nine + 2 * player.challengecompletions.ten))},
     function() { return "Same as Transcend upgrade 10, except you MUST be in a Reincarnation challenge in particular."},
     function() { return "Obtainium multiplier: x" + format((1 + 4 * Math.min(1, Math.pow(player.maxofferings / 100000, 0.5))),2)},
-    function() { return "Offering Multiplier: x" + format((1 + 2 * Math.min(1, Math.pow(player.maxobtainium/100000, 0.5))),2)},
+    function() { return "Offering Multiplier: x" + format((1 + 2 * Math.min(1, Math.pow(player.maxobtainium/30000000, 0.5))),2)},
     function() { return "Lorem ipsum"},
     function() { return "Lorem ipsum"},
     function() { return "Lorem ipsum"},
