@@ -34,20 +34,21 @@ function importSynergism() {
         }
     } catch(_) {
         document.getElementById("importinfo").textContent = "Savefile code invalid. Try again with a valid code! Unless, of course, you were entering a Promo Code?";
-        promocodes(input);
     }
 
     document.getElementById("exportinfo").textContent = '';
 }
 
-function promocodes(code) {
-    const el = document.getElementById("importinfo");
-    if(code == "synergism2020" && !player.offerpromo1used) {
+//Promocodes delegated into its own feature separate from import in v1.0082
+function promocodes() {
+    const input = prompt("Got a code? Great! Enter it in (CaSe SeNsItIvE).");
+    const el = document.getElementById("promocodeinfo");
+    if(input == "synergism2020" && !player.offerpromo1used) {
         player.offerpromo1used = true; 
         player.runeshards += 25; 
         player.worlds += 50; 
         el.textContent = "Promo Code 'synergism2020' Applied! +25 Offerings, +50 Quarks"
-    } else if(code == "synergism1008" && (player.version == "1.008") && player.offerpromo13used == false){
+    } else if (input == "synergism1008" && (player.version == "1.008" || player.version == "1.0081" || player.version == "1.0082") && player.offerpromo13used == false){
         player.offerpromo13used = true;
         player.worlds += 25;
 
@@ -66,10 +67,32 @@ function promocodes(code) {
         player.runeshards += p
         el.textContent = "Promo Code 'synergism1008' Applied! +25 Quarks, +" + p + " Offerings."
     }
+    else if (input == "transcendlol" && (player.version == "1.0081" || player.version == "1.0082") && player.offerpromo14used == false){
+        player.offerpromo14used = true;
+        player.worlds += 25;
 
+        el.textContent = "Promo Code 'transcendlol' Applied! +25 Quarks."
+    }
+    else if (input == "111111hype" && (player.version == "1.0082") && player.offerpromo15used == false){
+        player.offerpromo15used = true;
+        player.worlds += 200;
+
+        el.textContent = "Thank you for playing Synergism! I'm a bit late on the 100k celebration so here's the next best thing. +200 Quarks! [Oh and 111111hype applied!]"
+    }
+    else if (input == "oops" && (player.version == "1.0082") && player.offerpromo16used == false){
+        player.offerpromo16used = true;
+        player.worlds += 200;
+        var p = 200
+        if (player.brokenfile1 == true){
+        player.worlds += 300
+        p += 300
+        }
+
+        el.textContent = "Sorry for the balances, but it was necessary to prevent saves from breaking. Enjoy a nice reward! +" + p + " Quarks."
+    }
+    else {el.textContent = "I don't think you put that code in right, or your code is simply not valid. Try again!"}
     if(el.textContent.length) {
-        setTimeout(function() { 
-            el.textContent = ''
-        }, 30000);
+        // remove text after 15 seconds
+        setTimeout(() => el.textContent = '', 15000);
     }
 }
