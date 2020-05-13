@@ -255,7 +255,6 @@ function reset(i) {
     player.acceleratorBought = 0;
 
     player.prestigeCount += 1;
-    kongregate.stats.submit("prestigecount", player.prestigeCount)
 
     player.prestigePoints = player.prestigePoints.add(prestigePointGain);
     player.prestigeShards = new Decimal("0");
@@ -263,8 +262,6 @@ function reset(i) {
 
     if (player.prestigecounter < player.fastestprestige) {
         player.fastestprestige = player.prestigecounter;
-        var a = Math.floor(1000 * player.fastestprestige) * 100/100
-        kongregate.stats.submit("prestigetimems", a)
     }
 
 
@@ -292,10 +289,7 @@ function reset(i) {
         player.acceleratorBoostBought = 0;
         player.acceleratorBoostCost = new Decimal("1e3");
 
-        if (player.currentChallenge == ""){
         player.transcendCount += 1;
-        kongregate.stats.submit("transcendcount", player.transcendCount)
-        }
 
         player.prestigePoints = new Decimal("0");
         player.transcendPoints = player.transcendPoints.add(transcendPointGain);
@@ -339,8 +333,6 @@ function reset(i) {
 
         if (player.transcendcounter < player.fastesttranscend && player.currentChallenge == "") {
             player.fastesttranscend = player.transcendcounter;
-            var a = Math.floor(1000 * player.fastesttranscend) * 100/100
-            kongregate.stats.submit("transcendtimems", a)
         }
 
         player.transcendcounter = 0;
@@ -388,10 +380,8 @@ function reset(i) {
         player.fourthGeneratedParticles = new Decimal("0");
         player.fifthGeneratedParticles = new Decimal("0");
 
-        if (player.currentChallengeRein == ""){
         player.reincarnationCount += 1;
-        kongregate.stats.submit("reincarnatecount", player.reincarnationCount)
-        }
+
 
         player.transcendPoints = new Decimal("0");
         player.reincarnationPoints = player.reincarnationPoints.add(reincarnationPointGain);
@@ -417,8 +407,6 @@ function reset(i) {
 
         if (player.reincarnationcounter < player.fastestreincarnate && player.currentChallengeRein == "") {
             player.fastestreincarnate = player.reincarnationcounter;
-            var a = Math.floor(1000 * player.fastestreincarnate) * 100/100
-            kongregate.stats.submit("reincarnatetimems", a)
         }
         player.reincarnationcounter = 0;
 
