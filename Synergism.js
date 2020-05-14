@@ -1667,6 +1667,11 @@ window['addEventListener' in window ? 'addEventListener' : 'attachEvent']('load'
 		alert('Transferred save to new format successfully!');
 	}
 
+	window._i18n = new i18n();
+	_i18n.getJSON().then(function() {
+		console.log('Language localized!');
+	});
+
 	setTimeout(function() {
 		loadSynergy();
 		saveSynergy();
