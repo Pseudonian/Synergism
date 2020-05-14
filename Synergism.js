@@ -364,7 +364,7 @@ Object.defineProperty(player, 'version', {
    value: '1.0084'
 });
 
-function saveSynergy(!button) {
+function saveSynergy(button) {
    player.offlinetick = Date.now()
    const p = player; // temp hold
    delete p.version; // don't save
@@ -373,9 +373,11 @@ function saveSynergy(!button) {
 	if (button){
    		var el = document.getElementById("saveinfo")
    		el.textContent = "Game saved successfully!"
-   		if (el.textContent.length) {
-			setTimeout(() => el.textContent = '', 4000);
-   	}
+   		// if (el.textContent.length) {
+			setTimeout(function() {
+				el.textContent = ''
+			}, 4000);
+   		// }
    }
 }
 
@@ -998,21 +1000,21 @@ function multipliers() {
 	var s = new Decimal(1);
 	var c = new Decimal(1);
 
-totalCoinOwned = player.firstOwnedCoin + player.secondOwnedCoin + player.thirdOwnedCoin + player.fourthOwnedCoin + player.fifthOwnedCoin;
-prestigeMultiplier = Decimal.pow(player.prestigeShards, 1/3 + Math.min(10, 0.05 * player.crystalUpgrades[3]) + 0.04 * player.challengecompletions.three + 0.02 * (player.researches[28] + player.researches[29] + 0.5 * player.researches[30])).add(1);
+	totalCoinOwned = player.firstOwnedCoin + player.secondOwnedCoin + player.thirdOwnedCoin + player.fourthOwnedCoin + player.fifthOwnedCoin;
+	prestigeMultiplier = Decimal.pow(player.prestigeShards, 1/3 + Math.min(10, 0.05 * player.crystalUpgrades[3]) + 0.04 * player.challengecompletions.three + 0.02 * (player.researches[28] + player.researches[29] + 0.5 * player.researches[30])).add(1);
 
-var c7 = 1;
+	var c7 = 1;
 	
 	if (player.currentChallengeRein == "seven") {c7 = 0.05}
 	
-buildingPower = 1 + (1 - Math.pow(2, -1/160)) * c7 * Decimal.log(player.reincarnationShards.add(1), 10) * (1 + 1/100 * player.researches[36] + 1/200 * player.researches[37] + 1/200 * player.researches[38])
+	buildingPower = 1 + (1 - Math.pow(2, -1/160)) * c7 * Decimal.log(player.reincarnationShards.add(1), 10) * (1 + 1/100 * player.researches[36] + 1/200 * player.researches[37] + 1/200 * player.researches[38])
 
-reincarnationMultiplier = Decimal.pow(buildingPower, totalCoinOwned);
+	reincarnationMultiplier = Decimal.pow(buildingPower, totalCoinOwned);
 
-s = s.times(multiplierEffect);
-s = s.times(acceleratorEffect);
-s = s.times(prestigeMultiplier);
-s = s.times(reincarnationMultiplier);
+	s = s.times(multiplierEffect);
+	s = s.times(acceleratorEffect);
+	s = s.times(prestigeMultiplier);
+	s = s.times(reincarnationMultiplier);
 
 	if (player.upgrades[6] > 0.5) {s = s.times((totalCoinOwned + 1) * Math.min(1e30, Math.pow(1.008, totalCoinOwned)));}
 	if (player.upgrades[12] > 0.5) {s = s.times(Decimal.min(1e4, Decimal.pow(1.01, player.prestigeCount)));}
@@ -1023,17 +1025,17 @@ s = s.times(reincarnationMultiplier);
 	if (player.currentChallengeRein == "six") {s = s.dividedBy(1e250)}
 	if (player.currentChallengeRein == "seven") {s = s.dividedBy("1e1250")}
 	
-c = Decimal.pow(s , 1 + 0.001 * player.researches[17]);
-globalCoinMultiplier = c;
+	c = Decimal.pow(s , 1 + 0.001 * player.researches[17]);
+	globalCoinMultiplier = c;
 
-coinOneMulti = new Decimal(1);
+	coinOneMulti = new Decimal(1);
 
 	if (player.upgrades[1] > 0.5) {coinOneMulti = coinOneMulti.times((totalCoinOwned + 1) * Math.min(1e30, Math.pow(1.008, totalCoinOwned)));}
 	if (player.upgrades[10] > 0.5) {coinOneMulti = coinOneMulti.times(Decimal.pow(2, Math.min(50, player.secondOwnedCoin/15)));}
 	if (player.upgrades[40] > 0.5) {coinOneMulti = coinOneMulti.times("1e10000")}
 	if (player.upgrades[56] > 0.5) {coinOneMulti = coinOneMulti.times("1e5000")}
 
-coinTwoMulti = new Decimal(1);
+	coinTwoMulti = new Decimal(1);
 
 	if (player.upgrades[2] > 0.5) {	coinTwoMulti = coinTwoMulti.times((totalCoinOwned + 1) * Math.min(1e30, Math.pow(1.008, totalCoinOwned)));}
 	if (player.upgrades[13] > 0.5) {coinTwoMulti = coinTwoMulti.times(Decimal.min(1e50, Decimal.pow(player.firstGeneratedMythos.add(player.firstOwnedMythos).add(1), 4/3).times(1e10)));}
@@ -1041,25 +1043,25 @@ coinTwoMulti = new Decimal(1);
 	if (player.upgrades[39] > 0.5) {coinTwoMulti = coinTwoMulti.times("1e7000")}
 	if (player.upgrades[57] > 0.5) {coinTwoMulti = coinTwoMulti.times("1e7500")}
 
-coinThreeMulti = new Decimal(1);
+	coinThreeMulti = new Decimal(1);
 
 	if (player.upgrades[3] > 0.5) {coinThreeMulti = coinThreeMulti.times((totalCoinOwned + 1) * Math.min(1e30, Math.pow(1.008, totalCoinOwned)));}
 	if (player.upgrades[18] > 0.5) {coinThreeMulti = coinThreeMulti.times(Decimal.min(1e125, player.transcendShards.add(1)));}
 	if (player.upgrades[38] > 0.5) {coinThreeMulti = coinThreeMulti.times("1e4000")}
 	if (player.upgrades[58] > 0.5) {coinThreeMulti = coinThreeMulti.times("1e15000")}
 
-coinFourMulti = new Decimal(1);
+	coinFourMulti = new Decimal(1);
 
 	if (player.upgrades[4] > 0.5) {coinFourMulti = coinFourMulti.times((totalCoinOwned + 1) * Math.min(1e30, Math.pow(1.008, totalCoinOwned)));}
 	if (player.upgrades[17] > 0.5) {coinFourMulti = coinFourMulti.times(1e100);}
 	if (player.upgrades[59] > 0.5) {coinFourMulti = coinFourMulti.times("1e25000")}
 
-coinFiveMulti = new Decimal(1);
+	coinFiveMulti = new Decimal(1);
 
 	if (player.upgrades[5] > 0.5) {coinFiveMulti = coinFiveMulti.times((totalCoinOwned + 1) * Math.min(1e30, Math.pow(1.008, totalCoinOwned)));	
 	if (player.upgrades[60] > 0.5) {coinFiveMulti = coinFiveMulti.times("1e35000")}
 	
-globalCrystalMultiplier = new Decimal(1)
+	globalCrystalMultiplier = new Decimal(1)
 	if (player.achievements[36] > 0.5) {globalCrystalMultiplier = globalCrystalMultiplier.times(2)}
 	if (player.achievements[37] > 0.5 && player.prestigePoints.greaterThanOrEqualTo(10)) {globalCrystalMultiplier = globalCrystalMultiplier.times(Decimal.log(player.prestigePoints.add(1), 10))}
 	if (player.achievements[43] > 0.5) {globalCrystalMultiplier = globalCrystalMultiplier.times(Decimal.pow(player.runelevels[2] * (1 + player.researches[4]/5) * (1 + player.researches[21]/800), 2).times(Decimal.pow(2, player.runelevels[2] * (1 + player.researches[5]/10) * (1 + player.researches[21]/800)  - 8).add(1)))}
@@ -1067,16 +1069,16 @@ globalCrystalMultiplier = new Decimal(1)
 	if (player.upgrades[63] > 0.5) {globalCrystalMultiplier = globalCrystalMultiplier.times(Decimal.min("1e6000",Decimal.pow(player.reincarnationPoints.add(1),6)))}
 	if (player.researches[39] > 0.5) {globalCrystalMultiplier = globalCrystalMultiplier.times(Decimal.pow(reincarnationMultiplier, 1/50))}
 
-globalCrystalMultiplier = globalCrystalMultiplier.times(Decimal.min(Decimal.pow(10, 50 + 2 * player.crystalUpgrades[0]), Decimal.pow(1.05, player.achievementPoints * player.crystalUpgrades[0])))
-globalCrystalMultiplier = globalCrystalMultiplier.times(Decimal.min(Decimal.pow(10, 100 + 5 * player.crystalUpgrades[1]), Decimal.pow(Decimal.log(player.coins.add(1), 10),player.crystalUpgrades[1]/3)))
-globalCrystalMultiplier = globalCrystalMultiplier.times(Decimal.pow(1 + Math.min(0.12, 0.001 * player.crystalUpgrades[2]), player.firstOwnedDiamonds + player.secondOwnedDiamonds + player.thirdOwnedDiamonds + player.fourthOwnedDiamonds + player.fifthOwnedDiamonds))	
-globalCrystalMultiplier = globalCrystalMultiplier.times(Decimal.pow(1.01, (player.challengecompletions.one + player.challengecompletions.two +player.challengecompletions.three +player.challengecompletions.four +player.challengecompletions.five) * player.crystalUpgrades[4]))
-globalCrystalMultiplier = globalCrystalMultiplier.times(Decimal.pow(10, player.challengecompletions.five))
-globalCrystalMultiplier = globalCrystalMultiplier.times(Decimal.pow(1.10, player.researches[26]))
-globalCrystalMultiplier = globalCrystalMultiplier.times(Decimal.pow(1.05, player.researches[27]))
+	globalCrystalMultiplier = globalCrystalMultiplier.times(Decimal.min(Decimal.pow(10, 50 + 2 * player.crystalUpgrades[0]), Decimal.pow(1.05, player.achievementPoints * player.crystalUpgrades[0])))
+	globalCrystalMultiplier = globalCrystalMultiplier.times(Decimal.min(Decimal.pow(10, 100 + 5 * player.crystalUpgrades[1]), Decimal.pow(Decimal.log(player.coins.add(1), 10),player.crystalUpgrades[1]/3)))
+	globalCrystalMultiplier = globalCrystalMultiplier.times(Decimal.pow(1 + Math.min(0.12, 0.001 * player.crystalUpgrades[2]), player.firstOwnedDiamonds + player.secondOwnedDiamonds + player.thirdOwnedDiamonds + player.fourthOwnedDiamonds + player.fifthOwnedDiamonds))	
+	globalCrystalMultiplier = globalCrystalMultiplier.times(Decimal.pow(1.01, (player.challengecompletions.one + player.challengecompletions.two +player.challengecompletions.three +player.challengecompletions.four +player.challengecompletions.five) * player.crystalUpgrades[4]))
+	globalCrystalMultiplier = globalCrystalMultiplier.times(Decimal.pow(10, player.challengecompletions.five))
+	globalCrystalMultiplier = globalCrystalMultiplier.times(Decimal.pow(1.10, player.researches[26]))
+	globalCrystalMultiplier = globalCrystalMultiplier.times(Decimal.pow(1.05, player.researches[27]))
 
 
-globalMythosMultiplier = new Decimal(1)
+	globalMythosMultiplier = new Decimal(1)
 
 	if (player.upgrades[37] > 0.5) {globalMythosMultiplier = globalMythosMultiplier.times(Decimal.pow(Decimal.log(player.prestigePoints.add(10),10),2))}
 	if (player.upgrades[42] > 0.5) {globalMythosMultiplier = globalMythosMultiplier.times(Decimal.min(1e50, Decimal.pow(player.prestigePoints.add(1), 1/50).dividedBy(2.5).add(1)));}
@@ -1098,6 +1100,7 @@ globalMythosMultiplier = new Decimal(1)
 	if (player.upgrades[54] == 1){mythosupgrade14 = mythosupgrade14.times(Decimal.min("1e2000", Decimal.pow(multiplierEffect, 1/180)))};
 	if (player.upgrades[55] == 1){mythosupgrade15 = mythosupgrade15.times(Decimal.pow("1e1000", buildingPower - 1))};
 }
+}
 
  // Function that adds to resources each tick. [Lines 928 - 989]
 
@@ -1106,17 +1109,20 @@ function resourceGain(dt){
 	updateAllMultiplier();
 	multipliers();
 	calculatetax();
-		if (produceTotal.greaterThanOrEqualTo(0.001)) {var addcoin = new Decimal.min(produceTotal.dividedBy(taxdivisor), Decimal.pow(10, maxexponent - Decimal.log(taxdivisorcheck , 10))){
-			player.coins = player.coins.add(addcoin.times(dt/0.025));
-			player.coinsThisPrestige = player.coinsThisPrestige.add(addcoin.times(dt/0.025));
-			player.coinsThisTranscension = player.coinsThisTranscension.add(addcoin.times(dt/0.025));
-			player.coinsThisReincarnation = player.coinsThisReincarnation.add(addcoin.times(dt/0.025));
-			player.coinsTotal = player.coinsTotal.add(addcoin.times(dt/0.025))
-		}
-
+		
+	if (produceTotal.greaterThanOrEqualTo(0.001)) {
+		var addcoin = Decimal.min(produceTotal.dividedBy(taxdivisor), Decimal.pow(10, maxexponent - Decimal.log(taxdivisorcheck , 10)));
+	
+		player.coins = player.coins.add(addcoin.times(dt/0.025));
+		player.coinsThisPrestige = player.coinsThisPrestige.add(addcoin.times(dt/0.025));
+		player.coinsThisTranscension = player.coinsThisTranscension.add(addcoin.times(dt/0.025));
+		player.coinsThisReincarnation = player.coinsThisReincarnation.add(addcoin.times(dt/0.025));
+		player.coinsTotal = player.coinsTotal.add(addcoin.times(dt/0.025))
+	}
+		
 	resetCurrency();
-		if (player.upgrades[93] == 1 && player.coinsThisPrestige.greaterThanOrEqualTo(1e16)) {player.prestigePoints = player.prestigePoints.add(Decimal.floor(prestigePointGain.dividedBy(4000).times(dt/0.025)))}
-		if (player.upgrades[100] == 1 && player.coinsThisTranscension.greaterThanOrEqualTo(1e100)) {player.transcendPoints = player.transcendPoints.add(Decimal.floor(transcendPointGain.dividedBy(4000).times(dt/0.025)))}
+	if (player.upgrades[93] == 1 && player.coinsThisPrestige.greaterThanOrEqualTo(1e16)) {player.prestigePoints = player.prestigePoints.add(Decimal.floor(prestigePointGain.dividedBy(4000).times(dt/0.025)))}
+	if (player.upgrades[100] == 1 && player.coinsThisTranscension.greaterThanOrEqualTo(1e100)) {player.transcendPoints = player.transcendPoints.add(Decimal.floor(transcendPointGain.dividedBy(4000).times(dt/0.025)))}
 
 	produceFirstDiamonds = player.firstGeneratedDiamonds.add(player.firstOwnedDiamonds).times(player.firstProduceDiamonds).times(globalCrystalMultiplier)
 	produceSecondDiamonds = player.secondGeneratedDiamonds.add(player.secondOwnedDiamonds).times(player.secondProduceDiamonds).times(globalCrystalMultiplier)
@@ -1169,50 +1175,50 @@ function resourceGain(dt){
 		
 	player.reincarnationShards = player.reincarnationShards.add(produceParticles.times(dt/0.025));
 
-		if (player.researches[71] > 0.5 && player.challengecompletions.one < (Math.min(player.highestchallengecompletions.one, 25 + player.researches[66])) && player.coins.greaterThanOrEqualTo(Decimal.pow(10, 1.25 * challengebaserequirements.one * Math.pow(1 + player.challengecompletions.one, 2)))) {
-			player.challengecompletions.one += 1;		
-			challengeDisplay(1,false,true);
-			challengeachievementcheck('one',true)
-		}
-		if (player.researches[72] > 0.5 && player.challengecompletions.two < (Math.min(player.highestchallengecompletions.two, 25 + player.researches[66])) && player.coins.greaterThanOrEqualTo(Decimal.pow(10, 1.6 * challengebaserequirements.two * Math.pow(1 + player.challengecompletions.two, 2)))) {
-			player.challengecompletions.two += 1
-			challengeDisplay(2,false,true)
-			challengeachievementcheck('two',true)
-		}
-		if (player.researches[73] > 0.5 && player.challengecompletions.three < (Math.min(player.highestchallengecompletions.three, 25 + player.researches[66])) && player.coins.greaterThanOrEqualTo(Decimal.pow(10, 1.7 * challengebaserequirements.three * Math.pow(1 + player.challengecompletions.three, 2)))) {
-			player.challengecompletions.three += 1
-			challengeDisplay(3,false,true)
-			challengeachievementcheck('three',true)
-		}
-		if (player.researches[74] > 0.5 && player.challengecompletions.four < (Math.min(player.highestchallengecompletions.four, 25 + player.researches[66])) && player.coins.greaterThanOrEqualTo(Decimal.pow(10, 1.45 * challengebaserequirements.four * Math.pow(1 + player.challengecompletions.four, 2)))) {
-			player.challengecompletions.four += 1
-			challengeDisplay(4,false,true)
-			challengeachievementcheck('four',true)
-		}
-		if (player.researches[75] > 0.5 && player.challengecompletions.five < (Math.min(player.highestchallengecompletions.five, 25 + player.researches[66])) && player.coins.greaterThanOrEqualTo(Decimal.pow(10, 2 * challengebaserequirements.five * Math.pow(1 + player.challengecompletions.five, 2)))) {
-			player.challengecompletions.five += 1
-			challengeDisplay(5,false,true)
-			challengeachievementcheck('five',true)
-		}
-
-		if (player.coins.greaterThanOrEqualTo(1000) && player.unlocks.coinone == false) {
-			player.unlocks.coinone = true;
-			revealStuff();
-		}
-		if (player.coins.greaterThanOrEqualTo(20000) && player.unlocks.cointwo == false) {
-			player.unlocks.cointwo = true;
-			revealStuff();
-		}
-		if (player.coins.greaterThanOrEqualTo(100000) && player.unlocks.cointhree == false) {
-			player.unlocks.cointhree = true;
-			revealStuff();
-		}
-		if (player.coins.greaterThanOrEqualTo(8e6) && player.unlocks.coinfour == false) {
-			player.unlocks.coinfour = true;
-			revealStuff();
-		}
-		htmlInserts();
+	if (player.researches[71] > 0.5 && player.challengecompletions.one < (Math.min(player.highestchallengecompletions.one, 25 + player.researches[66])) && player.coins.greaterThanOrEqualTo(Decimal.pow(10, 1.25 * challengebaserequirements.one * Math.pow(1 + player.challengecompletions.one, 2)))) {
+		player.challengecompletions.one += 1;		
+		challengeDisplay(1,false,true);
+		challengeachievementcheck('one',true)
 	}
+	if (player.researches[72] > 0.5 && player.challengecompletions.two < (Math.min(player.highestchallengecompletions.two, 25 + player.researches[66])) && player.coins.greaterThanOrEqualTo(Decimal.pow(10, 1.6 * challengebaserequirements.two * Math.pow(1 + player.challengecompletions.two, 2)))) {
+		player.challengecompletions.two += 1
+		challengeDisplay(2,false,true)
+		challengeachievementcheck('two',true)
+	}
+	if (player.researches[73] > 0.5 && player.challengecompletions.three < (Math.min(player.highestchallengecompletions.three, 25 + player.researches[66])) && player.coins.greaterThanOrEqualTo(Decimal.pow(10, 1.7 * challengebaserequirements.three * Math.pow(1 + player.challengecompletions.three, 2)))) {
+		player.challengecompletions.three += 1
+		challengeDisplay(3,false,true)
+		challengeachievementcheck('three',true)
+	}
+	if (player.researches[74] > 0.5 && player.challengecompletions.four < (Math.min(player.highestchallengecompletions.four, 25 + player.researches[66])) && player.coins.greaterThanOrEqualTo(Decimal.pow(10, 1.45 * challengebaserequirements.four * Math.pow(1 + player.challengecompletions.four, 2)))) {
+		player.challengecompletions.four += 1
+		challengeDisplay(4,false,true)
+		challengeachievementcheck('four',true)
+	}
+	if (player.researches[75] > 0.5 && player.challengecompletions.five < (Math.min(player.highestchallengecompletions.five, 25 + player.researches[66])) && player.coins.greaterThanOrEqualTo(Decimal.pow(10, 2 * challengebaserequirements.five * Math.pow(1 + player.challengecompletions.five, 2)))) {
+		player.challengecompletions.five += 1
+		challengeDisplay(5,false,true)
+		challengeachievementcheck('five',true)
+	}
+
+	if (player.coins.greaterThanOrEqualTo(1000) && player.unlocks.coinone == false) {
+		player.unlocks.coinone = true;
+		revealStuff();
+	}
+	if (player.coins.greaterThanOrEqualTo(20000) && player.unlocks.cointwo == false) {
+		player.unlocks.cointwo = true;
+		revealStuff();
+	}
+	if (player.coins.greaterThanOrEqualTo(100000) && player.unlocks.cointhree == false) {
+		player.unlocks.cointhree = true;
+		revealStuff();
+	}
+	if (player.coins.greaterThanOrEqualTo(8e6) && player.unlocks.coinfour == false) {
+		player.unlocks.coinfour = true;
+		revealStuff();
+	}
+	htmlInserts();
+}
 
 	//===================================================================
 	// Reset Functions. Functions that track reset currency, and then the reset tools proper. [Lines 1248 - 1326]
@@ -1293,13 +1299,17 @@ function resetCheck(i,manual/*=true*/) {
 			player.transcendCount -= 1;
 			}
 			var p = ""
-			if (player.currentChallengeRein == "six") {p = " || TAX+ [Reincarnation]"}
-			if (player.currentChallengeRein == "seven") {p = " || MULTIPLIER/ACCELERATOR-- [Reincarnation]"}
-			if (player.currentChallengeRein == "eight) {p = " || COST++ [Reincarnation]")
-			if (!player.retrychallenges || manual || player.challengecompletions[q] >= (25 + player.researches[x])) {
-			document.getElementById("currentchallenge").textContent = "Current Challenge: None [Transcension]" + p
+			if (player.currentChallengeRein == "six") {
+				p = " || TAX+ [Reincarnation]"
+			} else if (player.currentChallengeRein == "seven") {
+				p = " || MULTIPLIER/ACCELERATOR-- [Reincarnation]"
+			} else if (player.currentChallengeRein == "eight") {
+				p = " || COST++ [Reincarnation]"
 			}
-			console.log(player.highestchallengecompletions.one)
+
+			if (!player.retrychallenges || manual || player.challengecompletions[q] >= (25 + player.researches[x])) {
+				document.getElementById("currentchallenge").textContent = "Current Challenge: None [Transcension]" + p
+			}
 		}
 	
 	if (i == "reincarnate") {
@@ -1668,5 +1678,4 @@ window['addEventListener' in window ? 'addEventListener' : 'attachEvent']('load'
 
 		buttonUpdate();
 	}, 2000);
-});
- 
+})

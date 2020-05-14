@@ -93,6 +93,8 @@ function promocodes() {
     else {el.textContent = "I don't think you put that code in right, or your code is simply not valid. Try again!"}
     if(el.textContent.length) {
         // remove text after 15 seconds
-        setTimeout(() => el.textContent = '', 15000);
+        setTimeout(function() {
+            el.textContent = ''
+        }, 15000);
     }
 }

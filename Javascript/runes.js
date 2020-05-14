@@ -1,5 +1,6 @@
 
-    function displayruneinformation(i,updatelevelup = true) {
+    function displayruneinformation(i, updatelevelup) {
+        updatelevelup = updatelevelup || 1;
         var m = 1;
             m *= (1 + player.researches[4]/10) * (1 + player.researches[21]/800)
         let s = 0;
