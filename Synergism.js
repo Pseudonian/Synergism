@@ -368,68 +368,34 @@ Object.defineProperty(player, 'version', {
    value: '1.0082'
 });
 
-function saveSynergy(button = false) {
-   player.offlinetick = Date.now()
-   const p = player; // temp hold
+function saveSynergy(button) {
+   	player.offlinetick = Date.now()
+	   
+   	const p = player; // temp hold
+	delete p.version; // don't save
+   	localStorage.setItem("Synergysave2", btoa(JSON.stringify(p)));	
 
-   delete p.version; // don't save
-   localStorage.setItem("Synergysave2", btoa(JSON.stringify(p)));	
-
-   if (button){
-   var el = document.getElementById("saveinfo")
-   el.textContent = "Game saved successfully!"
-   if (el.textContent.length) {
-	setTimeout(() => el.textContent = '', 4000);
-   }
-   }
+   	if (button) {
+		let el = document.getElementById("saveinfo").textContent;
+		el = "Game saved successfully!"
+		setTimeout(function() {
+			el = '';
+		}, 4000);
+   	}
 }
 
 
 
-function loadSynergy(imported = 0) {
-   
-   
-   /*document.addEventListener("keydown", function onPress(event) {
-	   var type = ""
-	   var pos = ""
-	   var num = 0
-	   if (event.key === "1") {var pos = "first"; num += 1; if (currentTab == "challenges") {toggleChallenges('one')}; if (currentTab == "runes"){redeemshards(1)}}
-	   if (event.key === "2") {var pos = "second"; num += 2; if (currentTab == "challenges") {toggleChallenges('two')}; if (currentTab == "runes"){redeemshards(2)}}
-	   if (event.key === "3") {var pos = "third"; num += 3; if (currentTab == "challenges") {toggleChallenges('three')}; if (currentTab == "runes"){redeemshards(3)}}
-	   if (event.key === "4") {var pos = "fourth"; num += 4; if (currentTab == "challenges") {toggleChallenges('four')}; if (currentTab == "runes"){redeemshards(4)}}
-	   if (event.key === "5") {var pos = "fifth"; num += 5; if (currentTab == "challenges") {toggleChallenges('five')}}
-	   if (event.key === "6") {buyCrystalUpgrades(1)}
-	   if (event.key === "7") {buyCrystalUpgrades(2)}
-	   if (event.key === "8") {buyCrystalUpgrades(3)}
-	   if (event.key === "9") {buyCrystalUpgrades(4)}
-	   if (event.key === "0") {buyCrystalUpgrades(5)}
-	   if (currentTab == "buildings") {var type = "Coin"}
-	   if (currentTab == "prestige") {var type = "Diamonds"; num = 1/2 * (Math.pow(num, 2) + num)}
-	   if (currentTab == "transcension") {var type = "Mythos"; num = 1/2 * (Math.pow(num, 2) + num)}
-	   if (currentTab == "reincarnation") {var type = "Particles"; num = 1/2 * (Math.pow(num, 2) + num)}
-	   if (event.key === "1" || event.key === "2" || event.key === "3" || event.key === "4" || event.key === "5") {buyProducer(pos, type, num)}
-	   if ((event.key === "A" || event.key === "a") && currentTab == "buildings") {buyAccelerator()}
-	   if ((event.key === "B" || event.key === "b") && currentTab == "buildings") {boostAccelerator()}
-	   if ((event.key === "M" || event.key === "m") && currentTab == "buildings") {buyMultiplier()}
-	   if ((event.key === "P") || event.key === "p") {resetCheck('prestige')}
-	   if ((event.key === "T") || event.key === "t") {resetCheck('transcend')}
-	   if ((event.key === "R") || event.key === "r") {resetCheck('reincarnate')}
-	   if ((event.key === "E" || event.key === "e") && player.currentChallenge !== "") {resetCheck('challenge')}	
-	   
-	   if ((event.key === "ArrowLeft")) {keyboardtabchange(-1)}
-	   if ((event.key === "ArrowRight")) {keyboardtabchange(1)}
-   }); */
-   
-
+function loadSynergy() {
    const string = localStorage.getItem("Synergysave2");
    const data = string ? JSON.parse(atob(string)) : null;
 
    if (data) {
-	   function isDecimal(o = {}) {
+	   function isDecimal(o) {
 		   if(!(o instanceof Object)) {
 			   return false;
 		   }
-		   return Object.keys(o).length === 2 && Object.keys(o).every(function(v) { return ['mantissa', 'exponent'].includes(v) });
+		   return Object.keys(o).length === 2 && Object.keys(o).every(function(v) { return ['mantissa', 'exponent'].indexOf(v) > -1 });
 	   }
 
 	   if(data.version) {
@@ -748,7 +714,9 @@ function updatetimer() {
     saveSynergy();
 }
 
-function format(input, accuracy = 0, short = true) {
+function format(input, accuracy, short) {
+	accuracy = accuracy || 0;
+	short = short || 1;
 	if (input instanceof Decimal) {
 		var power = input.e
 		var matissa = input.mantissa
@@ -1357,15 +1325,15 @@ function resetCurrency() {
 	if (player.upgrades[65] > 0.5) {reincarnationPointGain = reincarnationPointGain.times(5)}
 	}
 
-function resetCheck(i,manual=true) {
+function resetCheck(i,manual) {
+	manual = (manual === null || manual === undefined) ? true : manual;
 	if (i == 'prestige') {
 		if (player.coinsThisPrestige.greaterThanOrEqualTo(1e16) || prestigePointGain.greaterThanOrEqualTo(100)) {
 			if (manual) {
-			resetConfirmation('prestige');
-			}
-			if (!manual) {
-			resetachievementcheck(1);
-			reset(1);
+				resetConfirmation('prestige');
+			} else {
+				resetachievementcheck(1);
+				reset(1);
 			}
 		}
 		else {}
@@ -1660,12 +1628,12 @@ function constantIntervals() {
 		document.getElementById("preload").style.display = "none"
 	}
 
-lastUpdate = 0;
-gameInterval = 0;
+let lastUpdate = 0;
+//gameInterval = 0;
 
 function createTimer() {
-lastUpdate = Date.now();
-gameInterval = setInterval(tick, 25);
+	lastUpdate = Date.now();
+	setInterval(tick, 25);
 }
 
 function tick() {
@@ -1714,9 +1682,19 @@ function tick() {
 
 window['addEventListener' in window ? 'addEventListener' : 'attachEvents']('beforeunload', function() {
 	updatetimer();
- });
+});
 
- document['addEventListener' in document ? 'addEventListener' : 'attachEvent']('keydown', function (event) {
+document['addEventListener' in document ? 'addEventListener' : 'attachEvent']('keydown', function (event) {
+	// activeElement is the focused element on page
+	// if the autoprestige input is focused, hotkeys shouldn't work
+	// fixes https://github.com/Pseudo-Corp/Synergism-Issue-Tracker/issues/2
+	if(
+		document.querySelector('.reincarnationunlock') === document.activeElement || 
+		document.querySelector('.transcendunlock') === document.activeElement
+	) {
+		return;
+	}
+
 	var type = ""
 	var pos = ""
 	var num = 0
@@ -1746,19 +1724,8 @@ window['addEventListener' in window ? 'addEventListener' : 'attachEvents']('befo
 	if ((event.key === "ArrowLeft")) {keyboardtabchange(-1)}
 	if ((event.key === "ArrowRight")) {keyboardtabchange(1)}
 });
- 
- /*window['addEventListener' in window ? 'addEventListener' : 'attachEvents']('load', function() {
-	loadSynergy();
-	saveSynergy();
-	revealStuff();
-	hideStuff();
-	createTimer();
-	constantIntervals();
-	htmlInserts();
- });*/
 
-
- window['addEventListener' in window ? 'addEventListener' : 'attachEvent']('load', function() {
+window['addEventListener' in window ? 'addEventListener' : 'attachEvent']('load', function() {
 	const dec = LZString.decompressFromBase64(localStorage.getItem('Synergysave2'));
 	const isLZString = dec !== '';
 	
@@ -1767,6 +1734,10 @@ window['addEventListener' in window ? 'addEventListener' : 'attachEvents']('befo
 		localStorage.setItem('Synergysave2', btoa(dec));
 		alert('Transferred save to new format successfully!');
 	}
+
+	new i18n().getJSON().then(function() {
+		console.log('Language localized!');
+	});
 	
 	setTimeout(function() {
 		loadSynergy();

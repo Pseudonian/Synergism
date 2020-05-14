@@ -1,4 +1,4 @@
-function buyAccelerator(autobuyer=false){
+function buyAccelerator(autobuyer){
 	var autobuyamount = 0;
 	if(autobuyer){autobuyamount = 1000}
 	var buythisamount = Math.max(player.coinbuyamount, autobuyamount)
@@ -40,7 +40,7 @@ function buyAccelerator(autobuyer=false){
 
 	}
 
-function buyMultiplier(autobuyer=false){
+function buyMultiplier(autobuyer){
 	var autobuyamount = 0;
 	if(autobuyer){autobuyamount = 1000}
 	var buythisamount = Math.max(player.coinbuyamount, autobuyamount)
@@ -80,7 +80,7 @@ function buyMultiplier(autobuyer=false){
 
 	}
 	
-function buyProducer(pos,type,num,autobuyer=false) {
+function buyProducer(pos,type,num,autobuyer) {
 	var autobuyamount = 0;
     var r = 1;
     var tag = ""
@@ -219,7 +219,7 @@ function buyCrystalUpgrades(i) {
 	}
 	crystalupgradedescriptions(i)
 }	
-function boostAccelerator(automated = false) {
+function boostAccelerator(automated) {
 	var buyamount = 1;
 	if (player.upgrades[46] == 1) {
 	buyamount = player.coinbuyamount;

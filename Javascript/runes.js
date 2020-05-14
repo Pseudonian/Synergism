@@ -5,9 +5,10 @@
         player.reincarnationcounter += 0.05;
     }
     
-    function displayruneinformation(i,updatelevelup = true) {
-        var m = 1;
-            m *= (1 + player.researches[4]/10) * (1 + player.researches[21]/800)
+    function displayruneinformation(i,updatelevelup) {
+        updatelevelup = (updatelevelup === null || updatelevelup === undefined) ? true : updatelevelup;
+        
+        var m = (1 + player.researches[4]/10) * (1 + player.researches[21]/800)
         let s = 0;
         if (player.upgrades[71] == 1 && i == 1){s = player.runelevels[0]}
         if (player.upgrades[71] == 1 && i == 2){s = player.runelevels[1]}

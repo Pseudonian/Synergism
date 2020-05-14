@@ -1,4 +1,5 @@
-function challengeDisplay(i,changefocus = true,automated = false) {
+function challengeDisplay(i,changefocus, automated) {
+    changefocus = (changefocus === null || changefocus === undefined) ? true : changefocus;
     if (changefocus){challengefocus = i}
     if (i <= 5 && !automated) {document.getElementById("challengetotalscore").style.color = "plum"}
     if (i > 5 && i <= 8 && !automated) {document.getElementById("challengetotalscore").style.color = "limegreen"}

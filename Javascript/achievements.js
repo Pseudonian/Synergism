@@ -24,7 +24,9 @@ var achievementpointvalues = [0, 1, 2, 4, 6, 8, 9, 10,
 1, 2, 4, 6, 8, 9, 10,
 1, 2, 4, 6, 8, 9, 10,]
 
-var totalachievementpoints = achievementpointvalues.reduce((a, b) => a + b, 0)
+var totalachievementpoints = achievementpointvalues.reduce(function(a, b) { 
+    return a + b
+}, 0);
 
 var adesc1 = "A Loyal Employee: Hire your first worker."
 var adesc2 = "Small Business: Hire 10 workers."
@@ -417,7 +419,7 @@ function resetachievementcheck(i) {
 }
 
 
-function challengeachievementcheck(i,auto=false) {
+function challengeachievementcheck(i,auto) {
     var generatorcheck = Math.max(player.upgrades[101] + player.upgrades[102] + player.upgrades[103] + player.upgrades[104] + player.upgrades[105])
 if (i == 'one') {
     if (player.challengecompletions.one > 0.5) {achievementaward(78)}

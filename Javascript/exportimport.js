@@ -155,10 +155,11 @@ function promocodes() {
         }
 
         el.textContent = "Sorry for the balances, but it was necessary to prevent saves from breaking. Enjoy a nice reward! +" + p + " Quarks."
+    } else {
+        el.textContent = "I don't think you put that code in right, or your code is simply not valid. Try again!"
     }
-    else {el.textContent = "I don't think you put that code in right, or your code is simply not valid. Try again!"}
-    if(el.textContent.length) {
-        // remove text after 5 seconds
-        setTimeout(() => el.textContent = '', 15000);
-    }
+        
+    setTimeout(function() {
+        el.textContent = ''
+    }, 15000);
 }
