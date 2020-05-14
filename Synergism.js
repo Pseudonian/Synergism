@@ -1633,7 +1633,7 @@ let lastUpdate = 0;
 
 function createTimer() {
 	lastUpdate = Date.now();
-	setInterval(tick, 25);
+	setInterval(tick, 50);
 }
 
 function tick() {
