@@ -6,8 +6,6 @@ function resetrepeat(i) {
 }
 
 function resetdetails(i) {
-    var color = ''
-    var text = ''
     var q = 0;
     var r = 0;
 

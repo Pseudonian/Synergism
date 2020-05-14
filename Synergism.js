@@ -670,8 +670,7 @@ if ((updatedtime - player.offlinetick) > 10000) {
 player.offlinetick = updatedtime
 saveSynergy();
 
-var m = 1;
-m *= (1 + player.researches[4]/10) * (1 + player.researches[21]/800)
+var m = (1 + player.researches[4]/10) * (1 + player.researches[21]/800)
 
 document.getElementById("runeshowpower1").textContent = "Speed Rune Bonus: " + "+" + format(Math.floor(player.runelevels[0] * m)) + " Accelerators, +" + (player.runelevels[0]/2  * m).toPrecision(2) +"% Accelerators, +" + format(Math.floor(player.runelevels[0]/10 * m)) + " Accelerator Boosts."
 if (player.achievements[38] == 1)document.getElementById("runeshowpower2").textContent = "Duplication Rune Bonus: " + "+" + Math.floor(player.runelevels[1] * m / 10) * Math.floor(10 + player.runelevels[1] * m /10) / 2 + " +" + m *player.runelevels[1]/2 +"% Multipliers, -" + (100 * (1 - Math.pow(10, - player.runelevels[1]/500))).toPrecision(4)  + "% Tax Growth.";
@@ -695,19 +694,6 @@ document.getElementById("preload").style.display = "none"
 }
 }
 
-(function () {
-	const dec = LZString.decompressFromBase64(localStorage.getItem('Synergysave2'));
-	const isLZString = dec !== '';
- 
-	if(isLZString) {
-		localStorage.clear();
-		localStorage.setItem('Synergysave2', btoa(dec));
-		loadSynergy();
-		alert('Transferred save to new format successfully!');
-	}
- })();
-
-//
 
 function updatetimer() {
 	player.offlinetick = Date.now();
@@ -1735,11 +1721,9 @@ window['addEventListener' in window ? 'addEventListener' : 'attachEvent']('load'
 		alert('Transferred save to new format successfully!');
 	}
 
+	// Make sure language is loaded first no matter what
 	new i18n().getJSON().then(function() {
 		console.log('Language localized!');
-	});
-	
-	setTimeout(function() {
 		loadSynergy();
 		saveSynergy();
 		revealStuff();
@@ -1747,6 +1731,6 @@ window['addEventListener' in window ? 'addEventListener' : 'attachEvent']('load'
 		createTimer();
 		constantIntervals();
 		htmlInserts();
-	}, 1000);
+	});
 });
  
