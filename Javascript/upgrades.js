@@ -304,9 +304,9 @@ function upgradedescriptions(i) {
 }
 
 function crystalupgradedescriptions(i) {
-    // var v = "crystalupgdesc" + i
-    // var w = window[v]
-    const w = i18n.c['crystalupgdesc' + i];
+
+    var v = "crystalupgdesc" + i
+    var w = window[v]
 
     var u = i - 1
     var p = player.crystalUpgrades[u]
@@ -324,45 +324,123 @@ function crystalupgradedescriptions(i) {
 function upgradeupdate(num, fast) {
     var x = "upg"+num
     if (player.upgrades[num] > 0.5 && ((num <= 60 || num > 80) && (num <= 93 || num > 100))) {
-        document.getElementById(x).style.backgroundColor = "green"
-    } else if (player.upgrades[num] > 0.5 && ((num > 60 && num <= 80) || (num > 93 && num <= 100))) {
-        document.getElementById(x).style.backgroundColor = "white"
+    document.getElementById(x).style.backgroundColor = "green"
     }
-    // var a = "upgdesc" + num
-    // var b = window[a]
-    // var c = ""
-    const b = i18n.c['upgdesc' + num];
-    const c = (player.upgrades[num] > .5) ? ' BOUGHT!' : '';
-    if (player.upgrades[num] > 0.5) {    
-        if (!fast) {    
-            document.getElementById("upgradedescription").textContent = b + c;
-            document.getElementById("upgradedescription").style.color = "gold";
-        }
+    if (player.upgrades[num] > 0.5 && ((num > 60 && num <= 80) || (num > 93 && num <= 100))) {
+    document.getElementById(x).style.backgroundColor = "white"
+    }
+    var a = "upgdesc" + num
+    var b = window[a]
+    var c = ""
+    if (player.upgrades[num] > 0.5) {
+        c = c + " BOUGHT!"
+    
+    if (!fast) {    
+    document.getElementById("upgradedescription").textContent = b + c
+    document.getElementById("upgradedescription").style.color = "gold"
+    }
     }    
     else {document.getElementById(x).style.backgroundColor = "Black"}
 
     if (!fast) revealStuff()
 }
 
+var resdesc1 = "Increase the number of free Accelerators gained by 20% from all sources."
+var resdesc2 = "Increase the number of free Multipliers gained by 20% from all sources."
+var resdesc3 = "Increase the number of free Accelerator Boosts gained by 20% from all sources."
+var resdesc4 = "Increase most rune effects by 10%. (Excludes any recycle chance bonus)"
+var resdesc5 = "Multiply the production of all crystal producers by 1e4."
+var resdesc6 = "Gain +5% free accelerators per level."
+var resdesc7 = "Gain +1.25% free accelerators per level."
+var resdesc8 = "Gain +0.66% free accelerators per level."
+var resdesc9 = "Gain +0.375% free accelerators per level."
+var resdesc10 = "Gain +0.2% free accelerators per level."
+var resdesc11 = "Gain +5% free multipliers per level."
+var resdesc12 = "Gain +2.5% free multipliers per level."
+var resdesc13 = "Gain +0.5% free multipliers per level."
+var resdesc14 = "Gain +0.25% free multipliers per level."
+var resdesc15 = "Gain +0.2% free multipliers per level."
+var resdesc16 = "Gain +1% free accelerator boosts per level."
+var resdesc17 = "Gain +1% free accelerator boosts per level."
+var resdesc18 = "Gain +2 free accelerator per accelerator boost."
+var resdesc19 = "Gain +2 free accelerator per accelerator boost."
+var resdesc20 = "Gain +3 free accelerator per accelerator boost!"
+var resdesc21 = "Most rune effects are increased by 0.125% per level. (Excludes any recycle chance bonus)"
+var resdesc22 = "Each Offering used increases Rune EXP by 3 per level."
+var resdesc23 = "Each Offering used increases Rune EXP by another 2 per level!"
+var resdesc24 = "Prestige and Transcensions base Offering is increased by 1 per level. (Affected by time factor!)"
+var resdesc25 = "Reincarnation and [???] base Offering is increased by 3 per level. (Affected by time factor!)"
+var resdesc26 = "Multiply all crystal producer production by 10% per level."
+var resdesc27 = "Multiply all crystal producer production by 5% per level."
+var resdesc28 = "Coin Exponent is increased by 0.02 per level."
+var resdesc29 = "Coin Exponent is increased by another 0.02 per level."
+var resdesc30 = "Coin Exponent is increased by ANOTHER 0.01 per level."
+var resdesc31 = "When offline for greater than 1 hour you gain +5% of best obtainium per second per level [Max 50%]."
+var resdesc32 = "Offline production is increased by another 5% of best obtainium per second per level [Max 100%]."
+var resdesc33 = "Gain +2% more multiplier boosts from Mythos Shards per level."
+var resdesc34 = "Gain another +2% more multiplier boosts from Mythos Shards per level (stacks with other research)."
+var resdesc35 = "Gain ANOTHER +2% more multiplier boosts from Mythos Shards per level (stacks with other researches)."
+var resdesc36 = "Building power scales 1% faster per level."
+var resdesc37 = "Building power scales .5% faster per level."
+var resdesc38 = "Building power scales .5% faster per level."
+var resdesc39 = "Building power affects crystal production at a reduced rate."
+var resdesc40 = "Building power affects mythos shard production at a reduced rate."
+var resdesc41 = "Start Reincarnations with automatic A.Boosts unlocked. Note: this research doesn't affect earning achievements."
+var resdesc42 = "Start Reincarnations with automatic Generators unlocked."
+var resdesc43 = "Start Reincarnations with automatic C.Upgrades unlocked."
+var resdesc44 = "Start Reincarnations with automatic D.Upgrades unlocked."
+var resdesc45 = "Start Reincarnations with automatic Diamond production unlocked."
+var resdesc46 = "Unlock the ability to automatically Reincarnate!"
+var resdesc47 = "Unlock Reincarnation upgrades 1-5. [Upgrades cost between 1 and 1,000 Particles]"
+var resdesc48 = "Unlock Reincarnation upgrades 6-10. [Upgrades cost between 100,000 and 1e22 Particles]"
+var resdesc49 = "Unlock Reincarnation upgrades 11-15. [Upgrades cost between 1e30 and 1e60 Particles]"
+var resdesc50 = "Unlock Reincarnation upgrades 16-20. (NOT ADDED IN GAME YET, upgrades do not do anything!)"
+var resdesc51 = "Taxation scales 5.0% slower per level. [Up to -50%]"
+var resdesc52 = "Taxation scales 2.5% slower per level. [Up to -75%]"
+var resdesc53 = "Taxation scales 1.25% slower per level. [Up to -87.5%]"
+var resdesc54 = "Taxation scales 0.625% slower per level. [Up to -93.75%]"
+var resdesc55 = "Taxation scales 0.3125% slower per level. [Up to -96.875%]"
+var resdesc56 = "Building Cost Scale is delayed by 0.5% per level."
+var resdesc57 = "Building Cost Scale is delayed by 0.5% per level."
+var resdesc58 = "Building Cost Scale is delayed by 0.5% per level."
+var resdesc59 = "Building Cost Scale is delayed by 0.5% per level."
+var resdesc60 = "Building Cost Scale is delayed by 0.5% per level."
+var resdesc61 = "Unlock the ability to automatically gain Obtainium! The base rate is 1 per 60 seconds."
+var resdesc62 = "Lower the required amount of time to automatically gain obtainium by 1 second per level."
+var resdesc63 = "Lower the required amount of time to automatically gain obtainium again, by 1 second per level."
+var resdesc64 = "Gain +1 obtainium per level when you automatically gain them."
+var resdesc65 = "Increase the rate of gaining obtainium through reincarnations by 2% per level."
+var resdesc66 = "Increase the maximum number of [No Multipliers] completions by 1 per level."
+var resdesc67 = "Increase the maximum number of [No Accelerators] completions by 1 per level."
+var resdesc68 = "Increase the maximum number of [No Shards] completions by 1 per level."
+var resdesc69 = "Increase the maximum number of [Cost+] completions by 1 per level."
+var resdesc70 = "Increase the maximum number of [Diamond-] completions by 1 per level."
+var resdesc71 = "Automatically gain completions for Challenge 1, even without running it!"
+var resdesc72 = "Automatically gain completions for Challenge 2, even without running it!"
+var resdesc73 = "Automatically gain completions for Challenge 3, even without running it!"
+var resdesc74 = "Automatically gain completions for Challenge 4, even without running it!"
+var resdesc75 = "Automatically gain completions for Challenge 5, even without running it!"
+var resdesc76 = "Welcome to the land of expensive researches. Here's +1% obtainium everywhere per level to help you out! (Stacks multiplicatively)"
+var resdesc77 = "Increase the level cap of Thrift rune by 1 per level, and +0.4% exp for that rune in particular."
+var resdesc78 = "Increase the level cap of Speed rune by 1 per level, and +0.4% exp for that rune in particular."
+var resdesc79 = "Increase the level cap of Prism rune by 1 per level, and +0.4% exp for that rune in particular."
+var resdesc80 = "Increase the level cap of Duplication rune by 1 per level, and +0.4% exp for that rune in particular."
+var resdesc86 = "Automated Obtainium feeling lacking? Well, what if I scaled it to be up to 10x more productive for longer runs?"
 function researchdescriptions(i) {
-    // var x = "resdesc" + i
-    // var y = window[x]
-    const y = i18n.c['resdesc' + i];
-    const z = " Cost: " + (format(researchBaseCosts[i],0,!1)) + " Obtainium" + (player.researches[i] === researchMaxLevels[i] ? ' || MAXED' : '');
-
-    if (player.researches[i] === researchMaxLevels[i]) {
+    var x = "resdesc" + i
+    var y = window[x]
+    var z = ""
+    var p = "res" + i
+    z = " Cost: " + (format(researchBaseCosts[i],0,false)) + " Obtainium"
+    if (player.researches[i] == researchMaxLevels[i]) {
         document.getElementById("researchcost").style.color = "Gold"
         document.getElementById("researchinfo3").style.color = "plum"
-    } else {
-        document.getElementById("researchcost").style.color = "White"
-        document.getElementById("researchinfo3").style.color = "white"
-    }
+        z = z + " || MAXED!"}
+    else {document.getElementById("researchcost").style.color = "White"
+          document.getElementById("researchinfo3").style.color = "white"}
 
-    if (player.researches[i] > 0.5 && player.researches[i] < researchMaxLevels[i]) {
-        document.getElementById('res' + i).style.backgroundColor = "purple";
-    } else if (player.researches[i] > 0.5 && player.researches[i] >= researchMaxLevels[i]) {
-        document.getElementById('res' + i).style.backgroundColor = "green";
-    }
+    if (player.researches[i] > 0.5 && player.researches[i] < researchMaxLevels[i]) {document.getElementById(p).style.backgroundColor = "purple"}
+    if (player.researches[i] > 0.5 && player.researches[i] >= researchMaxLevels[i]) {document.getElementById(p).style.backgroundColor = "green"}
 
     document.getElementById("researchinfo2").textContent = y
     document.getElementById("researchcost").textContent = z

@@ -47,7 +47,7 @@
         var c = 0
         if (i >= 3) {
             a += 15 
-            if (player.achievements[51] > 0.5) {a += (25 * Math.min(1, player.reincarnationcounter/1800))}
+            if (player.achievements[52] > 0.5) {a += (25 * Math.min(1, player.reincarnationcounter/1800))}
             if (player.upgrades[62] > 0.5) {a += 1/5 * (player.challengecompletions.one + player.challengecompletions.two + player.challengecompletions.three + player.challengecompletions.four + player.challengecompletions.five + player.challengecompletions.six + player.challengecompletions.seven + player.challengecompletions.eight)}
             a += 3 * player.researches[25]
             a *= Math.pow(player.reincarnationcounter/600 * Math.pow(Math.min(1.5, player.reincarnationcounter/400),1), 0.7)
@@ -105,7 +105,7 @@
                     if (player.challengecompletions.six > 0.5 && k == 3) {m -= 0.02 * player.challengecompletions.six}
                     if (player.challengecompletions.seven > 0.5 && (k == 0 || k == 1)) {m -= 0.02 * player.challengecompletions.seven}
 
-                    if (player.runeexp[k] >= (runeexpbase[k] * Math.pow(player.runelevels[k], 3) * ((4 * player.runelevels[k]) + 100)/500 * m) && player.runelevels[k] < 500) {
+                    if (player.runeexp[k] >= (runeexpbase[k] * Math.pow(player.runelevels[k], 3) * ((4 * player.runelevels[k]) + 100)/500 * m) * Math.max(1, (player.runelevels[k] - 500)/25) * Math.max(1, (player.runelevels[k] - 600)/30) * Math.max(1, (player.runelevels[k]-700)/25) && player.runelevels[k] < 500) {
                         player.runelevels[k] += 1; var p = k + 1; displayruneinformation(p, false);
                     }
                 }  
@@ -113,7 +113,7 @@
         
         var a = Math.random()
         if (a > 1 - 0.05 * player.achievements[80] - 0.05 * player.achievements[87] - 0.05 * player.achievements[94] - 0.05 * player.achievements[101] - 0.05 * player.achievements[108] - 0.05 * player.achievements[115] - 0.10 * player.achievements[122] - 0.10 * player.achievements[129] - 0.05 * player.upgrades[61] - Math.min(0.25,player.runelevels[3]/800)) {player.runeshards += 1}
-        while (player.runeexp[u] >= (runeexpbase[u] * Math.pow(player.runelevels[u], 3) * ((4 * player.runelevels[u]) + 100)/500 * r) && player.runelevels[u] < (500 + player.researches[num])){
+        while (player.runeexp[u] >= (runeexpbase[u] * Math.pow(player.runelevels[u], 3) * ((4 * player.runelevels[u]) + 100)/500 * r) * Math.max(1, (player.runelevels[u] - 500)/25) * Math.max(1, (player.runelevels[u] - 600)/30) * Math.max(1, (player.runelevels[u]-700)/25) && player.runelevels[u] < (500 + player.researches[num])){
             player.runelevels[u] += 1;
         }
         displayruneinformation(i)

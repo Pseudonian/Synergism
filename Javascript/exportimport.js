@@ -1,83 +1,111 @@
+/* function exportSynergism() {
+    var string = localStorage.getItem("Synergysave2");
+    document.getElementById('exporttext').textContent = string
+
+    var text = document.getElementById('exporttext')
+    text.select()
+    document.execCommand("copy")
+
+    document.getElementById("exportinfo").textContent = "Copied to clickboard! Paste it somewhere safe."
+    document.getElementById("importinfo").textContent = ""
+  }
+
+function importSynergism() {
+    var text=""
+    text = prompt("Got a save? Great! Just paste it below.")
+    try {
+    var decompressed = LZString.decompressFromBase64(text)
+    var data = JSON.parse(decompressed)
+    if (data.exporttest == "YES!" && data.kongregatetest !== "YES!") {
+            localStorage.setItem("Synergysave2",text);
+            loadSynergy(true)
+            document.getElementById("importinfo").textContent = "Successfully imported your savefile. Go nuts!"
+            document.getElementById("exportinfo").textContent = ""
+        }
+    else {document.getElementById("importinfo").textContent = "Savefile code invalid. Try again with a valid code! Unless, of course, you were entering a Promo Code?"
+          document.getElementById("exportinfo").textContent = ""}
+    }
+    catch(err) {
+        document.getElementById("importinfo").textContent = "Savefile code invalid. Try again with a valid code! Unless, of course, you were entering a Promo Code?"
+        document.getElementById("exportinfo").textContent = ""
+    }
+    promocodes(text)
+
+}
+
+function promocodes(i) {
+    if (i == "synergism2020" && player.offerpromo1used == false){player.offerpromo1used = true; player.runeshards += 25; player.worlds += 50; console.log("Successfully applied promo code!"); document.getElementById("importinfo").textContent = "Promo Code 'synergism2020' Applied! +25 Offerings, +50 Quarks"}
+
+    if (i == "synergism1007" && (ver == 1.007) && player.offerpromo12used == false){
+        player.offerpromo12used = true;
+        player.worlds += 50
+
+        
+        document.getElementById("importinfo").textContent = "Promo Code 'synergism1007' Applied! +50 Quarks."
+    }
+} */
+
+/*function exportSynergism() {
+    var string = localStorage.getItem("Synergysave2");
+    document.getElementById('exporttext').textContent = string
+
+    var text = document.getElementById('exporttext')
+    text.select()
+    document.execCommand("copy")
+
+    document.getElementById("exportinfo").textContent = "Copied to clickboard! Paste it somewhere safe."
+    document.getElementById("importinfo").textContent = ""
+  }
+*/
+
 /**
  * Copy the save file to clipboard (IE) or export it as a file (EVERYTHING else).
  */
 function exportSynergism() {
     player.offlinetick = Date.now();
+    if (player.quarkstimer >= 3600){
+        player.worlds += Math.floor(player.quarkstimer/3600);
+        player.quarkstimer = (player.quarkstimer % 3600)
+    }
     saveSynergy();
 
-    const saveElement = document.querySelector('.save');
-    // https://stackoverflow.com/a/7690750
-    if(!document.querySelector('#fileSave') && !('ActiveXObject' in window)) {
-        /*** Button that handles exporting a save to a txt file */
-        const button_file = document.createElement('button');
-        button_file.style = 'position: static; margin-top: 5px; margin-left: 5px; width: 14%; height: 90%; font-size: 140%;';
-        button_file.textContent = 'Save as File';
-        button_file.id = 'fileSave';
-        button_file.addEventListener('click', function() {
-            const a = document.createElement('a');
-            a.setAttribute('href', 'data:text/plain;charset=utf-8,' + localStorage.getItem('Synergysave2'));
-            a.setAttribute('download', 'SynergismSave.txt');
-            a.setAttribute('id', 'downloadSave');
-            a.click();
-        });
-
-        saveElement.appendChild(button_file);
+    if('clipboardData' in window) {
+        window.clipboardData.setData('Text', localStorage.getItem('Synergysave2'));
+        return;
     }
 
-    if(!document.querySelector('#copySave') || 'ActiveXObject' in window) {
-        /*** Button that handles copying a save to clipboard */
-        const button_copy = document.createElement('button');
-        button_copy.style = 'position: static; margin-top: 5px; margin-left: 5px; width: 14%; height: 90%; font-size: 140%;';
-        button_copy.textContent = 'Copy to Clipboard';
-        button_copy.id = 'copySave';
-        button_copy.addEventListener('click', function() {
-            if('clipboardData' in window) { // Internet Explorer
-                window.clipboardData.setData('Text', localStorage.getItem('Synergysave2'));
-            } else if('clipboard' in navigator && 'writeText' in navigator.clipboard) {
-                // https://www.w3.org/TR/clipboard-apis/#async-clipboard-api
-                // the modern, recommended approach.
-                navigator.clipboard.writeText(localStorage.getItem('Synergysave2')).then(function() {
-                    alert('Copied save to Clipboard successfully!');
-                }, function() {
-                    alert('Failed to copy save to Clipboard!');
-                });
-            } else {
-                const textarea = document.createElement("textarea");
-                textarea.textContent = localStorage.getItem('Synergysave2');
-                document.body.appendChild(textarea);
-                textarea.select();
-                try { document.execCommand('copy'); } catch(_) {}
-                document.body.removeChild(textarea);
-                alert('Copied save to Clipboard successfully! However I recommend updating your browser.');
-            }
-        });
+    const a = document.createElement('a');
+    a.setAttribute('href', 'data:text/plain;charset=utf-8,' + localStorage.getItem('Synergysave2'));
+    a.setAttribute('download', 'SynergismSave.txt');
+    a.setAttribute('id', 'downloadSave');
+    a.click();
 
-        saveElement.appendChild(button_copy);
-    }
-
-    saveElement.style = 'display: block;';
+    document.getElementById("exportinfo").textContent = "Savefile copied to file!"
 }
 
-function importSynergism() {
-    const input = prompt("Got a save? Great! Just paste it below.");
+function importSynergism(input) {
+    console.log(input)
     try {
-        const lzData = LZString.decompressFromBase64(input);
-        if(lzData && lzData.length) {
-            localStorage.clear();
-            localStorage.setItem('Synergysave2', btoa(lzData));
-            loadSynergy();
-        } else {
-            const data = JSON.parse(atob(input));
-            if (data.exporttest === "YES!" && data.kongregatetest !== "YES!") {
-                localStorage.setItem("Synergysave2", input);
-                loadSynergy();
-                document.getElementById("importinfo").textContent = "Successfully imported your savefile. Go nuts!"
-            } else { //
-                document.getElementById("importinfo").textContent = "Savefile code invalid. Try again with a valid code! Unless, of course, you were entering a Promo Code?"
-            }
+        const data = JSON.parse(atob(input));
+        if (data.exporttest === "YES!" && data.kongregatetest !== "YES!") {
+            localStorage.setItem("Synergysave2", input);
+            loadSynergy(true);
+            document.getElementById("importinfo").textContent = "Successfully imported your savefile. Go nuts!"
+        } else { //
+            document.getElementById("importinfo").textContent = "Savefile code invalid. Try again with a valid code!"
         }
-    } catch(_) {
-        document.getElementById("importinfo").textContent = "Savefile code invalid. Try again with a valid code! Unless, of course, you were entering a Promo Code?";
+    } catch(err) {
+        if(err instanceof SyntaxError) {
+            const lzData = JSON.parse(LZString.decompressFromBase64(input));
+            if(lzData) {
+                localStorage.clear();
+                console.log()
+                localStorage.setItem('Synergysave2', btoa(JSON.stringify(lzData)));
+                loadSynergy();
+            }
+        } else {
+            document.getElementById("importinfo").textContent = "Savefile code invalid. Try again with a valid code!";
+        }
     }
 
     document.getElementById("exportinfo").textContent = '';
@@ -110,19 +138,19 @@ function promocodes() {
         player.runeshards += p
         el.textContent = "Promo Code 'synergism1008' Applied! +25 Quarks, +" + p + " Offerings."
     }
-    else if (input == "transcendlol" && (player.version == "1.0081" || player.version == "1.0082") && player.offerpromo14used == false){
+    else if (input == "transcendlol" && (player.version == "1.0081" || player.version == "1.0082" || player.version == "1.0084") && player.offerpromo14used == false){
         player.offerpromo14used = true;
         player.worlds += 25;
 
         el.textContent = "Promo Code 'transcendlol' Applied! +25 Quarks."
     }
-    else if (input == "111111hype" && (player.version == "1.0082") && player.offerpromo15used == false){
+    else if (input == "111111hype" && (player.version == "1.0082" || player.version == "1.0084") && player.offerpromo15used == false){
         player.offerpromo15used = true;
         player.worlds += 200;
 
         el.textContent = "Thank you for playing Synergism! I'm a bit late on the 100k celebration so here's the next best thing. +200 Quarks! [Oh and 111111hype applied!]"
     }
-    else if (input == "oops" && (player.version == "1.0082") && player.offerpromo16used == false){
+    else if (input == "oops" && (player.version == "1.0082" || player.version == "1.0084") && player.offerpromo16used == false){
         player.offerpromo16used = true;
         player.worlds += 200;
         var p = 200
@@ -132,7 +160,13 @@ function promocodes() {
         }
 
         el.textContent = "Sorry for the balances, but it was necessary to prevent saves from breaking. Enjoy a nice reward! +" + p + " Quarks."
-    } else {
+    }
+    else if (input == "patience" && (player.version == "1.0084") && player.offerpromo17used == false){
+        player.offerpromo17used = true
+        player.worlds += 99
+
+        el.textContent = "Here's 99 Quarks for waiting for the update!"
+     } else {
         el.textContent = "I don't think you put that code in right, or your code is simply not valid. Try again!"
     }
         

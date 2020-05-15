@@ -1,6 +1,6 @@
 function buyAccelerator(autobuyer){
 	var autobuyamount = 0;
-	if(autobuyer){autobuyamount = 1000}
+	if(autobuyer){autobuyamount = 500}
 	var buythisamount = Math.max(player.coinbuyamount, autobuyamount)
 	while(player.coins.greaterThanOrEqualTo(player.acceleratorCost) && ticker < buythisamount) {
 
@@ -42,7 +42,7 @@ function buyAccelerator(autobuyer){
 
 function buyMultiplier(autobuyer){
 	var autobuyamount = 0;
-	if(autobuyer){autobuyamount = 1000}
+	if(autobuyer){autobuyamount = 500}
 	var buythisamount = Math.max(player.coinbuyamount, autobuyamount)
 	while(player.coins.greaterThanOrEqualTo(player.multiplierCost) && ticker < buythisamount) {
 		player.coins = player.coins.sub(player.multiplierCost);
@@ -91,7 +91,7 @@ function buyProducer(pos,type,num,autobuyer) {
 	if (type == 'Mythos'){tag = "transcendPoints"; var amounttype = "mythos"}
 	if (type == 'Particles') {tag = "reincarnationPoints"; var amounttype = "particle"}
 	if (type == "Coin") {tag = "coins"; var amounttype = "coin"}
-	if (autobuyer){autobuyamount = 1000}
+	if (autobuyer){autobuyamount = 500}
 	var buythisamount = Math.max(autobuyamount, player[amounttype + 'buyamount'])
 		while(player[tag].greaterThanOrEqualTo(player[pos + 'Cost' + type]) && ticker < buythisamount) {
 			player[tag] = player[tag].sub(player[pos + 'Cost' + type]);
