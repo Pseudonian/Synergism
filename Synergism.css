@@ -2737,3 +2737,25 @@ margin-left: -13px
 	left: 50%;
 	margin-left: -35px;
 }
+
+.save {
+	display: none;
+    position: fixed;
+	left: 25%;
+	top: 250px;
+	width: 50%;
+	height: 100px;
+	z-index: 2;
+    background: red;
+}
+
+.saveClose {
+	line-height: 12px;
+	height: 25%;
+	width: 3.5%;
+	margin-top: 1px;
+	margin-right: 2px;
+	position:absolute;
+	top:0;
+	right:0;
+}

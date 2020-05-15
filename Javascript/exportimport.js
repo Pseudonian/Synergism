@@ -4,18 +4,58 @@
 function exportSynergism() {
     player.offlinetick = Date.now();
     saveSynergy();
-    if('clipboardData' in window) {
-        window.clipboardData.setData('Text', localStorage.getItem('Synergysave2'));
-        return;
+
+    const saveElement = document.querySelector('.save');
+    // https://stackoverflow.com/a/7690750
+    if(!document.querySelector('#fileSave') && !('ActiveXObject' in window)) {
+        /*** Button that handles exporting a save to a txt file */
+        const button_file = document.createElement('button');
+        button_file.style = 'position: static; margin-top: 5px; margin-left: 5px; width: 14%; height: 90%; font-size: 140%;';
+        button_file.textContent = 'Save as File';
+        button_file.id = 'fileSave';
+        button_file.addEventListener('click', function() {
+            const a = document.createElement('a');
+            a.setAttribute('href', 'data:text/plain;charset=utf-8,' + localStorage.getItem('Synergysave2'));
+            a.setAttribute('download', 'SynergismSave.txt');
+            a.setAttribute('id', 'downloadSave');
+            a.click();
+        });
+
+        saveElement.appendChild(button_file);
     }
 
-    const a = document.createElement('a');
-    a.setAttribute('href', 'data:text/plain;charset=utf-8,' + localStorage.getItem('Synergysave2'));
-    a.setAttribute('download', 'SynergismSave.txt');
-    a.setAttribute('id', 'downloadSave');
-    a.click();
+    if(!document.querySelector('#copySave') || 'ActiveXObject' in window) {
+        /*** Button that handles copying a save to clipboard */
+        const button_copy = document.createElement('button');
+        button_copy.style = 'position: static; margin-top: 5px; margin-left: 5px; width: 14%; height: 90%; font-size: 140%;';
+        button_copy.textContent = 'Copy to Clipboard';
+        button_copy.id = 'copySave';
+        button_copy.addEventListener('click', function() {
+            if('clipboardData' in window) { // Internet Explorer
+                window.clipboardData.setData('Text', localStorage.getItem('Synergysave2'));
+            } else if('clipboard' in navigator && 'writeText' in navigator.clipboard) {
+                // https://www.w3.org/TR/clipboard-apis/#async-clipboard-api
+                // the modern, recommended approach.
+                navigator.clipboard.writeText(localStorage.getItem('Synergysave2')).then(function() {
+                    alert('Copied save to Clipboard successfully!');
+                }, function() {
+                    alert('Failed to copy save to Clipboard!');
+                });
+            } else {
+                const textarea = document.createElement("textarea");
+                textarea.textContent = localStorage.getItem('Synergysave2');
+                document.body.appendChild(textarea);
+                textarea.select();
+                try { document.execCommand('copy'); } catch(_) {}
+                document.body.removeChild(textarea);
+                alert('Copied save to Clipboard successfully! However I recommend updating your browser.');
+            }
+        });
 
-    document.getElementById("exportinfo").textContent = "Savefile copied to file!"
+        saveElement.appendChild(button_copy);
+    }
+
+    saveElement.style = 'display: block;';
 }
 
 function importSynergism() {

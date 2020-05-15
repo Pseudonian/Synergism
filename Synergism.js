@@ -1732,5 +1732,12 @@ window['addEventListener' in window ? 'addEventListener' : 'attachEvent']('load'
 		constantIntervals();
 		htmlInserts();
 	});
+
+	/**
+	 * After window loads, add an event listener to handle clicks on the export bar.
+	 */
+	document.querySelector('.saveClose').addEventListener('click', function() {
+		document.querySelector('.save').style = 'display: none';
+	});
 });
  
