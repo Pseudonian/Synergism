@@ -61,26 +61,23 @@ function exportSynergism() {
 function importSynergism() {
     const input = prompt("Got a save? Great! Just paste it below.");
     try {
-        const data = JSON.parse(atob(input));
-        if (data.exporttest === "YES!" && data.kongregatetest !== "YES!") {
-            localStorage.setItem("Synergysave2", input);
-            loadSynergy(true);
-            document.getElementById("importinfo").textContent = "Successfully imported your savefile. Go nuts!"
-        } else { //
-            document.getElementById("importinfo").textContent = "Savefile code invalid. Try again with a valid code!"
-        }
-    } catch(err) {
-        if(err instanceof SyntaxError) {
-            const lzData = JSON.parse(LZString.decompressFromBase64(input));
-            if(lzData) {
-                localStorage.clear();
-                console.log()
-                localStorage.setItem('Synergysave2', btoa(JSON.stringify(lzData)));
-                loadSynergy();
-            }
+        const lzData = LZString.decompressFromBase64(input);
+        if(lzData && lzData.length) {
+            localStorage.clear();
+            localStorage.setItem('Synergysave2', btoa(lzData));
+            loadSynergy();
         } else {
-            document.getElementById("importinfo").textContent = "Savefile code invalid. Try again with a valid code!";
+            const data = JSON.parse(atob(input));
+            if (data.exporttest === "YES!" && data.kongregatetest !== "YES!") {
+                localStorage.setItem("Synergysave2", input);
+                loadSynergy();
+                document.getElementById("importinfo").textContent = "Successfully imported your savefile. Go nuts!"
+            } else { //
+                document.getElementById("importinfo").textContent = "Savefile code invalid. Try again with a valid code! Unless, of course, you were entering a Promo Code?"
+            }
         }
+    } catch(_) {
+        document.getElementById("importinfo").textContent = "Savefile code invalid. Try again with a valid code! Unless, of course, you were entering a Promo Code?";
     }
 
     document.getElementById("exportinfo").textContent = '';

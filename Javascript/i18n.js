@@ -28,7 +28,7 @@
         Object.defineProperty(this, 'getJSON', {
             value: function() {
                 if(i18n.c) {
-                    return i18n.c;
+                    throw 'Stop snooping!';
                 }
 
                 const res = new XMLHttpRequest();
