@@ -705,65 +705,67 @@ function updatetimer() {
 function format(input, accuracy, short) {
 	accuracy = accuracy || 0;
 	short = short || 1;
+	let matissa;
+	let power;
 	if (input instanceof Decimal) {
-		var power = input.e
-		var matissa = input.mantissa
-	}
-	else if (input != 0) {
-		var matissa = input / Math.pow(10, Math.floor(Math.log10(input)));
-		var power = Math.floor(Math.log10(input));
+		power = input.e
+		matissa = input.mantissa
+	} else if (input != 0) {
+		matissa = input / Math.pow(10, Math.floor(Math.log10(input)));
+		power = Math.floor(Math.log10(input));
 	}
 	if (input == 0 || matissa == 0) {
-		return (input)
+		return input
 	}
-	if (matissa < 0) {matissa *= -1}
-
-	if (short){
-	if(power > 5.5) {
-	 matissa = matissa.toFixed(2)
-	 if (matissa >= 10) {
-		 matissa /= 10;
-		 power++;
-	 }
-		if (power > 100000 && power < 1000000) return (matissa + "e" + power.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-		if (power >= 1000000 && power < 10000000) {power /= 1000; power = Math.floor(power); power /= 1000; return (matissa + "e" + power + "M".toString())}
-		if (power >= 10000000 && power < 100000000) {power /= 10000; power = Math.floor(power); power /= 100; return (matissa + "e" + power + "M".toString())}
-		if (power >= 100000000 && power < 1000000000) {power /= 100000; power = Math.floor(power); power /= 10; return (matissa + "e" + power + "M".toString())}
-		if (power >= 1000000000 && power < 10000000000) {power /= 1000000; power = Math.floor(power); power /= 1000; return (matissa + "e" + power + "B".toString())}
-		if (power >= 1e10 && power < 1e11) {power /= 1e7; power = Math.floor(power); power /= 100; return (matissa + "e" + power + "B".toString())}
-		if (power >= 1e11 && power < 1e12) {power /= 1e8; power = Math.floor(power); power /= 10; return (matissa + "e" + power + "B".toString())}
-		if (power >= 1e12 && power < 1e13) {power /= 1e9; power = Math.floor(power); power /= 1000; return (matissa + "e" + power + "T".toString())}
-		if (power >= 1e13 && power < 1e14) {power /= 1e10; power = Math.floor(power); power /= 100; return (matissa + "e" + power + "T".toString())}
-		if (power >= 1e14 && power < 1e15) {power /= 1e11; power = Math.floor(power); power /= 10; return (matissa + "e" + power + "T".toString())}
-		if (power >= 1e15 && power < 1e16) {power /= 1e12; power = Math.floor(power); power /= 1000; return (matissa + "e" + power + "Qa".toString())}
-
-
-	return (matissa + "e" + power);	 
-	}
-	if (power < 5.5 && power >= 1) {
-		var n = matissa * Math.pow(10, power);
-		n = n.toFixed(0);
-		return(n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-	}
-	if (power >= -11  && power <= 0) {
-		var n = matissa * Math.pow(10,power);
-		n = n.toFixed(accuracy)
-		return(n.toString())
-	}
-	else {
-		var n = 0
-		return(n.toString())
-	}
+	if(matissa < 0) {
+		matissa *= -1
 	}
 
-	if(!short){
-		var n = matissa * Math.pow(10, power);
-		n = n.toFixed(0);
-		return(n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+	if(short) {
+		if(power > 5.5) {
+			matissa = matissa.toFixed(2);
+			if (matissa >= 10) {
+				matissa /= 10;
+				power++;
+			}
+			if (power > 100000 && power < 1000000) 
+				return matissa + "e" + (power+'').toLocaleString();
+			else if (power >= 1000000 && power < 10000000) {
+				power /= 1000; 
+				power = Math.floor(power); 
+				power /= 1000; 
+				return matissa + "e" + power + "M"
+			} else if (power >= 10000000 && power < 100000000) {
+				power /= 10000; 
+				power = Math.floor(power); 
+				power /= 100; 
+				return matissa + "e" + power + "M"
+			}
+			else if (power >= 100000000 && power < 1000000000) {power /= 100000; power = Math.floor(power); power /= 10; return (matissa + "e" + power + "M")}
+			else if (power >= 1000000000 && power < 10000000000) {power /= 1000000; power = Math.floor(power); power /= 1000; return (matissa + "e" + power + "B")}
+			else if (power >= 1e10 && power < 1e11) {power /= 1e7; power = Math.floor(power); power /= 100; return (matissa + "e" + power + "B")}
+			else if (power >= 1e11 && power < 1e12) {power /= 1e8; power = Math.floor(power); power /= 10; return (matissa + "e" + power + "B")}
+			else if (power >= 1e12 && power < 1e13) {power /= 1e9; power = Math.floor(power); power /= 1000; return (matissa + "e" + power + "T")}
+			else if (power >= 1e13 && power < 1e14) {power /= 1e10; power = Math.floor(power); power /= 100; return (matissa + "e" + power + "T")}
+			else if (power >= 1e14 && power < 1e15) {power /= 1e11; power = Math.floor(power); power /= 10; return (matissa + "e" + power + "T")}
+			else if (power >= 1e15 && power < 1e16) {power /= 1e12; power = Math.floor(power); power /= 1000; return (matissa + "e" + power + "Qa")}
+
+
+			return matissa + "e" + power;	 
 		}
 
+		if (power < 5.5 && power >= 1) {
+			return parseInt(matissa * Math.pow(10, power)).toLocaleString();
+		} else if (power >= -11  && power <= 0) {
+			return (matissa * Math.pow(10, power)).toFixed(accuracy);
+		}
+
+		return '0';
+	} else {
+		return parseInt(matissa * Math.pow(10, power)).toLocaleString();
+	}
+
 }
-// Update calculations for Accelerator/Multiplier as well as just Production modifiers in general [Lines 600-897]
 
 function updateAllTick() {
 	let a = 0;
