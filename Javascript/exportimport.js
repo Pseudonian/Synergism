@@ -55,6 +55,20 @@ function exportSynergism() {
         saveElement.appendChild(button_copy);
     }
 
+    if(!document.querySelector('#resetSave')) {
+        const button_reset = document.createElement('button');
+        button_reset.style = 'position: static; margin-top: 5px; margin-left: 5px; width: 14%; height: 90%; font-size: 140%;';
+        button_reset.textContent = 'Reset Game';
+        button_reset.id = 'resetSave';
+        button_reset.addEventListener('click', function() {
+            localStorage.removeItem('Synergysave2');
+            delete window.localStorage;
+            location.reload();
+        });
+
+        saveElement.appendChild(button_reset);
+    }
+
     saveElement.style = 'display: block;';
 }
 

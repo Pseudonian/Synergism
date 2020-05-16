@@ -373,7 +373,9 @@ function saveSynergy(button) {
 	   
    	const p = player; // temp hold
 	delete p.version; // don't save
-   	localStorage.setItem("Synergysave2", btoa(JSON.stringify(p)));	
+	if('localStorage' in window) { // localStorage isn't available for a little bit after resetting the game
+   		localStorage.setItem("Synergysave2", btoa(JSON.stringify(p)));	
+	}
 
    	if (button) {
 		let el = document.getElementById("saveinfo").textContent;
