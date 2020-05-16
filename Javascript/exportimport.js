@@ -7,7 +7,7 @@ function exportSynergism() {
 
     const saveElement = document.querySelector('.save');
     // https://stackoverflow.com/a/7690750
-    if(!document.querySelector('#fileSave') && !('ActiveXObject' in window)) {
+    if(!document.querySelector('#fileSave')) {
         /*** Button that handles exporting a save to a txt file */
         const button_file = document.createElement('button');
         button_file.style = 'position: static; margin-top: 5px; margin-left: 5px; width: 14%; height: 90%; font-size: 140%;';
@@ -24,7 +24,7 @@ function exportSynergism() {
         saveElement.appendChild(button_file);
     }
 
-    if(!document.querySelector('#copySave') || 'ActiveXObject' in window) {
+    if(!document.querySelector('#copySave')) {
         /*** Button that handles copying a save to clipboard */
         const button_copy = document.createElement('button');
         button_copy.style = 'position: static; margin-top: 5px; margin-left: 5px; width: 14%; height: 90%; font-size: 140%;';
@@ -62,14 +62,26 @@ function exportSynergism() {
         button_reset.id = 'resetSave';
         button_reset.addEventListener('click', function() {
             localStorage.removeItem('Synergysave2');
-            delete window.localStorage;
+            updatetimer = void 0;
             location.reload();
         });
 
         saveElement.appendChild(button_reset);
     }
 
-    saveElement.style = 'display: block;';
+    if('ActiveXObject' in window) {
+        const btns = saveElement.children;
+        for(let i = 0; i < btns.length; i++) {
+            if(btns[i].className) { continue; }
+            btns[i].style.position = 'static';
+            btns[i].style.marginTop = '5px';
+            btns[i].style.marginLeft = '5px';
+            btns[i].style.width = '14%';
+            btns[i].style.height = '90%';
+            btns[i].style.fontSize = '140%';
+        }
+    }
+    saveElement.style.display = 'block';
 }
 
 function importSynergism() {

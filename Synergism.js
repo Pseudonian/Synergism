@@ -1669,7 +1669,9 @@ function tick() {
 }
 
 window['addEventListener' in window ? 'addEventListener' : 'attachEvents']('beforeunload', function() {
-	updatetimer();
+	if(typeof updatetimer === 'function') {
+		updatetimer();
+	}
 });
 
 document['addEventListener' in document ? 'addEventListener' : 'attachEvent']('keydown', function (event) {
@@ -1738,7 +1740,7 @@ window['addEventListener' in window ? 'addEventListener' : 'attachEvent']('load'
 	 * After window loads, add an event listener to handle clicks on the export bar.
 	 */
 	document.querySelector('.saveClose').addEventListener('click', function() {
-		document.querySelector('.save').style = 'display: none';
+		document.querySelector('.save').style.display = 'none';
 	});
 });
  
