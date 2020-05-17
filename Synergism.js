@@ -406,7 +406,11 @@ function loadSynergy() {
 	   
 	   Object.keys(data).forEach(function(v) {
 		   Object.defineProperty(player, v, {
-			   value: isDecimal(player[v]) ? new Decimal(data[v]) : data[v]
+				value: isDecimal(player[v]) ? new Decimal(data[v]) : data[v],
+				// fix https://github.com/Pseudo-Corp/Synergism-Issue-Tracker/issues/17
+				// importing two+ saves without refreshing would throw an error because
+				// this defaults to false. It allows a property to be edited or deleted.
+			   	configurable: true
 		   });
 	   });
 		   
