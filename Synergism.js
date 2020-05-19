@@ -1378,7 +1378,6 @@ function resetCheck(i,manual) {
 			if (!player.retrychallenges || manual || player.challengecompletions[q] >= (25 + player.researches[x])) {
 			document.getElementById("currentchallenge").textContent = "Current Challenge: None [Transcension]" + p
 			}
-			console.log(player.highestchallengecompletions.one)
 		}
 	
 	if (i == "reincarnate") {
@@ -1681,6 +1680,7 @@ window['addEventListener' in window ? 'addEventListener' : 'attachEvents']('befo
 });
 
 document['addEventListener' in document ? 'addEventListener' : 'attachEvent']('keydown', function (event) {
+	const key = event.key.toLowerCase();
 	// activeElement is the focused element on page
 	// if the autoprestige input is focused, hotkeys shouldn't work
 	// fixes https://github.com/Pseudo-Corp/Synergism-Issue-Tracker/issues/2
@@ -1698,40 +1698,39 @@ document['addEventListener' in document ? 'addEventListener' : 'attachEvent']('k
 	var type = ""
 	var pos = ""
 	var num = 0
-	if (event.key === "1") {pos = "first"; num += 1; if (currentTab == "challenges") {toggleChallenges('one')}; if (currentTab == "runes"){redeemshards(1)}}
-	if (event.key === "2") {pos = "second"; num += 2; if (currentTab == "challenges") {toggleChallenges('two')}; if (currentTab == "runes"){redeemshards(2)}}
-	if (event.key === "3") {pos = "third"; num += 3; if (currentTab == "challenges") {toggleChallenges('three')}; if (currentTab == "runes"){redeemshards(3)}}
-	if (event.key === "4") {pos = "fourth"; num += 4; if (currentTab == "challenges") {toggleChallenges('four')}; if (currentTab == "runes"){redeemshards(4)}}
-	if (event.key === "5") {pos = "fifth"; num += 5; if (currentTab == "challenges") {toggleChallenges('five')}}
-	if (event.key === "6") {buyCrystalUpgrades(1)}
-	if (event.key === "7") {buyCrystalUpgrades(2)}
-	if (event.key === "8") {buyCrystalUpgrades(3)}
-	if (event.key === "9") {buyCrystalUpgrades(4)}
-	if (event.key === "0") {buyCrystalUpgrades(5)}
-	if (currentTab == "buildings") {type = "Coin"}
-	if (currentTab == "prestige") {type = "Diamonds"; num = 1/2 * (Math.pow(num, 2) + num)}
-	if (currentTab == "transcension") {type = "Mythos"; num = 1/2 * (Math.pow(num, 2) + num)}
-	if (currentTab == "reincarnation") {type = "Particles"; num = 1/2 * (Math.pow(num, 2) + num)}
-	if (event.key === "1" || event.key === "2" || event.key === "3" || event.key === "4" || event.key === "5") {buyProducer(pos, type, num)}
-	if ((event.key === "A" || event.key === "a") && currentTab == "buildings") {buyAccelerator()}
-	if ((event.key === "B" || event.key === "b") && currentTab == "buildings") {boostAccelerator()}
-	if ((event.key === "M" || event.key === "m") && currentTab == "buildings") {buyMultiplier()}
-	if ((event.key === "P") || event.key === "p") {resetCheck('prestige')}
-	if ((event.key === "T") || event.key === "t") {resetCheck('transcend')}
-	if ((event.key === "R") || event.key === "r") {resetCheck('reincarnate')}
-	if ((event.key === "E" || event.key === "e") && player.currentChallenge !== "") {resetCheck('challenge')}	
+	if (key === "1") {pos = "first"; num += 1; if (currentTab == "challenges") {toggleChallenges('one')}; if (currentTab == "runes"){redeemshards(1)}}
+	if (key === "2") {pos = "second"; num += 2; if (currentTab == "challenges") {toggleChallenges('two')}; if (currentTab == "runes"){redeemshards(2)}}
+	if (key === "3") {pos = "third"; num += 3; if (currentTab == "challenges") {toggleChallenges('three')}; if (currentTab == "runes"){redeemshards(3)}}
+	if (key === "4") {pos = "fourth"; num += 4; if (currentTab == "challenges") {toggleChallenges('four')}; if (currentTab == "runes"){redeemshards(4)}}
+	if (key === "5") {pos = "fifth"; num += 5; if (currentTab == "challenges") {toggleChallenges('five')}}
+	if (key === "6") {buyCrystalUpgrades(1)}
+	if (key === "7") {buyCrystalUpgrades(2)}
+	if (key === "8") {buyCrystalUpgrades(3)}
+	if (key === "9") {buyCrystalUpgrades(4)}
+	if (key === "0") {buyCrystalUpgrades(5)}
+	if (currentTab === "buildings") {type = "Coin"}
+	if (currentTab === "prestige") {type = "Diamonds"; num = 1/2 * (Math.pow(num, 2) + num)}
+	if (currentTab === "transcension") {type = "Mythos"; num = 1/2 * (Math.pow(num, 2) + num)}
+	if (currentTab === "reincarnation") {type = "Particles"; num = 1/2 * (Math.pow(num, 2) + num)}
+	if (key === "1" || key === "2" || key === "3" || key === "4" || key === "5") {buyProducer(pos, type, num)}
+	if (key === "a" && currentTab == "buildings") {buyAccelerator()}
+	if (key === "b" && currentTab == "buildings") {boostAccelerator()}
+	if (key === "m" && currentTab == "buildings") {buyMultiplier()}
+	if (key === "p") {resetCheck('prestige')}
+	if (key === "t") {resetCheck('transcend')}
+	if (key === "r") {resetCheck('reincarnate')}
+	if (key === "e" && player.currentChallenge !== "") {resetCheck('challenge')}	
 	
 	// (might) fix https://github.com/Pseudo-Corp/Synergism-Issue-Tracker/issues/18
 	// prevent the default action from occurring when pressing arrow keys, so smaller
 	// resolutions won't have the screen scroll with them.
-	if(event.key === "ArrowLeft") {
+	if(key === "arrowleft") {
 		event.preventDefault();
 		keyboardtabchange(-1);
-	} else if (event.key === "ArrowRight") {
+	} else if (key === "arrowright") {
 		event.preventDefault();
 		keyboardtabchange(1);
 	}
-
 });
 
 window['addEventListener' in window ? 'addEventListener' : 'attachEvent']('load', function() {
